@@ -69,7 +69,7 @@ var init = () => {
     {
         let getDesc = (level) => "c_3=10^{" + level + "}";
         let getInfo = (level) => "c_3=" + getC3(level).toString(0);
-        c3 = theory.createUpgrade(4, currency, new ExponentialCost(1e4, 3 * Math.log2(10)));	// Original: (1e4, 4.5 * Math.log2(10))
+        c3 = theory.createUpgrade(4, currency, new ExponentialCost(1e4, 4 * Math.log2(10)));	// Original: (1e4, 4.5 * Math.log2(10))
         c3.getDescription = (_) => Utils.getMath(getDesc(c3.level));
         c3.getInfo = (amount) => Utils.getMathTo(getInfo(c3.level), getInfo(c3.level + amount));
         c3.isAvailable = false;
@@ -79,7 +79,7 @@ var init = () => {
     {
         let getDesc = (level) => "c_4=10^{" + level + "}";
         let getInfo = (level) => "c_4=" + getC4(level).toString(0);
-        c4 = theory.createUpgrade(5, currency, new ExponentialCost(1e6, 6 * Math.log2(10)));	// Original: (1e10, 8 * Math.log2(10))
+        c4 = theory.createUpgrade(5, currency, new ExponentialCost(1e9, 8 * Math.log2(10)));	// Original: (1e10, 8 * Math.log2(10))
         c4.getDescription = (_) => Utils.getMath(getDesc(c4.level));
         c4.getInfo = (amount) => Utils.getMathTo(getInfo(c4.level), getInfo(c4.level + amount));
         c4.isAvailable = false;
@@ -90,7 +90,7 @@ var init = () => {
 	{
 		let getDesc = (level) => "c_5=10^{" + level + "}";
 		let getInfo = (level) => "c_5=" + getC5(level).toString(0);
-		c5 = theory.createUpgrade(6, currency, new ExponentialCost(1e8, 9 * Math.log2(10)));	// TODO: change to 1e12
+		c5 = theory.createUpgrade(6, currency, new ExponentialCost(1e12, 12 * Math.log2(10)));	// TODO: change to 1e12
 		c5.getDescription = (_) => Utils.getMath(getDesc(c4.level));
 		c4.getInfo = (amount) => Utils.getMathTo(getInfo(c5.level), getInfo(c5.level + amount));
 		c5.isAvailable = false;
@@ -168,10 +168,10 @@ var tick = (elapsedTime, multiplier) => {
     if (time >= timeLimit - 1e-8) {
         let tickPower = tickspeed * BigNumber.from(time * multiplier);
 	    
-	rhoNm3 = rhoNm2;
-        rhoNm2 = rhoNm1;
-        rhoNm1 = rhoN;
-        rhoN = currency.value;
+		rhoNm3 = rhoNm2;
+		rhoNm2 = rhoNm1;
+		rhoNm1 = rhoN;
+		rhoN = currency.value;
 
         let bonus = theory.publicationMultiplier;
         let vc1 = getC1(c1.level).pow(getC1Exponent(c1Exp.level));
@@ -219,7 +219,7 @@ var getPrimaryEquation = () => {
         result += "+c_4\\rho_{n-2}^{0.3}";
 	
 	if (c5Term.level > 0)
-	result += "c_5\\rho_{n-3}^{0.4}";
+		result += "+c_5\\rho_{n-3}^{0.4}";
 
     if (logTerm.level > 0 && c3Term.level > 0 && c4Term.level > 0)
         theory.primaryEquationScale = 0.85;
@@ -232,8 +232,8 @@ var getPrimaryEquation = () => {
 var getSecondaryEquation = () => theory.latexSymbol + "=\\max\\rho";
 var getTertiaryEquation = () => Localization.format(stringTickspeed, getTickspeed().toString(0));
 
-var getPublicationMultiplier = (tau) => tau.pow(0.164) / BigNumber.THREE;
-var getPublicationMultiplierFormula = (symbol) => "\\frac{{" + symbol + "}^{0.164}}{3}";
+var getPublicationMultiplier = (tau) => tau.pow(0.164) / BigNumber.TEN;	// Original: tau.pow(0.164) / BigNumber.THREE
+var getPublicationMultiplierFormula = (symbol) => "\\frac{{" + symbol + "}^{0.164}}{10}";
 var getTau = () => currency.value;
 var get2DGraphValue = () => currency.value.sign * (BigNumber.ONE + currency.value.abs()).log10().toNumber();
 
@@ -242,6 +242,7 @@ var postPublish = () => {
     rhoN = BigNumber.ZERO;
     rhoNm1 = BigNumber.ZERO;
     rhoNm2 = BigNumber.ZERO;
+	rhoNm3 = BigNumber.ZERO;
     theory.invalidateTertiaryEquation();
 }
 
