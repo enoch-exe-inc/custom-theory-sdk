@@ -13,14 +13,15 @@ var version = 1;
 var rhoN = BigNumber.ZERO;
 var rhoNm1 = BigNumber.ZERO;
 var rhoNm2 = BigNumber.ZERO;
+var rhoNm3 = BigNumber.ZERO;
 var time = 0;
 
 var stringTickspeed = "\\text{{" + Localization.get("TheoryPanelTickspeed", "}}q_1q_2\\text{{", "}}{0}\\text{{") + "}}";
 var epsilon = BigNumber.from(1e-8);
 
 var currency;
-var q1, q2, c1, c2, c3, c4;
-var c1Exp, logTerm, c3Term, c4Term;
+var q1, q2, c1, c2, c3, c4, c5;
+var c1Exp, logTerm, c3Term, c4Term, c5Term;
 
 var init = () => {
     currency = theory.createCurrency();
@@ -166,8 +167,8 @@ var tick = (elapsedTime, multiplier) => {
 
     if (time >= timeLimit - 1e-8) {
         let tickPower = tickspeed * BigNumber.from(time * multiplier);
-		
-		rhoNm3 = rhoNm2;
+	    
+	rhoNm3 = rhoNm2;
         rhoNm2 = rhoNm1;
         rhoNm1 = rhoN;
         rhoN = currency.value;
@@ -177,7 +178,7 @@ var tick = (elapsedTime, multiplier) => {
         let vc2 = getC2(c2.level);
         let vc3 = getC3(c3.level);
         let vc4 = getC4(c4.level);
-		let vc5 = getC5(c5.level);
+	    let vc5 = getC5(c5.level);
         let term1 = vc1 * vc2 * (logTerm.level > 0 ? BigNumber.ONE + rhoN.Max(BigNumber.ONE).log() / BigNumber.HUNDRED : BigNumber.ONE);
         let term2 = c3Term.level > 0 ? (vc3 * rhoNm1.pow(0.2)) : BigNumber.ZERO;
         let term3 = c4Term.level > 0 ? (vc4 * rhoNm2.pow(0.3)) : BigNumber.ZERO;
