@@ -84,7 +84,7 @@ var init = () => {
         c4.getInfo = (amount) => Utils.getMathTo(getInfo(c4.level), getInfo(c4.level + amount));
         c4.isAvailable = false;
     }
-	
+
 	/* TEST C5 VARIABLE */
 	// c5
 	{
@@ -219,7 +219,7 @@ var getPrimaryEquation = () => {
         result += "+c_4\\rho_{n-2}^{0.3}";
 	
 	if (c5Term.level > 0)
-		result += "c_5\\rho_{n-3}^{0.4};
+	result += "c_5\\rho_{n-3}^{0.4}";
 
     if (logTerm.level > 0 && c3Term.level > 0 && c4Term.level > 0)
         theory.primaryEquationScale = 0.85;
