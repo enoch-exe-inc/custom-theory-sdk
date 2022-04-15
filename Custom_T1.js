@@ -103,8 +103,8 @@ var init = () => {
 	theory.createAutoBuyerUpgrade(2, currency, 1e25);	// 1e30
 
 	///////////////////////
-	//// Milestone Upgrades								// Original (25, 25) - Gain 1 milestone upgrade per 1e25 of tau
-	theory.setMilestoneCost(new LinearCost(10, 10));	// For the sake of testing, I've shortened it to per 1e10 of tau.
+	//// Milestone Upgrades							// Original (25, 25) - Gain 1 milestone upgrade per 1e25 of tau
+	theory.setMilestoneCost(new LinearCost(2, 2));	// For the sake of testing, I've shortened it to per 100 of tau.
 
 	{
 		c1Exp = theory.createMilestoneUpgrade(0, 3);
