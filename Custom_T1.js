@@ -234,7 +234,7 @@ var getTertiaryEquation = () => Localization.format(stringTickspeed, getTickspee
 
 var getPublicationMultiplier = (tau) => tau.pow(0.164) / BigNumber.TEN;	// Original: tau.pow(0.164) / BigNumber.THREE
 var getPublicationMultiplierFormula = (symbol) => "\\frac{{" + symbol + "}^{0.164}}{10}";
-var getTau = () => Math.log10(currency.value);
+var getTau = () => 1 + Math.log10(currency.value);
 var get2DGraphValue = () => currency.value.sign * (BigNumber.ONE + currency.value.abs()).log10().toNumber();
 
 var postPublish = () => {
