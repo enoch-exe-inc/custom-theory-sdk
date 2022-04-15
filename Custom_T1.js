@@ -79,7 +79,7 @@ var init = () => {
     {
         let getDesc = (level) => "c_4=10^{" + level + "}";
         let getInfo = (level) => "c_4=" + getC4(level).toString(0);
-        c4 = theory.createUpgrade(5, currency, new ExponentialCost(1e9, 8 * Math.log2(10)));	// Original: (1e10, 8 * Math.log2(10))
+        c4 = theory.createUpgrade(5, currency, new ExponentialCost(1e9, 9 * Math.log2(10)));	// Original: (1e10, 8 * Math.log2(10))
         c4.getDescription = (_) => Utils.getMath(getDesc(c4.level));
         c4.getInfo = (amount) => Utils.getMathTo(getInfo(c4.level), getInfo(c4.level + amount));
         c4.isAvailable = false;
@@ -90,9 +90,9 @@ var init = () => {
 	{
 		let getDesc = (level) => "c_5=10^{" + level + "}";
 		let getInfo = (level) => "c_5=" + getC5(level).toString(0);
-		c5 = theory.createUpgrade(6, currency, new ExponentialCost(1e12, 12 * Math.log2(10)));	// TODO: change to 1e12
+		c5 = theory.createUpgrade(6, currency, new ExponentialCost(1e30, 12 * Math.log2(10)));	// TODO: change to 1e12
 		c5.getDescription = (_) => Utils.getMath(getDesc(c4.level));
-		c4.getInfo = (amount) => Utils.getMathTo(getInfo(c5.level), getInfo(c5.level + amount));
+		c5.getInfo = (amount) => Utils.getMathTo(getInfo(c5.level), getInfo(c5.level + amount));
 		c5.isAvailable = false;
 	}
 	
@@ -222,7 +222,7 @@ var getPrimaryEquation = () => {
 		result += "+c_5\\rho_{n-3}^{0.4}";
 
     if (logTerm.level > 0 && c3Term.level > 0 && c4Term.level > 0)
-        theory.primaryEquationScale = 0.85;
+        theory.primaryEquationScale = 0.80;
     else
         theory.primaryEquationScale = 1;
  
