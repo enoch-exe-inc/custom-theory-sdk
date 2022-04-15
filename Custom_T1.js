@@ -104,8 +104,7 @@ var init = () => {
 
 	///////////////////////
 	//// Milestone Upgrades			// Original (25, 25) - Gain 1 milestone upgrade per 1e25 of tau
-	// theory.setMilestoneCost(new LinearCost(1, 1.397940008672));	// For the sake of testing, I've lowered it to per 10 of tau.
-	theory.setMilestoneCost(new CustomCost(lvl => BigNumber.from(lvl < 5 ? 1 + 1.5*lvl : lvl < 6 ? 10 : lvl < 7 ? 14 : 20)));
+	theory.setMilestoneCost(new LinearCost(1, 1.397940008672));	// For the sake of testing, I've lowered it to per 10 of tau.
 
 	{
 		c1Exp = theory.createMilestoneUpgrade(0, 3);
@@ -233,8 +232,8 @@ var getPrimaryEquation = () => {
 var getSecondaryEquation = () => theory.latexSymbol + "=\\max\\rho^{0.1}";	// Original: "=\\max\\rho";"
 var getTertiaryEquation = () => Localization.format(stringTickspeed, getTickspeed().toString(0));
 
-var getPublicationMultiplier = (tau) => tau.pow(0.5);	// Original: tau.pow(0.164) / BigNumber.THREE
-var getPublicationMultiplierFormula = (symbol) => symbol + "^{0.5}";	// Original: "\\frac{{" + symbol + "}^{0.15}}{2}";
+var getPublicationMultiplier = (tau) => tau.pow(0.75);	// Original: tau.pow(0.164) / BigNumber.THREE
+var getPublicationMultiplierFormula = (symbol) => symbol + "^{0.75}";	// Original: "\\frac{{" + symbol + "}^{0.15}}{2}";
 var getTau = () => currency.value.pow(0.1);
 var get2DGraphValue = () => currency.value.sign * (BigNumber.ONE + currency.value.abs()).log10().toNumber();
 
