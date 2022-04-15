@@ -232,8 +232,8 @@ var getPrimaryEquation = () => {
 var getSecondaryEquation = () => theory.latexSymbol + "=\\max\\rho^{0.1}";	// Original: "=\\max\\rho";"
 var getTertiaryEquation = () => Localization.format(stringTickspeed, getTickspeed().toString(0));
 
-var getPublicationMultiplier = (tau) => tau.pow(0.75);	// Original: tau.pow(0.164) / BigNumber.THREE
-var getPublicationMultiplierFormula = (symbol) => symbol + "^{0.75}";	// Original: "\\frac{{" + symbol + "}^{0.15}}{2}";
+var getPublicationMultiplier = (tau) => tau;	// Original: tau.pow(0.164) / BigNumber.THREE
+var getPublicationMultiplierFormula = (symbol) => symbol;	// Original: "\\frac{{" + symbol + "}^{0.15}}{2}";
 var getTau = () => currency.value.pow(0.1);
 var get2DGraphValue = () => currency.value.sign * (BigNumber.ONE + currency.value.abs()).log10().toNumber();
 
