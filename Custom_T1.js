@@ -104,7 +104,7 @@ var init = () => {
 
 	///////////////////////
 	//// Milestone Upgrades			// Original (25, 25) - Gain 1 milestone upgrade per 1e25 of tau
-	theory.setMilestoneCost(new LinearCost(1, 1));	// For the sake of testing, I've lowered it to per 10 of tau.
+	theory.setMilestoneCost(new LinearCost(1.397940008672, 1.397940008672));	// For the sake of testing, I've lowered it to per 10 of tau.
 
 	{
 		c1Exp = theory.createMilestoneUpgrade(0, 3);
