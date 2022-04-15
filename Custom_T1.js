@@ -229,7 +229,7 @@ var getPrimaryEquation = () => {
 	return result;
 }
 
-var getSecondaryEquation = () => theory.latexSymbol + "=\\max\\rho";
+var getSecondaryEquation = () => theory.latexSymbol + "=\\max\\rho^{0.1}";	// Original: "=\\max\\rho";"
 var getTertiaryEquation = () => Localization.format(stringTickspeed, getTickspeed().toString(0));
 
 var getPublicationMultiplier = (tau) => tau.pow(0.5);	// Original: tau.pow(0.164) / BigNumber.THREE
