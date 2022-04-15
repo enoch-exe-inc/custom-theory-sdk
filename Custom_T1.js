@@ -153,7 +153,7 @@ var updateAvailability = () => {
 	c4Term.isAvailable = c3Term.level > 0;
 	
 	c5.isAvailable = c5Term.level > 0;
-	c5Term.isAvailable = c4Term.level > 0;
+	c5Term.isAvailable = (c3Term.level > 0) && (c4Term.level > 0);
 }
 
 var tick = (elapsedTime, multiplier) => {
