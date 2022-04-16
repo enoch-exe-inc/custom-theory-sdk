@@ -1,4 +1,4 @@
-import { ExponentialCost, FirstFreeCost, LinearCost, CustomCost } from "../api/Costs";
+import { ExponentialCost, FirstFreeCost, LinearCost } from "../api/Costs";
 import { Localization } from "../api/Localization";
 import { parseBigNumber, BigNumber } from "../api/BigNumber";
 import { theory } from "../api/Theory";
@@ -133,6 +133,7 @@ var init = () => {
 		c4Term.description = Localization.getUpgradeAddTermDesc("\\rho_{n-2}^{0.3}");
 		c4Term.info = Localization.getUpgradeAddTermInfo("\\rho_{n-2}^{0.3}");
 		c4Term.boughtOrRefunded = (_) => { theory.invalidatePrimaryEquation(); updateAvailability(); };
+		c4Term.canbeRefunded = (_) => c5Term.level == 0;
 		c4Term.isAvailable = false;
 	}
 	
