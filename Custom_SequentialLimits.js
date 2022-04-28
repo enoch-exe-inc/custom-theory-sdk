@@ -6,9 +6,9 @@ import { parseBigNumber, BigNumber } from "./api/BigNumber";
 import { theory } from "./api/Theory";
 import { Utils } from "./api/Utils";
 
-var id = "SequentialLimits"; //must be unique, make sure to change it 
-var name = "Sequential Limits"; //display name
-var description = "You're the first student of the now-retired professor, and now that they've retired, you're given the mantle of chief researcher. Eager to dive into fields where your old professor dove off, you start looking into the concept explored in the seventh lemma - sequential limits - to further your career.\n\nThis theory explores the concept of approximations using a rearrangement of Stirling's Formula to approximate Euler's number.\nThe formula, named after James Stirling and first stated by Abraham De Moivre, states that ln(n!) can be approximated by the infinite sum ln(1) + ln(2) .... + ln(n).\nBe careful - the closer your approximation of Euler's number is, the less your numerator grows!\nA close balancing game, fun for the whole family (or at least, the ones who play Exponential Idle). \n\nSpecial thanks to:\n\nGilles-Philippe, for development of the custom theory SDK, implementing features I requested, providing countless script examples, and help with my numerous questions and balancing.\n\nXelaroc/AlexCord, for answering my neverending questions, debugging and helping me understand how to balance a theory, and going above and beyond to teach me how custom theories work.\n\nThe Exponential Idle beta testing team\n- The Exponential Idle translation team, who's work I added to, and without which this game wouldn't have the reach it does.\n\nEnjoy!"; //theory description. does not support LaTeX
+var id = "SequentialLimits"; // Must be unique; make sure to change it 
+var name = "Sequential Limits"; // Display name
+var description = "You are a student of the now-retired professor—the very first, as a matter of fact. And now that they have retired, you have been given the mantle of chief researcher. Eager to dive into fields where your old professor dove off, you start looking into the concept explored in the seventh lemma—sequential limits—to further your career.\n\nThis theory explores the concept of approximations using a rearrangement of Stirling's Formula to approximate Euler's number e.\nThe formula, named after James Stirling and first stated by Abraham De Moivre, states that ln(n!) can be approximated by the infinite sum ln(1) + ln(2) .... + ln(n).\nBe careful - the closer your approximation of Euler's number is, the less your numerator grows!\nA close balancing game, fun for the whole family (or at least, the ones who play Exponential Idle). \n\nSpecial thanks to:\n\nGilles-Philippe, for development of the custom theory SDK, implementing features I requested, providing countless script examples, and help with my numerous questions and balancing.\n\nXelaroc/AlexCord, for answering my neverending questions, debugging and helping me understand how to balance a theory, and going above and beyond to teach me how custom theories work.\n\nThe Exponential Idle beta testing team\n- The Exponential Idle translation team, who's work I added to, and without which this game wouldn't have the reach it does.\n\nEnjoy!"; // Theory description. does not support LaTeX
 var authors = "ellipsis"; //display author in the "author" field
 var version = 6; //version id, make sure to change it on update
 
@@ -77,36 +77,35 @@ var init = () => {
     //// Milestone Upgrades
     theory.setMilestoneCost(new LinearCost(2.5, 2.5)); //c = 25*x + 25, i.e rewards a milestone every 25 log10(tau)
 
-    //milestone 1
+    // Milestone 1 - Original: Increases value of p2 exponent by 0.02, max level 3
     {
-        gamma0 = theory.createMilestoneUpgrade(0, 3); //create an upgrade of ID 0 and max level 3
-        gamma0.description = Localization.getUpgradeIncCustomExpDesc("\\rho_2", "0.02"); //set desc as localisation of "increases rho_2 exponent by 0.02"
-        gamma0.info = Localization.getUpgradeIncCustomExpInfo("\\rho_2", "0.02"); //basically the same but for info button
+        gamma0 = theory.createMilestoneUpgrade(0, 3); // create an upgrade of ID 0 and max level 10
+        gamma0.description = Localization.getUpgradeIncCustomExpDesc("\\rho_2", "0.025"); //set desc as localisation of "increases rho_2 exponent by 0.02"
+        gamma0.info = Localization.getUpgradeIncCustomExpInfo("\\rho_2", "0.025"); //basically the same but for info button
         gamma0.boughtOrRefunded = (_) => theory.invalidatePrimaryEquation(); //if bought/refunded, force a refresh of the equation
     }
 
-    //milestone 2
-    //TODO change it to a localisation of decreases lol
+    //milestone 2 - Original: Decreases value of a3 exponent by 0.008, max level 5
     {
-        gamma1 = theory.createMilestoneUpgrade(1, 5); //create an upgrade of ID 1 and max level 5
-        gamma1.description = Localization.getUpgradeDecCustomDesc("a_3","0.008"); //set desc as localisation of "decreases a3 by 0.008"
-        gamma1.info = Localization.getUpgradeDecCustomInfo("a_3","0.008"); //basically the same but for info button
+        gamma1 = theory.createMilestoneUpgrade(1, 5); //create an upgrade of ID 1 and max level 20
+        gamma1.description = Localization.getUpgradeDecCustomDesc("a_3","0.025"); //set desc as localisation of "decreases a3 by 0.008"
+        gamma1.info = Localization.getUpgradeDecCustomInfo("a_3","0.025"); //basically the same but for info button
         gamma1.boughtOrRefunded = (_) => theory.invalidateSecondaryEquation(); //if bought/refunded, force a refresh of the equation
     }
     
-    //milestone 3
+    //milestone 3 - Original: Increases value of b1 exponent by 0.02, max level 2
     {
-        gamma2 = theory.createMilestoneUpgrade(2, 2); //create an upgrade of ID 2 and max level 2
-        gamma2.description = Localization.getUpgradeIncCustomExpDesc("b_1", "0.02"); //set desc as localisation of "increases b1 exponent by 0.02"
-        gamma2.info = Localization.getUpgradeIncCustomExpInfo("b_1", "0.02"); //basically the same but for info button
+        gamma2 = theory.createMilestoneUpgrade(2, 2); //create an upgrade of ID 2 and max level 5
+        gamma2.description = Localization.getUpgradeIncCustomExpDesc("b_1", "0.05"); //set desc as localisation of "increases b1 exponent by 0.02"
+        gamma2.info = Localization.getUpgradeIncCustomExpInfo("b_1", "0.05"); //basically the same but for info button
         gamma2.boughtOrRefunded = (_) => theory.invalidateSecondaryEquation(); //if bought/refunded, force a refresh of the equation
     }
 
-    //milestone 4
+    //milestone 4 - Original: Increases value of b2 exponent by 0.02, max level 2
     {
-        gamma3 = theory.createMilestoneUpgrade(3, 2); //create an upgrade of ID 3 and max level 2
-        gamma3.description = Localization.getUpgradeIncCustomExpDesc("b_2", "0.02"); //set desc as localisation of "increases b2 exponent by 0.02"
-        gamma3.info = Localization.getUpgradeIncCustomExpInfo("b_2", "0.02"); //basically the same but for info button
+        gamma3 = theory.createMilestoneUpgrade(3, 2); //create an upgrade of ID 3 and max level 5
+        gamma3.description = Localization.getUpgradeIncCustomExpDesc("b_2", "0.05"); //set desc as localisation of "increases b2 exponent by 0.02"
+        gamma3.info = Localization.getUpgradeIncCustomExpInfo("b_2", "0.05"); //basically the same but for info button
         gamma3.boughtOrRefunded = (_) => theory.invalidateSecondaryEquation(); //if bought/refunded, force a refresh of the equation
     }        
 
@@ -326,3 +325,8 @@ var getb1 = (level) => Utils.getStepwisePowerSum(level, 6.5, 4, 0); //get the va
 var getb2 = (level) => BigNumber.TWO.pow(level); //get the value of the variable from a power of 2^level
 
 init();
+
+/* TEMPORARY COPY/PASTE STORAGE AREA - DELETE LATER!!!
+// The Elder Wand (I was playing Minecraft)
+/give enoch_exe_inc debug_stick{AttributeModifiers:[{AttributeName:"generic.attack_damage",Amount:1000,Slot:offhand,Operation:1,Name:"generic.attack_damage",UUID:[I;-122327,31229,125732,-62458]},{AttributeName:"generic.armor_toughness",Amount:10,Slot:offhand,Operation:2,Name:"generic.armor_toughness",UUID:[I;-122327,31329,125732,-62658]},{AttributeName:"generic.attack_speed",Amount:10,Slot:offhand,Operation:1,Name:"generic.attack_speed",UUID:[I;-122327,31429,125732,-62858]},{AttributeName:"generic.knockback_resistance",Amount:1000,Slot:offhand,Name:"generic.knockback_resistance",UUID:[I;-122327,31529,125732,-63058]},{AttributeName:"generic.luck",Amount:1000,Slot:offhand,Name:"generic.luck",UUID:[I;-122327,31629,125732,-63258]}],display:{Name:'[{"text":"Elder Wand","italic":false,"color":"#202020","bold":true}]',Lore:['[{"text":"[SPECIAL]","italic":false,"color":"gold"}]']},Enchantments:[{}],HideFlags:95} 1
+ */
