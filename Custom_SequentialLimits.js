@@ -6,11 +6,11 @@ import { parseBigNumber, BigNumber } from "./api/BigNumber";
 import { theory } from "./api/Theory";
 import { Utils } from "./api/Utils";
 
-var id = "SequentialLimits"; // Must be unique; make sure to change it 
-var name = "Sequential Limits"; // Display name
+var id = "custom_SeqLim"; // Must be unique; make sure to change it 
+var name = "Ext. Sequential Limits"; // Display name: "Extended Sequential Limits"
 var description = "You are a student of the now-retired professor—the very first, as a matter of fact. And now that they have retired, you have been given the mantle of chief researcher. Eager to dive into fields where your old professor dove off, you start looking into the concept explored in the seventh lemma—sequential limits—to further your career.\n\nThis theory explores the concept of approximations using a rearrangement of Stirling's Formula to approximate Euler's number e.\nThe formula, named after James Stirling and first stated by Abraham De Moivre, states that ln(n!) can be approximated by the infinite sum ln(1) + ln(2) .... + ln(n).\nBe careful - the closer your approximation of Euler's number is, the less your numerator grows!\nA close balancing game, fun for the whole family (or at least, the ones who play Exponential Idle). \n\nSpecial thanks to:\n\nGilles-Philippe, for development of the custom theory SDK, implementing features I requested, providing countless script examples, and help with my numerous questions and balancing.\n\nXelaroc/AlexCord, for answering my neverending questions, debugging and helping me understand how to balance a theory, and going above and beyond to teach me how custom theories work.\n\nThe Exponential Idle beta testing team\n- The Exponential Idle translation team, who's work I added to, and without which this game wouldn't have the reach it does.\n\nEnjoy!"; // Theory description. does not support LaTeX
-var authors = "ellipsis"; //display author in the "author" field
-var version = 6; //version id, make sure to change it on update
+var authors = "ellipsis; enoch_exe_inc"; //display author in the "author" field
+var version = 6.1; //version id, make sure to change it on update
 
 var currency = theory.createCurrency(), currency2 = theory.createCurrency(), currency3 = theory.createCurrency(); //create three currency variables and list them as currencies
 var a1, a2, b1, b2; //set a1, a2, b1, b2 levels
@@ -35,7 +35,7 @@ var init = () => {
     {
         let getDesc = (level) => "a_1=" + geta1(level).toString(1); //returns the value seen in the description as a1 = <level>
         let getInfo = (level) => "a_1=" + geta1(level).toString(1); //returns the value seen in the info box as a1 = <level>
-        a1 = theory.createUpgrade(0, currency, new FirstFreeCost(new ExponentialCost(1, 0.369*Math.log2(10)))); //0'th upgrade in the list - first cost is 0, other costs are 10 * 2^(3*level), costs currency1
+        a1 = theory.createUpgrade(0, currency, new FirstFreeCost(new ExponentialCost(1, 0.334 * Math.log2(10)))); // Original: (1, 0.369 * Math.log2(10)) 0th upgrade in the list - first cost is 0, other costs are 10 * 2^(3*level), costs currency1
         a1.getDescription = (amount) => Utils.getMath(getDesc(a1.level)); //for the value of a1 in the description
         a1.getInfo = (amount) => Utils.getMathTo(getInfo(a1.level), getInfo(a1.level + amount)); //for the values of a1 when you hold I(nfo) and you have [current]->[next]
     }
@@ -53,7 +53,7 @@ var init = () => {
     {
         let getDesc = (level) => "b_1=" + getb1(level).toString(1); //returns the value seen in the description as b1 = <level>
         let getInfo = (level) => "b_1=" + getb1(level).toString(1); //returns the value seen in the info box as b1 = <level>
-        b1 = theory.createUpgrade(2, currency, new ExponentialCost(500, 0.649*Math.log2(10))); //2nd upgrade in the list - costs are 100 + 10^level, costs currency1
+        b1 = theory.createUpgrade(2, currency, new ExponentialCost(500, 0.625 * Math.log2(10))); // Original: (500, 0.649 * Math.log2(10)) 2nd upgrade in the list - costs are 100 + 10^level, costs currency1
         b1.getDescription = (amount) => Utils.getMath(getDesc(b1.level)); //for the value of b1 in the description
         b1.getInfo = (amount) => Utils.getMathTo(getInfo(b1.level), getInfo(b1.level + amount)); //for the values of a1 when you hold I(nfo) and you have [current]->[next]
     }
@@ -62,7 +62,7 @@ var init = () => {
     {
         let getDesc = (level) => "b_2=2^{" + level + "}"; //returns the value seen in the description as b2 = 2^<level>
         let getInfo = (level) => "b_2=" + getb2(level).toString(0); //returns the value seen in the info box as b2 = <level>
-        b2 = theory.createUpgrade(3, currency, new ExponentialCost(1000, 0.926*Math.log2(10))); //3rd upgrade in the list - costs are 3*10^(3*level), costs currency1
+        b2 = theory.createUpgrade(3, currency, new ExponentialCost(1000, 0.9 * Math.log2(10))); // Original (1000, 0.926 * Math(log2(10)) 3rd upgrade in the list - costs are 3*10^(3*level), costs currency1
         b2.getDescription = (_) => Utils.getMath(getDesc(b2.level));  //for the value of a2 in the description
         b2.getInfo = (amount) => Utils.getMathTo(getInfo(b2.level), getInfo(b2.level + amount)); //for the values of a1 when you hold I(nfo) and you have [current]->[next]
     }
@@ -80,7 +80,7 @@ var init = () => {
     // Milestone 1 - Original: Increases value of p2 exponent by 0.02, max level 3
     {
         gamma0 = theory.createMilestoneUpgrade(0, 3); // create an upgrade of ID 0 and max level 10
-        gamma0.description = Localization.getUpgradeIncCustomExpDesc("\\rho_2", "0.025"); //set desc as localisation of "increases rho_2 exponent by 0.02"
+        gamma0.description = Localization.getUpgradeIncCustomExpDesc("\\rho_2", "0.025"); //set desc as localisation of "increases rho_2 exponent by 0.025"
         gamma0.info = Localization.getUpgradeIncCustomExpInfo("\\rho_2", "0.025"); //basically the same but for info button
         gamma0.boughtOrRefunded = (_) => theory.invalidatePrimaryEquation(); //if bought/refunded, force a refresh of the equation
     }
@@ -88,7 +88,7 @@ var init = () => {
     //milestone 2 - Original: Decreases value of a3 exponent by 0.008, max level 5
     {
         gamma1 = theory.createMilestoneUpgrade(1, 5); //create an upgrade of ID 1 and max level 20
-        gamma1.description = Localization.getUpgradeDecCustomDesc("a_3","0.025"); //set desc as localisation of "decreases a3 by 0.008"
+        gamma1.description = Localization.getUpgradeDecCustomDesc("a_3","0.025"); //set desc as localisation of "decreases a3 by 0.025"
         gamma1.info = Localization.getUpgradeDecCustomInfo("a_3","0.025"); //basically the same but for info button
         gamma1.boughtOrRefunded = (_) => theory.invalidateSecondaryEquation(); //if bought/refunded, force a refresh of the equation
     }
@@ -96,7 +96,7 @@ var init = () => {
     //milestone 3 - Original: Increases value of b1 exponent by 0.02, max level 2
     {
         gamma2 = theory.createMilestoneUpgrade(2, 2); //create an upgrade of ID 2 and max level 5
-        gamma2.description = Localization.getUpgradeIncCustomExpDesc("b_1", "0.05"); //set desc as localisation of "increases b1 exponent by 0.02"
+        gamma2.description = Localization.getUpgradeIncCustomExpDesc("b_1", "0.05"); //set desc as localisation of "increases b1 exponent by 0.05"
         gamma2.info = Localization.getUpgradeIncCustomExpInfo("b_1", "0.05"); //basically the same but for info button
         gamma2.boughtOrRefunded = (_) => theory.invalidateSecondaryEquation(); //if bought/refunded, force a refresh of the equation
     }
@@ -104,7 +104,7 @@ var init = () => {
     //milestone 4 - Original: Increases value of b2 exponent by 0.02, max level 2
     {
         gamma3 = theory.createMilestoneUpgrade(3, 2); //create an upgrade of ID 3 and max level 5
-        gamma3.description = Localization.getUpgradeIncCustomExpDesc("b_2", "0.05"); //set desc as localisation of "increases b2 exponent by 0.02"
+        gamma3.description = Localization.getUpgradeIncCustomExpDesc("b_2", "0.05"); //set desc as localisation of "increases b2 exponent by 0.05"
         gamma3.info = Localization.getUpgradeIncCustomExpInfo("b_2", "0.05"); //basically the same but for info button
         gamma3.boughtOrRefunded = (_) => theory.invalidateSecondaryEquation(); //if bought/refunded, force a refresh of the equation
     }        
@@ -171,16 +171,16 @@ var tick = (elapsedTime, multiplier) => {
 
     let dt = BigNumber.from(elapsedTime * multiplier); //find tick time
     
-    rho3dot = (getb1(b1.level).pow(BigNumber.ONE + gamma2.level*BigNumber.From(0.02)) * getb2(b2.level).pow(BigNumber.ONE + gamma3.level*BigNumber.From(0.02))); //rho3dot is equal to b1.value * b2.value accounting for exponenents
+    rho3dot = (getb1(b1.level).pow(BigNumber.ONE + gamma2.level*BigNumber.From(0.025)) * getb2(b2.level).pow(BigNumber.ONE + gamma3.level*BigNumber.From(0.025))); //rho3dot is equal to b1.value * b2.value accounting for exponenents
     currency3.value += rho3dot*dt; //increase currency3.value by rho3dot*dt
     updateInverseE_Gamma();
    
     //rho2dot equation that supports higher values without crashing lol
     let a1v = geta1(a1.level), a2v = geta2(a2.level);
 //    rho2dot =(geta1(a1.level) * geta2(a2.level) * (BigNumber.TWO-gamma1.level*0.004).pow( - currency3.value.log() )); //calculate rho2dot, accounting for milestones
-    rho2dot = a1v > 0 && a2v > 0 ? BigNumber.E.pow(a1v.log() + a2v.log() - (BigNumber.TWO-gamma1.level*0.008).log() * (currency3.value).log() ) : BigNumber.ZERO;
+    rho2dot = a1v > 0 && a2v > 0 ? BigNumber.E.pow(a1v.log() + a2v.log() - (BigNumber.TWO-gamma1.level * 0.025).log() * (currency3.value).log() ) : BigNumber.ZERO;
     currency2.value += dt * rho2dot; //increase rho2 by rho2dot by dt
-    rho1dot = (currency2.value.pow(BigNumber.ONE+gamma0.level*0.02).sqrt()*(inverseE_Gamma)); //rho1dot is equal to the root of rho2^milestone, over the difference between E and stirling's approximation
+    rho1dot = (currency2.value.pow(BigNumber.ONE+gamma0.level * 0.025).sqrt() * (inverseE_Gamma)); //rho1dot is equal to the root of rho2^milestone, over the difference between E and stirling's approximation
     currency.value += dt * theory.publicationMultiplier * rho1dot; //increase rho1 by rho1dot by dt, accounting for pub bonus
     
     t += elapsedTime;
@@ -195,14 +195,34 @@ var getPrimaryEquation = () => { //text for the primary equation
     switch (gamma0.level){ //switch statement based on milestone 1 to add an exponent to rho2
         //should probably use something else but i tried using just a (gamma0.level*0.1).toString(1) and it threw a hissy fit
         case 1:
-            result += "^{1.02}";
+            result += "^{1.025}";
             break;
         case 2:
-            result += "^{1.04}";
+            result += "^{1.05}";
             break;
         case 3:
-            result += "^{1.06}";
-            break;    
+            result += "^{1.075}";
+            break;
+		case 4:
+			result += "^{1.1}";
+			break;
+		case 5:
+			result += "^{1.125}";
+			break;
+		case 6:
+			result += "^{1.15}";
+			break;
+		case 7:
+			result += "^{1.175}";
+			break;
+		case 8:
+			result += "^{1.2}";
+			break;
+		case 9:
+			result += "^{1.225}";
+			break;
+		case 10:
+			result += "^{1.25}";
     }
     result +="}}{e-\\gamma}";  //close off the square root and add the denominator
 
@@ -221,19 +241,37 @@ var getSecondaryEquation = () => {
     result += "{\\dot{\\rho}}_3 = b_1"; // first part of eq, i.e rho3dot = b1
     switch (gamma2.level){ //switch statemement based on the third milestone (b1 exponent) to add exponents if the milestone level is 1 - 4
         case 1:
-            result+= "^{\\!1.02}\\!";
+            result += "^{\\!1.05}\\!";
             break;
         case 2:
-            result+= "^{\\!1.04}\\!";
+            result += "^{\\!1.1}\\!";
+            break;
+		case 3:
+            result += "^{\\!1.15}\\!";
+            break;
+        case 4:
+            result += "^{\\!1.2}\\!";
+            break;
+		case 5:
+            result += "^{\\!1.25}\\!";
             break;
     }
     result += "b_2"; //add b2 
     switch (gamma3.level){ //switch statemement based on the fourth milestone (b2 exponent) to add exponents if the milestone level is 1 - 4
         case 1:
-            result+= "^{\\!1.02}\\!";
+            result += "^{\\!1.05}\\!";
             break;
         case 2:
-            result+= "^{\\!1.04}\\!";
+            result += "^{\\!1.1}\\!";
+            break;
+		case 3:
+            result += "^{\\!1.15}\\!";
+            break;
+        case 4:
+            result += "^{\\!1.2}\\!";
+            break;
+		case 5:
+            result += "^{\\!1.25}\\!";
             break;
     }
     result += "\\qquad "; //add a space
@@ -245,20 +283,65 @@ var getSecondaryEquation = () => {
             result += "2";
             break;
         case 1:
-            result += "1.992";
+            result += "1.975";
             break;
         case 2:
-            result += "1.984";
+            result += "1.95";
             break;
         case 3:
-            result += "1.976";
+            result += "1.925";
             break;
         case 4:
-            result += "1.968";
+            result += "1.9";
             break;
         case 5:
-            result += "1.96";
-            break;            
+            result += "1.875";
+            break;
+		case 6:
+            result += "1.85";
+            break;
+        case 7:
+            result += "1.825";
+            break;
+        case 8:
+            result += "1.8";
+            break;
+        case 9:
+            result += "1.775";
+            break;
+        case 10:
+            result += "1.75";
+            break;
+        case 11:
+            result += "1.725";
+            break;
+		case 12:
+            result += "1.7";
+            break;
+        case 13:
+            result += "1.675";
+            break;
+        case 14:
+            result += "1.65";
+            break;
+        case 15:
+            result += "1.625";
+            break;
+        case 16:
+            result += "1.6";
+            break;
+        case 17:
+            result += "1.575";
+            break;
+		case 18:
+            result += "1.55";
+            break;
+        case 19:
+            result += "1.525";
+            break;
+        case 20:
+            result += "1.5";
+            break;
     }
     return result; //return the sum of text
 }
