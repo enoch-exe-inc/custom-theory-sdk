@@ -75,7 +75,7 @@ var init = () => {
 
 
 	//// Milestone Upgrades
-	theory.setMilestoneCost(new LinearCost(1.0, 1.0)); // Original: (2.5, 2.5) c = 25*x + 25, i.e rewards a milestone every 25 log10(tau)
+	theory.setMilestoneCost(new LinearCost(1.5, 1.5)); // Original: (2.5, 2.5) c = 25*x + 25, i.e rewards a milestone every 25 log10(tau)
 
 	// Milestone 1 - Original: Increases value of p2 exponent by 0.02, max level 3
 	{
