@@ -75,11 +75,11 @@ var init = () => {
 
 
 	//// Milestone Upgrades
-	theory.setMilestoneCost(new LinearCost(1.5, 1.5)); // Original: (2.5, 2.5) c = 25*x + 25, i.e rewards a milestone every 25 log10(tau)
+	theory.setMilestoneCost(new LinearCost(2.0, 2.0)); // Original: (2.5, 2.5) c = 25*x + 25, i.e rewards a milestone every 25 log10(tau)
 
 	// Milestone 1 - Original: Increases value of p2 exponent by 0.02, max level 3
 	{
-		gamma0 = theory.createMilestoneUpgrade(0, 10); // create an upgrade of ID 0 and max level 10
+		gamma0 = theory.createMilestoneUpgrade(0, 5); // create an upgrade of ID 0 and max level 5
 		gamma0.description = Localization.getUpgradeIncCustomExpDesc("\\rho_2", "0.02"); // "Increases rho_2 exponent by 0.02"
 		gamma0.info = Localization.getUpgradeIncCustomExpInfo("\\rho_2", "0.02");
 		gamma0.boughtOrRefunded = (_) => theory.invalidatePrimaryEquation();
@@ -87,8 +87,8 @@ var init = () => {
 
 	//milestone 2 - Original: Decreases value of a3 exponent by 0.008, max level 5
 	{
-		gamma1 = theory.createMilestoneUpgrade(1, 20); //create an upgrade of ID 1 and max level 20
-		gamma1.description = Localization.getUpgradeDecCustomDesc("a_3","0.01"); // "Decreases a3 by 0.01"
+		gamma1 = theory.createMilestoneUpgrade(1, 5); //create an upgrade of ID 1 and max level 5
+		gamma1.description = Localization.getUpgradeDecCustomDesc("a_3","0.02"); // "Decreases a3 by 0.02"
 		gamma1.info = Localization.getUpgradeDecCustomInfo("a_3","0.01");
 		gamma1.boughtOrRefunded = (_) => theory.invalidateSecondaryEquation();
 	}
@@ -178,7 +178,7 @@ var tick = (elapsedTime, multiplier) => {
 	//rho2dot equation that supports higher values without crashing lol
 	let a1v = geta1(a1.level), a2v = geta2(a2.level);
 //	rho2dot =(geta1(a1.level) * geta2(a2.level) * (BigNumber.TWO-gamma1.level*0.004).pow( - currency3.value.log() )); //calculate rho2dot, accounting for milestones
-	rho2dot = a1v > 0 && a2v > 0 ? BigNumber.E.pow(a1v.log() + a2v.log() - (BigNumber.TWO - gamma1.level * 0.01).log() * (currency3.value).log() ) : BigNumber.ZERO;
+	rho2dot = a1v > 0 && a2v > 0 ? BigNumber.E.pow(a1v.log() + a2v.log() - (BigNumber.TWO - gamma1.level * 0.02).log() * (currency3.value).log() ) : BigNumber.ZERO;
 	currency2.value += dt * rho2dot; //increase rho2 by rho2dot by dt
 	rho1dot = (currency2.value.pow(BigNumber.ONE+gamma0.level * 0.02).sqrt() * (inverseE_Gamma)); //rho1dot is equal to the root of rho2^milestone, over the difference between E and stirling's approximation
 	currency.value += dt * theory.publicationMultiplier * rho1dot; //increase rho1 by rho1dot by dt, accounting for pub bonus
@@ -209,20 +209,6 @@ var getPrimaryEquation = () => { //text for the primary equation
 		case 5:
 			result += "^{1.1}";
 			break;
-		case 6:
-			result += "^{1.12}";
-			break;
-		case 7:
-			result += "^{1.14}";
-			break;
-		case 8:
-			result += "^{1.16}";
-			break;
-		case 9:
-			result += "^{1.18}";
-			break;
-		case 10:
-			result += "^{1.2}";
 	}
 	result +="}}{e-\\gamma}";  //close off the square root and add the denominator
 
@@ -283,64 +269,19 @@ var getSecondaryEquation = () => {
 			result += "2";
 			break;
 		case 1:
-			result += "1.99";
-			break;
-		case 2:
 			result += "1.98";
 			break;
-		case 3:
-			result += "1.97";
-			break;
-		case 4:
+		case 2:
 			result += "1.96";
 			break;
-		case 5:
-			result += "1.95";
-			break;
-		case 6:
+		case 3:
 			result += "1.94";
 			break;
-		case 7:
-			result += "1.93";
-			break;
-		case 8:
+		case 4:
 			result += "1.92";
 			break;
-		case 9:
-			result += "1.91";
-			break;
-		case 10:
+		case 5:
 			result += "1.90";
-			break;
-		case 11:
-			result += "1.89";
-			break;
-		case 12:
-			result += "1.88";
-			break;
-		case 13:
-			result += "1.87";
-			break;
-		case 14:
-			result += "1.86";
-			break;
-		case 15:
-			result += "1.85";
-			break;
-		case 16:
-			result += "1.84";
-			break;
-		case 17:
-			result += "1.83";
-			break;
-		case 18:
-			result += "1.82";
-			break;
-		case 19:
-			result += "1.81";
-			break;
-		case 20:
-			result += "1.80";
 			break;
 	}
 	return result; //return the sum of text
