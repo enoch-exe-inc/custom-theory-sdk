@@ -35,7 +35,7 @@ var init = () => {
 	{
 		let getDesc = (level) => "a_1=" + geta1(level).toString(1); //returns the value seen in the description as a1 = <level>
 		let getInfo = (level) => "a_1=" + geta1(level).toString(1); //returns the value seen in the info box as a1 = <level>
-		a1 = theory.createUpgrade(0, currency, new FirstFreeCost(new ExponentialCost(1, 0.334 * Math.log2(10)))); // Original: (1, 0.369 * Math.log2(10)) 0th upgrade in the list - first cost is 0, other costs are 10 * 2^(3*level), costs currency1
+		a1 = theory.createUpgrade(0, currency, new FirstFreeCost(new ExponentialCost(1, 0.360 * Math.log2(10)))); // Original: (1, 0.369 * Math.log2(10)) 0th upgrade in the list - first cost is 0, other costs are 10 * 2^(3*level), costs currency1
 		a1.getDescription = (amount) => Utils.getMath(getDesc(a1.level));
 		a1.getInfo = (amount) => Utils.getMathTo(getInfo(a1.level), getInfo(a1.level + amount));
 	}
@@ -44,7 +44,7 @@ var init = () => {
 	{
 		let getDesc = (level) => "a_2=2^{" + level + "}"; //returns the value seen in the description as a2 = 2^<level>.
 		let getInfo = (level) => "a_2=" + geta2(level).toString(0); //returns the value seen in the info box as a2 = <level>
-		a2 = theory.createUpgrade(1, currency, new ExponentialCost(150, Math.log2(10))); // Original: (150, Math.log2(10)) 1st upgrade in the list - costs are 5*10^level, costs currency1
+		a2 = theory.createUpgrade(1, currency, new ExponentialCost(150, Math.log2(10))); // Original: (175, Math.log2(10)) 1st upgrade in the list - costs are 5*10^level, costs currency1
 		a2.getDescription = (_) => Utils.getMath(getDesc(a2.level));
 		a2.getInfo = (amount) => Utils.getMathTo(getInfo(a2.level), getInfo(a2.level + amount));
 	}
@@ -53,7 +53,7 @@ var init = () => {
 	{
 		let getDesc = (level) => "b_1=" + getb1(level).toString(1); //returns the value seen in the description as b1 = <level>
 		let getInfo = (level) => "b_1=" + getb1(level).toString(1); //returns the value seen in the info box as b1 = <level>
-		b1 = theory.createUpgrade(2, currency, new ExponentialCost(500, 0.625 * Math.log2(10))); // Original: (500, 0.649 * Math.log2(10)) 2nd upgrade in the list - costs are 100 + 10^level, costs currency1
+		b1 = theory.createUpgrade(2, currency, new ExponentialCost(500, 0.640 * Math.log2(10))); // Original: (500, 0.649 * Math.log2(10)) 2nd upgrade in the list - costs are 100 + 10^level, costs currency1
 		b1.getDescription = (amount) => Utils.getMath(getDesc(b1.level));
 		b1.getInfo = (amount) => Utils.getMathTo(getInfo(b1.level), getInfo(b1.level + amount));
 	}
@@ -62,7 +62,7 @@ var init = () => {
 	{
 		let getDesc = (level) => "b_2=2^{" + level + "}"; //returns the value seen in the description as b2 = 2^<level>
 		let getInfo = (level) => "b_2=" + getb2(level).toString(0); //returns the value seen in the info box as b2 = <level>
-		b2 = theory.createUpgrade(3, currency, new ExponentialCost(1000, 0.9 * Math.log2(10))); // Original (1000, 0.926 * Math(log2(10)) 3rd upgrade in the list - costs are 3*10^(3*level), costs currency1
+		b2 = theory.createUpgrade(3, currency, new ExponentialCost(1000, 0.925 * Math.log2(10))); // Original (1000, 0.926 * Math(log2(10)) 3rd upgrade in the list - costs are 3*10^(3*level), costs currency1
 		b2.getDescription = (_) => Utils.getMath(getDesc(b2.level));
 		b2.getInfo = (amount) => Utils.getMathTo(getInfo(b2.level), getInfo(b2.level + amount));
 	}
@@ -88,7 +88,7 @@ var init = () => {
 	//milestone 2 - Original: Decreases value of a3 exponent by 0.008, max level 5
 	{
 		gamma1 = theory.createMilestoneUpgrade(1, 5); //create an upgrade of ID 1 and max level 5
-		gamma1.description = Localization.getUpgradeDecCustomDesc("a_3","0.02"); // "Decreases a3 by 0.02"
+		gamma1.description = Localization.getUpgradeDecCustomDesc("a_3","0.01"); // "Decreases a3 by 0.01"
 		gamma1.info = Localization.getUpgradeDecCustomInfo("a_3","0.01");
 		gamma1.boughtOrRefunded = (_) => theory.invalidateSecondaryEquation();
 	}
@@ -178,7 +178,7 @@ var tick = (elapsedTime, multiplier) => {
 	//rho2dot equation that supports higher values without crashing lol
 	let a1v = geta1(a1.level), a2v = geta2(a2.level);
 //	rho2dot =(geta1(a1.level) * geta2(a2.level) * (BigNumber.TWO-gamma1.level*0.004).pow( - currency3.value.log() )); //calculate rho2dot, accounting for milestones
-	rho2dot = a1v > 0 && a2v > 0 ? BigNumber.E.pow(a1v.log() + a2v.log() - (BigNumber.TWO - gamma1.level * 0.02).log() * (currency3.value).log() ) : BigNumber.ZERO;
+	rho2dot = a1v > 0 && a2v > 0 ? BigNumber.E.pow(a1v.log() + a2v.log() - (BigNumber.TWO - gamma1.level * 0.01).log() * (currency3.value).log() ) : BigNumber.ZERO;
 	currency2.value += dt * rho2dot; //increase rho2 by rho2dot by dt
 	rho1dot = (currency2.value.pow(BigNumber.ONE+gamma0.level * 0.02).sqrt() * (inverseE_Gamma)); //rho1dot is equal to the root of rho2^milestone, over the difference between E and stirling's approximation
 	currency.value += dt * theory.publicationMultiplier * rho1dot; //increase rho1 by rho1dot by dt, accounting for pub bonus
@@ -269,19 +269,19 @@ var getSecondaryEquation = () => {
 			result += "2";
 			break;
 		case 1:
-			result += "1.98";
+			result += "1.99";
 			break;
 		case 2:
-			result += "1.96";
+			result += "1.98";
 			break;
 		case 3:
-			result += "1.94";
+			result += "1.97";
 			break;
 		case 4:
-			result += "1.92";
+			result += "1.96";
 			break;
 		case 5:
-			result += "1.90";
+			result += "1.95";
 			break;
 	}
 	return result; //return the sum of text
