@@ -134,7 +134,7 @@ var init = () => {
 		c4Term.description = Localization.getUpgradeAddTermDesc("\\rho_{n-2}^{0.3}");
 		c4Term.info = Localization.getUpgradeAddTermInfo("\\rho_{n-2}^{0.3}");
 		c4Term.boughtOrRefunded = (_) => { theory.invalidatePrimaryEquation(); updateAvailability(); };
-		c4Term.canbeRefunded = (_) => c5Term.level == 0;
+		c4Term.canBeRefunded = (_) => c5Term.level == 0;
 		c4Term.isAvailable = false;
 	}
 	
