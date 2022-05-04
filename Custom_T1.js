@@ -237,7 +237,7 @@ var getSecondaryEquation = () => theory.latexSymbol + "=\\max\\rho^{0.1}";	// Or
 var getTertiaryEquation = () => Localization.format(stringTickspeed, getTickspeed().toString(0));
 
 var getPublicationMultiplier = (tau) => (game.sigmaTotal / 20) * tau;	// Original: tau.pow(0.164) / BigNumber.THREE
-var getPublicationMultiplierFormula = (symbol) => "\left(\frac{\sigma_{t}}{20}\right)" + symbol;	// Original: "\\frac{{" + symbol + "}^{0.15}}{2}";
+var getPublicationMultiplierFormula = (symbol) => "\\left(\\frac{\\sigma_{t}}{20}\\right)" + symbol;	// Original: "\\frac{{" + symbol + "}^{0.15}}{2}";
 var getTau = () => currency.value.pow(0.1);
 var get2DGraphValue = () => currency.value.sign * (BigNumber.ONE + currency.value.abs()).log10().toNumber();
 
