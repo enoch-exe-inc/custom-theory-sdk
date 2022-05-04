@@ -2,6 +2,7 @@ import { ExponentialCost, FirstFreeCost, LinearCost } from "../api/Costs";
 import { Localization } from "../api/Localization";
 import { parseBigNumber, BigNumber } from "../api/BigNumber";
 import { theory } from "../api/Theory";
+import { game } from "../api/Game";
 import { Utils } from "../api/Utils";
 
 var id = "cust_recurrence_relations";
@@ -105,7 +106,8 @@ var init = () => {
 	///////////////////////
 	//// Milestone Upgrades			// Original (25, 25) - Gain 1 milestone upgrade per 1e25 of tau
 	// For the sake of testing, I've lowered it to per 10 of tau.
-	theory.setMilestoneCost(new LinearCost(1, 1));
+	// With the student multiplier active, I've raised to per 1e10 of tau. Let's see how it goes.
+	theory.setMilestoneCost(new LinearCost(10, 10));
 
 	{
 		c1Exp = theory.createMilestoneUpgrade(0, 5);
@@ -174,6 +176,7 @@ var tick = (elapsedTime, multiplier) => {
 		rhoNm1 = rhoN;
 		rhoN = currency.value;
 
+		let sigma = (game.sigmaTotal / 20);
 		let bonus = theory.publicationMultiplier;
 		let vc1 = getC1(c1.level).pow(getC1Exponent(c1Exp.level));
 		let vc2 = getC2(c2.level);
@@ -185,7 +188,7 @@ var tick = (elapsedTime, multiplier) => {
 		let term3 = c4Term.level > 0 ? (vc4 * rhoNm2.pow(0.3)) : BigNumber.ZERO;
 		let term4 = c5Term.level > 0 ? (vc5 * rhoNm3.pow(0.4)) : BigNumber.ZERO;
 
-		currency.value = rhoN + bonus * tickPower * (term1 + term2 + term3 + term4) + epsilon;
+		currency.value = rhoN + (sigma * bonus * tickPower * (term1 + term2 + term3 + term4) + epsilon);
 
 		time = 0;
 	}
@@ -223,7 +226,7 @@ var getPrimaryEquation = () => {
 		result += "+c_5\\rho_{n-3}^{0.4}";
 
 	if (logTerm.level > 0 && c3Term.level > 0 && c4Term.level > 0)
-		theory.primaryEquationScale = 0.80;
+		theory.primaryEquationScale = 0.75;
 	else
 		theory.primaryEquationScale = 1;
  
@@ -233,8 +236,8 @@ var getPrimaryEquation = () => {
 var getSecondaryEquation = () => theory.latexSymbol + "=\\max\\rho^{0.1}";	// Original: "=\\max\\rho";"
 var getTertiaryEquation = () => Localization.format(stringTickspeed, getTickspeed().toString(0));
 
-var getPublicationMultiplier = (tau) => tau;	// Original: tau.pow(0.164) / BigNumber.THREE
-var getPublicationMultiplierFormula = (symbol) => symbol;	// Original: "\\frac{{" + symbol + "}^{0.15}}{2}";
+var getPublicationMultiplier = (tau) => (game.sigmaTotal / 20) * tau;	// Original: tau.pow(0.164) / BigNumber.THREE
+var getPublicationMultiplierFormula = (symbol) => "\left(\frac{\sigma_{t}}{20}\right)" + symbol;	// Original: "\\frac{{" + symbol + "}^{0.15}}{2}";
 var getTau = () => currency.value.pow(0.1);
 var get2DGraphValue = () => currency.value.sign * (BigNumber.ONE + currency.value.abs()).log10().toNumber();
 
