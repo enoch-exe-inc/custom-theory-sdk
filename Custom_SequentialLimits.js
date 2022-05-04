@@ -79,31 +79,31 @@ var init = () => {
 
 	// Milestone 1 - Original: Increases value of p2 exponent by 0.02, max level 3
 	{
-		gamma0 = theory.createMilestoneUpgrade(0, 5); // create an upgrade of ID 0 and max level 5
+		gamma0 = theory.createMilestoneUpgrade(0, 4); // create an upgrade of ID 0 and max level 4
 		gamma0.description = Localization.getUpgradeIncCustomExpDesc("\\rho_2", "0.02"); // "Increases rho_2 exponent by 0.02"
 		gamma0.info = Localization.getUpgradeIncCustomExpInfo("\\rho_2", "0.02");
 		gamma0.boughtOrRefunded = (_) => theory.invalidatePrimaryEquation();
 	}
 
-	//milestone 2 - Original: Decreases value of a3 exponent by 0.008, max level 5
+	// Milestone 2 - Original: Decreases value of a3 exponent by 0.008, max level 5
 	{
-		gamma1 = theory.createMilestoneUpgrade(1, 5); //create an upgrade of ID 1 and max level 5
+		gamma1 = theory.createMilestoneUpgrade(1, 4); //create an upgrade of ID 1 and max level 4
 		gamma1.description = Localization.getUpgradeDecCustomDesc("a_3","0.01"); // "Decreases a3 by 0.01"
 		gamma1.info = Localization.getUpgradeDecCustomInfo("a_3","0.01");
 		gamma1.boughtOrRefunded = (_) => theory.invalidateSecondaryEquation();
 	}
 	
-	//milestone 3 - Original: Increases value of b1 exponent by 0.02, max level 2
+	// Milestone 3 - Original: Increases value of b1 exponent by 0.02, max level 2
 	{
-		gamma2 = theory.createMilestoneUpgrade(2, 5); //create an upgrade of ID 2 and max level 5
+		gamma2 = theory.createMilestoneUpgrade(2, 4); //create an upgrade of ID 2 and max level 4
 		gamma2.description = Localization.getUpgradeIncCustomExpDesc("b_1", "0.02"); // "Increases b1 exponent by 0.02"
 		gamma2.info = Localization.getUpgradeIncCustomExpInfo("b_1", "0.02");
 		gamma2.boughtOrRefunded = (_) => theory.invalidateSecondaryEquation();
 	}
 
-	//milestone 4 - Original: Increases value of b2 exponent by 0.02, max level 2
+	// Milestone 4 - Original: Increases value of b2 exponent by 0.02, max level 2
 	{
-		gamma3 = theory.createMilestoneUpgrade(3, 5); //create an upgrade of ID 3 and max level 5
+		gamma3 = theory.createMilestoneUpgrade(3, 4); //create an upgrade of ID 3 and max level 4
 		gamma3.description = Localization.getUpgradeIncCustomExpDesc("b_2", "0.02"); // "Increases b2 exponent by 0.02"
 		gamma3.info = Localization.getUpgradeIncCustomExpInfo("b_2", "0.02");
 		gamma3.boughtOrRefunded = (_) => theory.invalidateSecondaryEquation();
@@ -136,7 +136,7 @@ var init = () => {
 	achievement15 = theory.createAchievement(14, AchievementCat2, "Running Out Of Room", "Get your approximation of e to 10^-250 off true", () => inverseE_Gamma >= BigNumber.From("1e250"));
 	achievement16 = theory.createAchievement(15, AchievementCat2, "You Can Stop Anytime", "Get your approximation of e to 10^-500 off true", () => inverseE_Gamma >= BigNumber.From("1e500"));
 
-   // achievement21 = theory.createSecretAchievement(20, AchievementCat3,"What's 9 + 10?", "21", "October 9th, 2021", () => a1.level == 9 && a2.level == 10 );
+	// achievement21 = theory.createSecretAchievement(20, AchievementCat3,"What's 9 + 10?", "21", "October 9th, 2021", () => a1.level == 9 && a2.level == 10 );
 	achievement22 = theory.createSecretAchievement(21, AchievementCat3, bsf.d("UGF0dGVybiBGYW5hdGlj"), bsf.d("SGF2ZSBldmVyeSB2YXJpYWJsZSBsZXZlbCB0aGUgc2FtZQ")+ ".", bsf.d("UGFsaW5kcm9taWM"), () => a1.level == b2.level && b1.level == a2.level && 0  < a1.level && a1.level < 10 && 0  < a2.level && a2.level < 10);
 	achievement23 = theory.createSecretAchievement(22, AchievementCat3, bsf.d("bDMzdDVwMzRr"), bsf.d("MTMzNw")+ ".", bsf.d("RWxpdGU"), () => a1.level == 1 && a2.level == 3 && b1.level == 3 && b2.level == 7 );
 	// achievement24 = theory.createSecretAchievement(23, AchievementCat3, "NoAB", "Don't autobuy anything for a whole publication",'Hint', () => abFlag == true && theory.isAutoBuyerAvailable);
@@ -149,19 +149,19 @@ var init = () => {
 	chapter3 = theory.createStoryChapter(2, "International Recognition",bsf.d("WW91IHB1Ymxpc2ggeW91ciBmaXJzdCBwYXBlciwgd2l0aCB5b3VyIG5hbWUgZnJvbnQgYW5kIGNlbnRlci4KQ29sbGVhZ3VlcyBjb25ncmF0dWxhdGUgeW91LCBidXQgeW91IGZlZWwgdGhlcmUgaXMgc29tZXRoaW5nIG1pc3NpbmcsIGZ1cnRoZXIgZXhwbG9yYXRpb24gdG8gYmUgaGFkLgpZb3UgZGVjaWRlIHRvIGZvcmdlIGFoZWFkLg"), () => numPublications > 0); //unlock story chapter if a publication has been done
 	chapter4 = theory.createStoryChapter(3, "Light Modification", bsf.d("V2l0aCB5b3VyIHByb2dyZXNzIHN0YXJ0aW5nIHRvIHNsb3csIHlvdSBzY291ciB0aGUgb3JpZ2luYWwgZXF1YXRpb24gdGV4dHMgdG8gZmluZCBhIHJlbWVkeS4KSXQgdHVybnMgb3V0IGFsbCBhbG9uZyB0aGVyZSdzIGJlZW4gc29tZSBtb2RpZmllcnMgeW91IGNhbiBhZGQsIGJ1dCBhdCBldmVyIGluY3JlYXNpbmcgY29zdHMuCllvdSBkZWNpZGUgdG8gYnV5IG9uZSwgaG9waW5nIGl0IGFsbGV2aWF0ZXMgeW91ciBpc3N1ZXMuLi4"), () => gamma0.level == 1 || gamma1.level == 1 || gamma2.level == 1 || gamma3.level == 1);//unlock story chapter if a milestone is purchased
 	chapter5 = theory.createStoryChapter(4, "Making Progress", bsf.d("WW91IHJlYWNoIDFlMTAwIA") + "ρ₁" + bsf.d("₁LCBhIG1ham9yIG1pbGVzdG9uZSBpbiB5b3VyIHJlc2VhcmNoLgpDb2xsZWFndWVzIGNvbWUgdG8gY29uZ3JhdHVsYXRlIHlvdSBvbiBwdXNoaW5nIHlvdXIgcmVzZWFyY2ggc28gZmFyLCBidXQgeW91IHNocnVnIHRoZW0gb2ZmIC0geW91IGZlZWwgYXMgaWYgdGhlcmUncyBtb3JlIHlvdSBjb3VsZCBkby4KWW91IGhlYWQgYmFjayB0byB5b3VyIG9mZmljZSBhbmQgZ2V0IHRvIHdvcmsgb25jZSBtb3Jl"), () => currency.value >= BigNumber.From("1e100"));//unlock story chapter upon reaching 1e100 rho1
-	chapter6 = theory.createStoryChapter(5, "The End.... Or Is It?",bsf.d("WW91IGZpbmFsbHkgcHVyY2hhc2VkIGV2ZXJ5IG1vZGlmaWVyLCB0byBjbG9zZSBvdXQgeW91ciByZXNlYXJjaCBpbnRvIHRoaXMgZmllbGQuCllvdXIgc3R1ZGVudHMgYXNzaWduZWQgdG8gdGhpcyBwcm9qZWN0IGNlbGVicmF0ZSwgYW50aWNpcGF0aW5nIGNsb3Npbmcgb3V0IHRoaXMgbGluZSBvZiByZXNlYXJjaCwgYW5kIHlvdXIgbmFtZSBpcyBwb3N0ZWQgaW4gam91cm5hbHMgd29ybGR3aWRlLgoKWW91IGRlY2lkZSB0byBnbyBvdmVyIHlvdXIgbnVtYmVycyBvbmNlIG1vcmUsIGp1c3QgdG8gbWFrZSBzdXJlLi4u"), () => gamma0.level == 3 && gamma1.level == 5 && gamma2.level == 2 && gamma3.level == 2); //unlock a story when all milestone levels have been purchased	
+	chapter6 = theory.createStoryChapter(5, "The End…Or Is It?",bsf.d("WW91IGZpbmFsbHkgcHVyY2hhc2VkIGV2ZXJ5IG1vZGlmaWVyLCB0byBjbG9zZSBvdXQgeW91ciByZXNlYXJjaCBpbnRvIHRoaXMgZmllbGQuCllvdXIgc3R1ZGVudHMgYXNzaWduZWQgdG8gdGhpcyBwcm9qZWN0IGNlbGVicmF0ZSwgYW50aWNpcGF0aW5nIGNsb3Npbmcgb3V0IHRoaXMgbGluZSBvZiByZXNlYXJjaCwgYW5kIHlvdXIgbmFtZSBpcyBwb3N0ZWQgaW4gam91cm5hbHMgd29ybGR3aWRlLgoKWW91IGRlY2lkZSB0byBnbyBvdmVyIHlvdXIgbnVtYmVycyBvbmNlIG1vcmUsIGp1c3QgdG8gbWFrZSBzdXJlLi4u"), () => gamma0.level == 4 && gamma1.level == 4 && gamma2.level == 4 && gamma3.level == 4); // unlock a story when all milestone levels have been purchased	
 	chapter6 = theory.createStoryChapter(6, "Mathaholic",bsf.d("MWU1MDAuCgpBIG1vbnVtZW50YWxseSBsYXJnZSBudW1iZXIsIGJ1dCBidXQgYmFyZWx5IGEgYmxpcCB0byB5b3Ugbm93LgpQZW9wbGUgYXJlIHN0YXJ0aW5nIHRvIHRha2Ugbm90aWNlIGFzIHlvdSBwdXNoIG1hdGhlbWF0aWNzIHRvIHBvaW50cyB0aG91Z2h0IHVuYWNoaWV2ZWFibGUgaW4gdGhpcyBmaWVsZC4KVGhlcmUncyBhIHdhaXRpbmcgbGlzdCB0byBzdHVkeSB1bmRlciB5b3Ugbm93LgpZb3VyIGZyaWVuZHMgYW5kIGZhbWlseSBhcmUgZXhwcmVzc2luZyBjb25jZXJuLCB3b3JyaWVkIHlvdSdyZSBpbiB0b28gZGVlcC4KSXQgZG9lc24ndCBtYXR0ZXIuCkFub3RoZXIgYnJlYWt0aHJvdWdoIGlzIGNsb3NlLgpZb3UgY2FuIGZlZWwgaXQuCgpSaWdodD8"), () => currency.value >= BigNumber.From("1e500"));
 	chapter7 = theory.createStoryChapter(7, "The End.", bsf.d("MWUxMDAwLgoKQSBudW1iZXIgc28gYmlnIGl0J2QgYmUgaW1wb3NzaWJsZSB0byBjb21wcmVoZW5kLgpZb3UgZGlkIGl0LiBUaGV5IHNhaWQgeW91IGNvdWxkbid0LgpZZWFycyBhZnRlciB5b3UgZmlyc3Qgc3RhcnRlZCwgeW91IHJlYWNoIGFuIGluY3JlZGlibGUgZW5kIHRvIHlvdXIgcmVzZWFyY2guCllvdSdyZSBmZWF0dXJlZCBvbiBUSU1FLCBvbiBkYXl0aW1lIHRlbGV2aXNpb24sIGluIHdvcmxkd2lkZSBuZXdzcGFwZXJzLiBZb3VyIHBhcGVycyBhcmUgZnJhbWVkLCB5b3VyIHN0dWRlbnRzIGFsbCBwcm9mZXNzb3JzIGluIHRoZWlyIG93biByaWdodHMgbm93LgpZb3UgcGFzcyBvbiB0aGUgbWFudGxlIHRvIGEgeW91bmdlciBzdHVkZW50IG9mIHlvdXJzIHRvIHJldGlyZSBsaWtlIHlvdXIgb2xkIHByb2Zlc3NvciwgYmFjayBhbGwgdGhvc2UgeWVhcnMgYWdvLgoKVEhFIEVORC4KVGhhbmtzIGZvciBwbGF5aW5nISAtIGVsbGlwc2lz"), () => currency.value >= BigNumber.From("1e1000"));
 }
 
 var updateInverseE_Gamma = () => {
-	let two_pi_rho = BigNumber.TWO * BigNumber.PI * currency3.value; //precalculation of values for tick function
+	let two_pi_rho = BigNumber.TWO * BigNumber.PI * currency3.value; // Precalculation of values for tick function
 	if (currency3.value < 1000) {
-		inverseE_Gamma = BigNumber.ONE / (BigNumber.E - (BigNumber.E / (two_pi_rho.pow(BigNumber.PI / two_pi_rho)))); //approximate E using Stirling's method rearranged
+		inverseE_Gamma = BigNumber.ONE / (BigNumber.E - (BigNumber.E / (two_pi_rho.pow(BigNumber.PI / two_pi_rho)))); // Approximate E using Stirling's method rearranged
 	}
 	else {
 		let r = BigNumber.PI.log() + two_pi_rho.log().log() - two_pi_rho.log(); 
-		inverseE_Gamma = ((r.exp() - r).exp() - BigNumber.from(0.5)) / BigNumber.E; //xelaroc's approximation of the approximation - fixed to work at high values
+		inverseE_Gamma = ((r.exp() - r).exp() - BigNumber.from(0.5)) / BigNumber.E; // xelaroc's approximation of the approximation - fixed to work at high values
 	}
 }
 
@@ -175,9 +175,10 @@ var tick = (elapsedTime, multiplier) => {
 	currency3.value += rho3dot*dt; //increase currency3.value by rho3dot*dt
 	updateInverseE_Gamma();
    
-	//rho2dot equation that supports higher values without crashing lol
+	// rho2dot equation that supports higher values without crashing lol
 	let a1v = geta1(a1.level), a2v = geta2(a2.level);
-//	rho2dot =(geta1(a1.level) * geta2(a2.level) * (BigNumber.TWO-gamma1.level*0.004).pow( - currency3.value.log() )); //calculate rho2dot, accounting for milestones
+	
+	// rho2dot =(geta1(a1.level) * geta2(a2.level) * (BigNumber.TWO-gamma1.level*0.004).pow( - currency3.value.log() )); //calculate rho2dot, accounting for milestones
 	rho2dot = a1v > 0 && a2v > 0 ? BigNumber.E.pow(a1v.log() + a2v.log() - (BigNumber.TWO - gamma1.level * 0.01).log() * (currency3.value).log() ) : BigNumber.ZERO;
 	currency2.value += dt * rho2dot; //increase rho2 by rho2dot by dt
 	rho1dot = (currency2.value.pow(BigNumber.ONE+gamma0.level * 0.02).sqrt() * (inverseE_Gamma)); //rho1dot is equal to the root of rho2^milestone, over the difference between E and stirling's approximation
@@ -206,16 +207,13 @@ var getPrimaryEquation = () => { //text for the primary equation
 		case 4:
 			result += "^{1.08}";
 			break;
-		case 5:
-			result += "^{1.1}";
-			break;
 	}
 	result +="}}{e-\\gamma}";  //close off the square root and add the denominator
 
-	//show the approximated value equation
+	// Show the approximated value equation
 	result += "\\qquad \\gamma = \\frac{\\rho_3}{\\sqrt[^{\\rho_3}]{\\rho_3 !}}";
 	result += "\\qquad" + theory.latexSymbol + "= \\max{\\rho_1}^{0.1}"; 
-	return result; //return the sum of text
+	return result; // Return the sum of text
 }   
 
 //display rho2dot, rho3dot and a_3 equation
@@ -238,9 +236,6 @@ var getSecondaryEquation = () => {
 		case 4:
 			result += "^{\\!1.08}\\!";
 			break;
-		case 5:
-			result += "^{\\!1.1}\\!";
-			break;
 	}
 	result += "b_2"; //add b2 
 	switch (gamma3.level){ //switch statemement based on the fourth milestone (b2 exponent) to add exponents if the milestone level is 1 - 4
@@ -255,9 +250,6 @@ var getSecondaryEquation = () => {
 			break;
 		case 4:
 			result += "^{\\!1.08}\\!";
-			break;
-		case 5:
-			result += "^{\\!1.1}\\!";
 			break;
 	}
 	result += "\\qquad "; //add a space
@@ -280,9 +272,6 @@ var getSecondaryEquation = () => {
 		case 4:
 			result += "1.96";
 			break;
-		case 5:
-			result += "1.95";
-			break;
 	}
 	return result; //return the sum of text
 }
@@ -303,7 +292,7 @@ else {
 	result += ", \\;\\dot{\\rho}_3 = "; //display rho3dot to a degree of granularity depending on its size, then move to next segment 
 	result += rho3dot.toString(3);
 
-	return result ; //return the sum of text	
+	return result; //return the sum of text
 
 }
 
