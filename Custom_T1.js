@@ -9,7 +9,7 @@ var id = "cust_recurrence_relations";
 var name = "Ext. Recurrence Relations";
 var description = "An extension of the 'Recurrence Relations' theory from the game.";
 var authors = "Gilles-Philippe Paillé; enoch_exe_inc";
-var version = 1;
+var version = 2;
 
 var rhoN = BigNumber.ZERO;
 var rhoNm1 = BigNumber.ZERO;
@@ -99,15 +99,15 @@ var init = () => {
 	
 	/////////////////////
 	// Permanent Upgrades								// Original
-	theory.createPublicationUpgrade(0, currency, 1e8);	// 1e10
-	theory.createBuyAllUpgrade(1, currency, 1e12);		// 1e13
-	theory.createAutoBuyerUpgrade(2, currency, 1e20);	// 1e30
+	theory.createPublicationUpgrade(0, currency, 1e10);	// 1e10
+	theory.createBuyAllUpgrade(1, currency, 1e18);		// 1e13
+	theory.createAutoBuyerUpgrade(2, currency, 1e24);	// 1e30
 
 	///////////////////////
 	//// Milestone Upgrades			// Original (25, 25) - Gain 1 milestone upgrade per 1e25 of tau
 	// For the sake of testing, I've lowered it to per 10 of tau.
-	// With the student multiplier active, I've raised to per 1e10 of tau. Let's see how it goes.
-	theory.setMilestoneCost(new LinearCost(10, 10));
+	// With the student multiplier active, I've raised to per 1e20 of tau.
+	theory.setMilestoneCost(new LinearCost(20, 20));
 
 	{
 		c1Exp = theory.createMilestoneUpgrade(0, 5);
@@ -233,12 +233,12 @@ var getPrimaryEquation = () => {
 	return result;
 }
 
-var getSecondaryEquation = () => theory.latexSymbol + "=\\max\\rho";
+var getSecondaryEquation = () => theory.latexSymbol + "=\\max\\rho^{0.5}";	// Original: "=\\max]\rho";
 var getTertiaryEquation = () => Localization.format(stringTickspeed, getTickspeed().toString(0));
 
-var getPublicationMultiplier = (tau) => (game.sigmaTotal / 20) * tau.pow(0.15);	// Original: tau.pow(0.164) / BigNumber.THREE
-var getPublicationMultiplierFormula = (symbol) => "\\left(\\frac{{\\sigma_{t}}}{20}\\right)" + symbol + "^{0.15}";	// Original: "\\frac{{" + symbol + "}^{0.15}}{2}";
-var getTau = () => currency.value;
+var getPublicationMultiplier = (tau) => (game.sigmaTotal / 20) * (tau.pow(0.15) / BigNumber.TWO);	// Original: tau.pow(0.164) / BigNumber.THREE
+var getPublicationMultiplierFormula = (symbol) => "\\left(\\frac{{\\sigma_{t}}}{20}\\right) \\frac{{" + symbol + "}^{0.15}}{2}";	// Original: "\\frac{{" + symbol + "}^{0.15}}{2}";
+var getTau = () => currency.value.pow(0.5);
 var get2DGraphValue = () => currency.value.sign * (BigNumber.ONE + currency.value.abs()).log10().toNumber();
 
 var postPublish = () => {
