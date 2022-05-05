@@ -99,15 +99,15 @@ var init = () => {
 	
 	/////////////////////
 	// Permanent Upgrades								// Original
-	theory.createPublicationUpgrade(0, currency, 1e10);	// 1e10
-	theory.createBuyAllUpgrade(1, currency, 1e18);		// 1e13
+	theory.createPublicationUpgrade(0, currency, 1e8);	// 1e10
+	theory.createBuyAllUpgrade(1, currency, 1e16);		// 1e13
 	theory.createAutoBuyerUpgrade(2, currency, 1e24);	// 1e30
 
 	///////////////////////
 	//// Milestone Upgrades			// Original (25, 25) - Gain 1 milestone upgrade per 1e25 of tau
 	// For the sake of testing, I've lowered it to per 10 of tau.
-	// With the student multiplier active, I've raised to per 1e20 of tau.
-	theory.setMilestoneCost(new LinearCost(20, 20));
+	// With the student multiplier active, I've raised to per 1e10 of tau.
+	theory.setMilestoneCost(new LinearCost(10, 10));
 
 	{
 		c1Exp = theory.createMilestoneUpgrade(0, 5);
