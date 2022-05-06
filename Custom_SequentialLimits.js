@@ -35,7 +35,7 @@ var init = () => {
 	{
 		let getDesc = (level) => "a_1=" + geta1(level).toString(1); //returns the value seen in the description as a1 = <level>
 		let getInfo = (level) => "a_1=" + geta1(level).toString(1); //returns the value seen in the info box as a1 = <level>
-		a1 = theory.createUpgrade(0, currency, new FirstFreeCost(new ExponentialCost(1, 0.360 * Math.log2(10)))); // Original: (1, 0.369 * Math.log2(10)) 0th upgrade in the list - first cost is 0, other costs are 10 * 2^(3*level), costs currency1
+		a1 = theory.createUpgrade(0, currency, new FirstFreeCost(new ExponentialCost(1, 0.365 * Math.log2(10)))); // Original: (1, 0.369 * Math.log2(10)) 0th upgrade in the list - first cost is 0, other costs are 10 * 2^(3*level), costs currency1
 		a1.getDescription = (amount) => Utils.getMath(getDesc(a1.level));
 		a1.getInfo = (amount) => Utils.getMathTo(getInfo(a1.level), getInfo(a1.level + amount));
 	}
@@ -87,7 +87,7 @@ var init = () => {
 
 	// Milestone 2 - Original: Decreases value of a3 exponent by 0.008, max level 5
 	{
-		gamma1 = theory.createMilestoneUpgrade(1, 4); //create an upgrade of ID 1 and max level 4
+		gamma1 = theory.createMilestoneUpgrade(1, 5); //create an upgrade of ID 1 and max level 5
 		gamma1.description = Localization.getUpgradeDecCustomDesc("a_3","0.01"); // "Decreases a3 by 0.01"
 		gamma1.info = Localization.getUpgradeDecCustomInfo("a_3","0.01");
 		gamma1.boughtOrRefunded = (_) => theory.invalidateSecondaryEquation();
@@ -95,7 +95,7 @@ var init = () => {
 	
 	// Milestone 3 - Original: Increases value of b1 exponent by 0.02, max level 2
 	{
-		gamma2 = theory.createMilestoneUpgrade(2, 4); //create an upgrade of ID 2 and max level 4
+		gamma2 = theory.createMilestoneUpgrade(2, 3); //create an upgrade of ID 2 and max level 3
 		gamma2.description = Localization.getUpgradeIncCustomExpDesc("b_1", "0.02"); // "Increases b1 exponent by 0.02"
 		gamma2.info = Localization.getUpgradeIncCustomExpInfo("b_1", "0.02");
 		gamma2.boughtOrRefunded = (_) => theory.invalidateSecondaryEquation();
@@ -103,7 +103,7 @@ var init = () => {
 
 	// Milestone 4 - Original: Increases value of b2 exponent by 0.02, max level 2
 	{
-		gamma3 = theory.createMilestoneUpgrade(3, 4); //create an upgrade of ID 3 and max level 4
+		gamma3 = theory.createMilestoneUpgrade(3, 3); //create an upgrade of ID 3 and max level 3
 		gamma3.description = Localization.getUpgradeIncCustomExpDesc("b_2", "0.02"); // "Increases b2 exponent by 0.02"
 		gamma3.info = Localization.getUpgradeIncCustomExpInfo("b_2", "0.02");
 		gamma3.boughtOrRefunded = (_) => theory.invalidateSecondaryEquation();
@@ -149,7 +149,7 @@ var init = () => {
 	chapter3 = theory.createStoryChapter(2, "International Recognition",bsf.d("WW91IHB1Ymxpc2ggeW91ciBmaXJzdCBwYXBlciwgd2l0aCB5b3VyIG5hbWUgZnJvbnQgYW5kIGNlbnRlci4KQ29sbGVhZ3VlcyBjb25ncmF0dWxhdGUgeW91LCBidXQgeW91IGZlZWwgdGhlcmUgaXMgc29tZXRoaW5nIG1pc3NpbmcsIGZ1cnRoZXIgZXhwbG9yYXRpb24gdG8gYmUgaGFkLgpZb3UgZGVjaWRlIHRvIGZvcmdlIGFoZWFkLg"), () => numPublications > 0); //unlock story chapter if a publication has been done
 	chapter4 = theory.createStoryChapter(3, "Light Modification", bsf.d("V2l0aCB5b3VyIHByb2dyZXNzIHN0YXJ0aW5nIHRvIHNsb3csIHlvdSBzY291ciB0aGUgb3JpZ2luYWwgZXF1YXRpb24gdGV4dHMgdG8gZmluZCBhIHJlbWVkeS4KSXQgdHVybnMgb3V0IGFsbCBhbG9uZyB0aGVyZSdzIGJlZW4gc29tZSBtb2RpZmllcnMgeW91IGNhbiBhZGQsIGJ1dCBhdCBldmVyIGluY3JlYXNpbmcgY29zdHMuCllvdSBkZWNpZGUgdG8gYnV5IG9uZSwgaG9waW5nIGl0IGFsbGV2aWF0ZXMgeW91ciBpc3N1ZXMuLi4"), () => gamma0.level == 1 || gamma1.level == 1 || gamma2.level == 1 || gamma3.level == 1);//unlock story chapter if a milestone is purchased
 	chapter5 = theory.createStoryChapter(4, "Making Progress", bsf.d("WW91IHJlYWNoIDFlMTAwIA") + "ρ₁" + bsf.d("₁LCBhIG1ham9yIG1pbGVzdG9uZSBpbiB5b3VyIHJlc2VhcmNoLgpDb2xsZWFndWVzIGNvbWUgdG8gY29uZ3JhdHVsYXRlIHlvdSBvbiBwdXNoaW5nIHlvdXIgcmVzZWFyY2ggc28gZmFyLCBidXQgeW91IHNocnVnIHRoZW0gb2ZmIC0geW91IGZlZWwgYXMgaWYgdGhlcmUncyBtb3JlIHlvdSBjb3VsZCBkby4KWW91IGhlYWQgYmFjayB0byB5b3VyIG9mZmljZSBhbmQgZ2V0IHRvIHdvcmsgb25jZSBtb3Jl"), () => currency.value >= BigNumber.From("1e100"));//unlock story chapter upon reaching 1e100 rho1
-	chapter6 = theory.createStoryChapter(5, "The End…Or Is It?",bsf.d("WW91IGZpbmFsbHkgcHVyY2hhc2VkIGV2ZXJ5IG1vZGlmaWVyLCB0byBjbG9zZSBvdXQgeW91ciByZXNlYXJjaCBpbnRvIHRoaXMgZmllbGQuCllvdXIgc3R1ZGVudHMgYXNzaWduZWQgdG8gdGhpcyBwcm9qZWN0IGNlbGVicmF0ZSwgYW50aWNpcGF0aW5nIGNsb3Npbmcgb3V0IHRoaXMgbGluZSBvZiByZXNlYXJjaCwgYW5kIHlvdXIgbmFtZSBpcyBwb3N0ZWQgaW4gam91cm5hbHMgd29ybGR3aWRlLgoKWW91IGRlY2lkZSB0byBnbyBvdmVyIHlvdXIgbnVtYmVycyBvbmNlIG1vcmUsIGp1c3QgdG8gbWFrZSBzdXJlLi4u"), () => gamma0.level == 4 && gamma1.level == 4 && gamma2.level == 4 && gamma3.level == 4); // unlock a story when all milestone levels have been purchased	
+	chapter6 = theory.createStoryChapter(5, "The End…Or Is It?",bsf.d("WW91IGZpbmFsbHkgcHVyY2hhc2VkIGV2ZXJ5IG1vZGlmaWVyLCB0byBjbG9zZSBvdXQgeW91ciByZXNlYXJjaCBpbnRvIHRoaXMgZmllbGQuCllvdXIgc3R1ZGVudHMgYXNzaWduZWQgdG8gdGhpcyBwcm9qZWN0IGNlbGVicmF0ZSwgYW50aWNpcGF0aW5nIGNsb3Npbmcgb3V0IHRoaXMgbGluZSBvZiByZXNlYXJjaCwgYW5kIHlvdXIgbmFtZSBpcyBwb3N0ZWQgaW4gam91cm5hbHMgd29ybGR3aWRlLgoKWW91IGRlY2lkZSB0byBnbyBvdmVyIHlvdXIgbnVtYmVycyBvbmNlIG1vcmUsIGp1c3QgdG8gbWFrZSBzdXJlLi4u"), () => gamma0.level == 4 && gamma1.level == 5 && gamma2.level == 3 && gamma3.level == 3); // unlock a story when all milestone levels have been purchased	
 	chapter6 = theory.createStoryChapter(6, "Mathaholic",bsf.d("MWU1MDAuCgpBIG1vbnVtZW50YWxseSBsYXJnZSBudW1iZXIsIGJ1dCBidXQgYmFyZWx5IGEgYmxpcCB0byB5b3Ugbm93LgpQZW9wbGUgYXJlIHN0YXJ0aW5nIHRvIHRha2Ugbm90aWNlIGFzIHlvdSBwdXNoIG1hdGhlbWF0aWNzIHRvIHBvaW50cyB0aG91Z2h0IHVuYWNoaWV2ZWFibGUgaW4gdGhpcyBmaWVsZC4KVGhlcmUncyBhIHdhaXRpbmcgbGlzdCB0byBzdHVkeSB1bmRlciB5b3Ugbm93LgpZb3VyIGZyaWVuZHMgYW5kIGZhbWlseSBhcmUgZXhwcmVzc2luZyBjb25jZXJuLCB3b3JyaWVkIHlvdSdyZSBpbiB0b28gZGVlcC4KSXQgZG9lc24ndCBtYXR0ZXIuCkFub3RoZXIgYnJlYWt0aHJvdWdoIGlzIGNsb3NlLgpZb3UgY2FuIGZlZWwgaXQuCgpSaWdodD8"), () => currency.value >= BigNumber.From("1e500"));
 	chapter7 = theory.createStoryChapter(7, "The End.", bsf.d("MWUxMDAwLgoKQSBudW1iZXIgc28gYmlnIGl0J2QgYmUgaW1wb3NzaWJsZSB0byBjb21wcmVoZW5kLgpZb3UgZGlkIGl0LiBUaGV5IHNhaWQgeW91IGNvdWxkbid0LgpZZWFycyBhZnRlciB5b3UgZmlyc3Qgc3RhcnRlZCwgeW91IHJlYWNoIGFuIGluY3JlZGlibGUgZW5kIHRvIHlvdXIgcmVzZWFyY2guCllvdSdyZSBmZWF0dXJlZCBvbiBUSU1FLCBvbiBkYXl0aW1lIHRlbGV2aXNpb24sIGluIHdvcmxkd2lkZSBuZXdzcGFwZXJzLiBZb3VyIHBhcGVycyBhcmUgZnJhbWVkLCB5b3VyIHN0dWRlbnRzIGFsbCBwcm9mZXNzb3JzIGluIHRoZWlyIG93biByaWdodHMgbm93LgpZb3UgcGFzcyBvbiB0aGUgbWFudGxlIHRvIGEgeW91bmdlciBzdHVkZW50IG9mIHlvdXJzIHRvIHJldGlyZSBsaWtlIHlvdXIgb2xkIHByb2Zlc3NvciwgYmFjayBhbGwgdGhvc2UgeWVhcnMgYWdvLgoKVEhFIEVORC4KVGhhbmtzIGZvciBwbGF5aW5nISAtIGVsbGlwc2lz"), () => currency.value >= BigNumber.From("1e1000"));
 }
@@ -219,7 +219,7 @@ var getPrimaryEquation = () => { //text for the primary equation
 //display rho2dot, rho3dot and a_3 equation
 var getSecondaryEquation = () => { 
 	//render rho2dot equation
-	result = "\\dot{\\rho}_2 = a_1 a_2 \\cdot a_3 ^{ - \\ln\\rho_3}\\qquad "; //static, doesn't need to change. plain latex
+	result = "\\dot{\\rho}_2 = a_1 a_2 \\cdot a_3 ^{ - \\ln\\rho_3}\\qquad "; // Static, doesn't need to change. plain latex
 
 
 	result += "{\\dot{\\rho}}_3 = b_1"; // first part of eq, i.e rho3dot = b1
@@ -233,9 +233,6 @@ var getSecondaryEquation = () => {
 		case 3:
 			result += "^{\\!1.06}\\!";
 			break;
-		case 4:
-			result += "^{\\!1.08}\\!";
-			break;
 	}
 	result += "b_2"; //add b2 
 	switch (gamma3.level){ //switch statemement based on the fourth milestone (b2 exponent) to add exponents if the milestone level is 1 - 4
@@ -247,9 +244,6 @@ var getSecondaryEquation = () => {
 			break;
 		case 3:
 			result += "^{\\!1.06}\\!";
-			break;
-		case 4:
-			result += "^{\\!1.08}\\!";
 			break;
 	}
 	result += "\\qquad "; //add a space
@@ -272,6 +266,9 @@ var getSecondaryEquation = () => {
 		case 4:
 			result += "1.96";
 			break;
+		case 5:
+			result += "1.95";
+			break;
 	}
 	return result; //return the sum of text
 }
@@ -281,8 +278,8 @@ var getTertiaryEquation = () => {
 	let result = "e - \\gamma = ";
 	if(inverseE_Gamma <= 10000)
 	result += (BigNumber.ONE/inverseE_Gamma).toString(4);
-else { 
-	let exp = 1+Math.floor(inverseE_Gamma.log10().toNumber()),
+else {
+	let exp = 1 + Math.floor(inverseE_Gamma.log10().toNumber()),
 		mts = ((BigNumber.TEN.pow(exp)/inverseE_Gamma).toString());
 	result += `${mts}e\\text{-}${exp}`
 }
@@ -332,10 +329,10 @@ var getTau = () => currency.value.pow(BigNumber.from(0.1));
 var getCurrencyFromTau = (tau) => [tau.max(BigNumber.ONE).pow(10), currency.symbol];
 var get2DGraphValue = () => (BigNumber.ONE + currency.value.abs()).log10().toNumber(); //renders the graph based on currency 1
 
-var geta1 = (level) => Utils.getStepwisePowerSum(level, 3.5, 3, 0); //get the value of the variable from a power sum with a level of <level>, a base of 2, a step length of 5 and an initial value of 0 
-var geta2 = (level) => BigNumber.TWO.pow(level); //get the value of the variable from a power of 2^level
-var getb1 = (level) => Utils.getStepwisePowerSum(level, 6.5, 4, 0); //get the value of the variable from a power sum with a level of <level>, a base of 3, a step length of 2 and an initial value of 0
-var getb2 = (level) => BigNumber.TWO.pow(level); //get the value of the variable from a power of 2^level
+var geta1 = (level) => Utils.getStepwisePowerSum(level, 3.5, 3, 0);	// Original(level, 3.5, 3,0) Get the value of the variable from a power sum with a level of <level>, a base of 2, a step length of 5 and an initial value of 0 
+var geta2 = (level) => BigNumber.TWO.pow(level); // Get the value of the variable from a power of 2^level
+var getb1 = (level) => Utils.getStepwisePowerSum(level, 6.5, 4, 0); // Original(level, 6.5, 4 0) Get the value of the variable from a power sum with a level of <level>, a base of 3, a step length of 2 and an initial value of 0
+var getb2 = (level) => BigNumber.TWO.pow(level); // Get the value of the variable from a power of 2^level
 
 init();
 
