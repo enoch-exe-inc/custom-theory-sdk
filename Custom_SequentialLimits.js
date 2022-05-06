@@ -95,17 +95,17 @@ var init = () => {
 	
 	// Milestone 3 - Original: Increases value of b1 exponent by 0.02, max level 2
 	{
-		gamma2 = theory.createMilestoneUpgrade(2, 3); //create an upgrade of ID 2 and max level 3
-		gamma2.description = Localization.getUpgradeIncCustomExpDesc("b_1", "0.02"); // "Increases b1 exponent by 0.02"
-		gamma2.info = Localization.getUpgradeIncCustomExpInfo("b_1", "0.02");
+		gamma2 = theory.createMilestoneUpgrade(2, 2); //create an upgrade of ID 2 and max level 2
+		gamma2.description = Localization.getUpgradeIncCustomExpDesc("b_1", "0.025"); // "Increases b1 exponent by 0.025"
+		gamma2.info = Localization.getUpgradeIncCustomExpInfo("b_1", "0.025");
 		gamma2.boughtOrRefunded = (_) => theory.invalidateSecondaryEquation();
 	}
 
 	// Milestone 4 - Original: Increases value of b2 exponent by 0.02, max level 2
 	{
-		gamma3 = theory.createMilestoneUpgrade(3, 3); //create an upgrade of ID 3 and max level 3
-		gamma3.description = Localization.getUpgradeIncCustomExpDesc("b_2", "0.02"); // "Increases b2 exponent by 0.02"
-		gamma3.info = Localization.getUpgradeIncCustomExpInfo("b_2", "0.02");
+		gamma3 = theory.createMilestoneUpgrade(3, 2); //create an upgrade of ID 3 and max level 2
+		gamma3.description = Localization.getUpgradeIncCustomExpDesc("b_2", "0.025"); // "Increases b2 exponent by 0.025"
+		gamma3.info = Localization.getUpgradeIncCustomExpInfo("b_2", "0.025");
 		gamma3.boughtOrRefunded = (_) => theory.invalidateSecondaryEquation();
 	}		
 
