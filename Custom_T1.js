@@ -236,8 +236,8 @@ var getTertiaryEquation = () => Localization.format(stringTickspeed, getTickspee
 
 var getPublicationMultiplier = (tau) => (game.sigmaTotal / 20) * (tau.pow(0.25) / 2);	// Original: tau.pow(0.164) / BigNumber.THREE
 var getPublicationMultiplierFormula = (symbol) => "\\left(\\frac{{\\sigma_{t}}}{20}\\right) \\frac{{" + symbol + "}^{0.25}}{2}";	// Original: "\\frac{{" + symbol + "}^{0.15}}{2}";
-var getTau = () => currency.value.pow(0.5);
-var getCurrencyFromTau = (tau) => [tau.max(BigNumber.ONE).pow(2), currency.symbol];
+var getTau = () => currency.value.pow(0.1);
+var getCurrencyFromTau = (tau) => [tau.max(BigNumber.ONE).pow(10), currency.symbol];
 var get2DGraphValue = () => currency.value.sign * (BigNumber.ONE + currency.value.abs()).log10().toNumber();
 
 var postPublish = () => {
