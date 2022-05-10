@@ -99,9 +99,9 @@ var init = () => {
 	
 	/////////////////////
 	// Permanent Upgrades								// Original
-	theory.createPublicationUpgrade(0, currency, 1e8);	// 1e10
-	theory.createBuyAllUpgrade(1, currency, 1e16);		// 1e13
-	theory.createAutoBuyerUpgrade(2, currency, 1e24);	// 1e30
+	theory.createPublicationUpgrade(0, currency, 1e6);	// 1e10
+	theory.createBuyAllUpgrade(1, currency, 1e12);		// 1e13
+	theory.createAutoBuyerUpgrade(2, currency, 1e20);	// 1e30
 
 	///////////////////////
 	//// Milestone Upgrades			// Original (25, 25) - Gain 1 milestone upgrade per 1e25 of tau
@@ -230,11 +230,11 @@ var getPrimaryEquation = () => {
 	return result;
 }
 
-var getSecondaryEquation = () => theory.latexSymbol + "=\\max\\rho^{0.5}";	// Original: "=\\max]\rho";
+var getSecondaryEquation = () => theory.latexSymbol + "=\\max\\rho^{0.1}";	// Original: "=\\max]\rho";
 var getTertiaryEquation = () => Localization.format(stringTickspeed, getTickspeed().toString(0));
 
-var getPublicationMultiplier = (tau) => (game.sigmaTotal / 20) * (tau.pow(0.25) / 2);	// Original: tau.pow(0.164) / BigNumber.THREE
-var getPublicationMultiplierFormula = (symbol) => "\\left(\\frac{{\\sigma_{t}}}{20}\\right) \\frac{{" + symbol + "}^{0.25}}{2}";	// Original: "\\frac{{" + symbol + "}^{0.15}}{2}";
+var getPublicationMultiplier = (tau) => (game.sigmaTotal / 20) * tau;	// Original: tau.pow(0.164) / BigNumber.THREE
+var getPublicationMultiplierFormula = (symbol) => "\\left(\\frac{{\\sigma_{t}}}{20}\\right)" + symbol;	// Original: "\\frac{{" + symbol + "}^{0.15}}{2}"; Altered: "\\left(\\frac{{\\sigma_{t}}}{20}\\right) \\frac{{" + symbol + "}^{0.25}}{2}"
 var getTau = () => currency.value.pow(0.1);
 var getCurrencyFromTau = (tau) => [tau.max(BigNumber.ONE).pow(10), currency.symbol];
 var get2DGraphValue = () => currency.value.sign * (BigNumber.ONE + currency.value.abs()).log10().toNumber();
