@@ -110,8 +110,8 @@ var init = () => {
 
 	{
 		c1Exp = theory.createMilestoneUpgrade(0, 5);
-		c1Exp.description = Localization.getUpgradeIncCustomExpDesc("c_1", "0.1");	// Original ("c_1", "0.05")
-		c1Exp.info = Localization.getUpgradeIncCustomExpInfo("c_1", "0.1");
+		c1Exp.description = Localization.getUpgradeIncCustomExpDesc("c_1", "0.05");
+		c1Exp.info = Localization.getUpgradeIncCustomExpInfo("c_1", "0.05");
 		c1Exp.boughtOrRefunded = (_) => theory.invalidatePrimaryEquation();
 	}
 
@@ -225,7 +225,7 @@ var getPrimaryEquation = () => {
 	if (logTerm.level > 0 && c3Term.level > 0 && c4Term.level > 0)
 		theory.primaryEquationScale = 0.75;
 	else
-		theory.primaryEquationScale = 1;
+		theory.primaryEquationScale = 0.90;
  
 	return result;
 }
@@ -251,7 +251,7 @@ var postPublish = () => {
 var getQ1 = (level) => Utils.getStepwisePowerSum(level, 2, 10, 0);
 var getQ2 = (level) => BigNumber.TWO.pow(level);
 var getC1 = (level) => Utils.getStepwisePowerSum(level, 2, 10, 1);
-var getC1Exponent = (level) => BigNumber.from(1 + 0.1 * level);	// Original: 0.05
+var getC1Exponent = (level) => BigNumber.from(1 + (0.05 * level));
 var getC2 = (level) => BigNumber.TWO.pow(level);
 var getC3 = (level) => BigNumber.TEN.pow(level);
 var getC4 = (level) => BigNumber.TEN.pow(level);
