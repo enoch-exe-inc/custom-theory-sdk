@@ -225,7 +225,7 @@ var getPrimaryEquation = () => {
 	if (logTerm.level > 0 && c3Term.level > 0 && c4Term.level > 0)
 		theory.primaryEquationScale = 0.75;
 	else
-		theory.primaryEquationScale = 0.90;
+		theory.primaryEquationScale = 0.95;
  
 	return result;
 }
