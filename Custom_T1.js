@@ -174,8 +174,7 @@ var tick = (elapsedTime, multiplier) => {
 		rhoNm2 = rhoNm1;
 		rhoNm1 = rhoN;
 		rhoN = currency.value;
-		let sigma = (game.sigmaTotal / 20);
-		let bonus = theory.publicationMultiplier * sigma;
+		let bonus = theory.publicationMultiplier;
 		let vc1 = getC1(c1.level).pow(getC1Exponent(c1Exp.level));
 		let vc2 = getC2(c2.level);
 		let vc3 = getC3(c3.level);
@@ -234,8 +233,8 @@ var getPrimaryEquation = () => {
 var getSecondaryEquation = () => theory.latexSymbol + "=\\max\\rho^{0.1}";	// Original: "=\\max]\rho";
 var getTertiaryEquation = () => Localization.format(stringTickspeed, getTickspeed().toString(0));
 
-var getPublicationMultiplier = (tau) => tau.pow(0.15);	// Original: tau.pow(0.164) / BigNumber.THREE; Altered: (game.sigmaTotal / 20) * tau.pow(0.15);
-var getPublicationMultiplierFormula = (symbol) => "\\left(\\frac{{\\sigma_{t}}}{20}\\right) {" + symbol + "}^{0.15}";	// Original: "\\frac{{" + symbol + "}^{0.15}}{2}"; Altered: "\\left(\\frac{{\\sigma_{t}}}{20}\\right) \\frac{{" + symbol + "}^{0.25}}{2}"
+var getPublicationMultiplier = (tau) => (game.sigmaTotal / 20) * tau.pow;	// Original: tau.pow(0.164) / BigNumber.THREE
+var getPublicationMultiplierFormula = (symbol) => "\\left(\\frac{{\\sigma_{t}}}{20}\\right)" + symbol;	// Original: "\\frac{{" + symbol + "}^{0.15}}{2}"; Altered: "\\left(\\frac{{\\sigma_{t}}}{20}\\right) \\frac{{" + symbol + "}^{0.25}}{2}"
 var getTau = () => currency.value.pow(0.1);
 var getCurrencyFromTau = (tau) => [tau.max(BigNumber.ONE).pow(10), currency.symbol];
 var get2DGraphValue = () => currency.value.sign * (BigNumber.ONE + currency.value.abs()).log10().toNumber();
