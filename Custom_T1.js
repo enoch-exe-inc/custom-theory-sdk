@@ -174,8 +174,8 @@ var tick = (elapsedTime, multiplier) => {
 		rhoNm2 = rhoNm1;
 		rhoNm1 = rhoN;
 		rhoN = currency.value;
-		let bonus = theory.publicationMultiplier;
 		let sigma = (game.sigmaTotal / 20);
+		let bonus = theory.publicationMultiplier * sigma;
 		let vc1 = getC1(c1.level).pow(getC1Exponent(c1Exp.level));
 		let vc2 = getC2(c2.level);
 		let vc3 = getC3(c3.level);
@@ -186,7 +186,7 @@ var tick = (elapsedTime, multiplier) => {
 		let term3 = c4Term.level > 0 ? (vc4 * rhoNm2.pow(0.3)) : BigNumber.ZERO;
 		let term4 = c5Term.level > 0 ? (vc5 * rhoNm3.pow(0.4)) : BigNumber.ZERO;
 
-		currency.value = sigma * (rhoN + (bonus * tickPower * (term1 + term2 + term3 + term4) + epsilon));
+		currency.value = rhoN + (bonus * tickPower * (term1 + term2 + term3 + term4) + epsilon);
 
 		time = 0;
 	}
