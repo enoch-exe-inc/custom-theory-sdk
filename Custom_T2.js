@@ -194,7 +194,7 @@ var getPrimaryEquation = () => {
 	if (q1Exp.level == 2) result += "^{1.1}";
 	if (q1Exp.level == 3) result += "^{1.15}";
 	if (q1Exp.level == 4) result += "^{1.2}";
-	if (q1Exp.level == 4) result += "^{1.25}";
+	if (q1Exp.level == 5) result += "^{1.25}";
 	
 	result += "r_1";
 	if (r1Exp.level == 1) result += "^{1.05}";
