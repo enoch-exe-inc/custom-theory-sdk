@@ -233,8 +233,8 @@ var getQuaternaryEntries = () => {
 	return quaternaryEntries;
 }
 
-var getPublicationMultiplier = (tau) => (game.sigmaTotal / 20) * tau.pow(0.2) / BigNumber.HUNDRED; // Original: tau.pow(0.198) / BigNumber.HUNDRED;
-var getPublicationMultiplierFormula = (symbol) => "\\left(\\frac{{\\sigma_{t}}}{20}\\right) \\frac{{" + symbol + "}^{0.2}}{100}";	// Original: "\\frac{{" + symbol + "}^{0.198}}{100}";
+var getPublicationMultiplier = (tau) => (game.sigmaTotal / 20) * tau.pow(0.2); // Original: tau.pow(0.198) / BigNumber.HUNDRED;
+var getPublicationMultiplierFormula = (symbol) => "\\left(\\frac{{\\sigma_{t}}}{20}\\right) {" + symbol + "}^{0.2}";	// Original: "\\frac{{" + symbol + "}^{0.198}}{100}";
 var getTau = () => currency.value.pow(0.1);
 var getCurrencyFromTau = (tau) => [tau.max(BigNumber.ONE).pow(10), currency.symbol];
 var get2DGraphValue = () => currency.value.sign * (BigNumber.ONE + currency.value.abs()).log10().toNumber();
