@@ -23,6 +23,7 @@ var epsilon = BigNumber.from(1e-8);
 var currency;
 var q1, q2, c1, c2, c3, c4, c5;
 var c1Exp, logTerm, c3Term, c4Term, c5Term;
+var sigma = game.sigmaTotal;
 
 var init = () => {
 	currency = theory.createCurrency();
@@ -233,7 +234,7 @@ var getPrimaryEquation = () => {
 var getSecondaryEquation = () => theory.latexSymbol + "=\\max\\rho^{0.1}";	// Original: "=\\max]\rho";
 var getTertiaryEquation = () => Localization.format(stringTickspeed, getTickspeed().toString(0));
 
-var getPublicationMultiplier = (tau) => (game.sigmaTotal / 20) * tau;	// Original: tau.pow(0.164) / BigNumber.THREE
+var getPublicationMultiplier = (tau) => tau.isZero ? (sigma / 20) * BigNumber.ONE : (sigma / 20) * tau;	// Original: tau.pow(0.164) / BigNumber.THREE
 var getPublicationMultiplierFormula = (symbol) => "\\left(\\frac{{\\sigma_{t}}}{20}\\right)" + symbol;	// Original: "\\frac{{" + symbol + "}^{0.15}}{2}"; Altered: "\\left(\\frac{{\\sigma_{t}}}{20}\\right) \\frac{{" + symbol + "}^{0.25}}{2}"
 var getTau = () => currency.value.pow(0.1);
 var getCurrencyFromTau = (tau) => [tau.max(BigNumber.ONE).pow(10), currency.symbol];
