@@ -14,6 +14,7 @@ var version = 3;
 var q = BigNumber.ONE;
 var chi = BigNumber.ONE;
 var S = BigNumber.ZERO;
+var sigma = game.sigmaTotal;
 
 // χ and s_n(χ)/sin(χ) don't need to be evaluated at each tick; only when c1 or n is bought or chiDivN milestone
 var updateSineRatio_flag = true;
@@ -203,7 +204,7 @@ var getTertiaryEquation = () => {
 	return result;
 }
 
-var getPublicationMultiplier = (tau) => tau.isZero ? BigNumber.ONE : (game.sigmaTotal / 20) * (tau.pow(BigNumber.from(1.5)));
+var getPublicationMultiplier = (tau) => tau.isZero ? (sigma / 20) * BigNumber.ONE : (sigma / 20) * (tau.pow(BigNumber.from(1.5)));
 var getPublicationMultiplierFormula = (symbol) => "\\left(\\frac{{\\sigma_{t}}}{20}\\right) {" + symbol + "}^{1.5}";
 var getTau = () => currency.value.pow(BigNumber.from(0.1));
 var getCurrencyFromTau = (tau) => [tau.max(BigNumber.ONE).pow(10), currency.symbol];
