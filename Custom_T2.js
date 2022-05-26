@@ -17,6 +17,7 @@ var r1 = BigNumber.ONE, r2 = BigNumber.ONE, r3 = BigNumber.ONE, r4 = BigNumber.O
 var dq1, dq2, dq3, dq4, dr1, dr2, dr3, dr4;
 var qTerms, rTerms, q1Exp, r1Exp;
 quaternaryEntries = [];
+var sigma = game.sigmaTotal;
 
 var init = () => {
 	currency = theory.createCurrency();
@@ -233,7 +234,7 @@ var getQuaternaryEntries = () => {
 	return quaternaryEntries;
 }
 
-var getPublicationMultiplier = (tau) => (game.sigmaTotal / 20) * tau; // Original: tau.pow(0.198) / BigNumber.HUNDRED;
+var getPublicationMultiplier = (tau) => tau.isZero ? (sigma / 20) * BigNumber.ONE : (sigma / 20) * tau; // Original: tau.pow(0.198) / BigNumber.HUNDRED;
 var getPublicationMultiplierFormula = (symbol) => "\\left(\\frac{{\\sigma_{t}}}{20}\\right) {" + symbol + "}";	// Original: "\\frac{{" + symbol + "}^{0.198}}{100}";
 var getTau = () => currency.value.pow(0.1);
 var getCurrencyFromTau = (tau) => [tau.max(BigNumber.ONE).pow(10), currency.symbol];
