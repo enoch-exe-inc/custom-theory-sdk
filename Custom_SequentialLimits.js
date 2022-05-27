@@ -4,6 +4,7 @@ import { ExponentialCost, FirstFreeCost, LinearCost, CustomCost } from "./api/Co
 import { Localization } from "./api/Localization";
 import { parseBigNumber, BigNumber } from "./api/BigNumber";
 import { theory } from "./api/Theory";
+import { game } from "./api/Game";
 import { Utils } from "./api/Utils";
 
 var id = "custom_SeqLim"; // Must be unique; make sure to change it 
@@ -21,6 +22,8 @@ var rho1dot = BigNumber.ZERO, rho2dot = BigNumber.ZERO, rho3dot = BigNumber.ZERO
 var inverseE_Gamma; //used for the approximation of e
 var tapCount = 0;
 var t = 0;
+
+var sigma = game.sigmaTotal;
 
 var init = () => {
 	currency3.value = 1; //set rho3 to 1 to avoid a div by 0 error lol
@@ -317,15 +320,15 @@ var setInternalState = (state) => { //set the internal state of values that need
 
 var getInternalState = () => `${numPublications} ${inverseE_Gamma} ${tapCount} ${t}` //return the data saved
 
-var getPublicationMultiplier = (tau) => tau.pow(1.5); //publication mult bonus is (tau^0.15)*100
-var getPublicationMultiplierFormula = (symbol) => /*"10 · " +*/ symbol + "^{1.5}"; //text to render for publication mult ext
+var getPublicationMultiplier = (tau) => tau.isZero ? (sigma / 20) * BigNumber.ONE : (sigma / 20) * tau.pow(1.5);		// Original: tau.pow(1.5);
+var getPublicationMultiplierFormula = (symbol) => "\\left(\\frac{{\\sigma_{t}}}{20}\\right) {" + symbol + "}^{1.5}";	// Original: /*"10 · " +*/ symbol + "^{1.5}";
 var getTau = () => currency.value.pow(BigNumber.from(0.1));
 var getCurrencyFromTau = (tau) => [tau.max(BigNumber.ONE).pow(10), currency.symbol];
 var get2DGraphValue = () => (BigNumber.ONE + currency.value.abs()).log10().toNumber(); //renders the graph based on currency 1
 
-var geta1 = (level) => Utils.getStepwisePowerSum(level, 3.5, 3, 0);	// Original(level, 3.5, 3,0) Get the value of the variable from a power sum with a level of <level>, a base of 2, a step length of 5 and an initial value of 0 
+var geta1 = (level) => Utils.getStepwisePowerSum(level, 3.5, 3, 0);	// Original(level, 3.5, 3, 0) Get the value of the variable from a power sum with a level of <level>, a base of 2, a step length of 5 and an initial value of 0 
 var geta2 = (level) => BigNumber.TWO.pow(level); // Get the value of the variable from a power of 2^level
-var getb1 = (level) => Utils.getStepwisePowerSum(level, 6.5, 4, 0);	// Original(level, 6.5, 4 0) Get the value of the variable from a power sum with a level of <level>, a base of 3, a step length of 2 and an initial value of 0
+var getb1 = (level) => Utils.getStepwisePowerSum(level, 6.5, 4, 0);	// Original(level, 6.5, 4, 0) Get the value of the variable from a power sum with a level of <level>, a base of 3, a step length of 2 and an initial value of 0
 var getb2 = (level) => BigNumber.TWO.pow(level); // Get the value of the variable from a power of 2^level
 
 init();
