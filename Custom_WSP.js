@@ -204,8 +204,8 @@ var getTertiaryEquation = () => {
 	return result;
 }
 
-var getPublicationMultiplier = (tau) => tau.isZero ? (sigma / 20) * BigNumber.ONE : (sigma / 20) * tau;
-var getPublicationMultiplierFormula = (symbol) => "\\left(\\frac{{\\sigma_{t}}}{20}\\right) {" + symbol + "}";	// Original: "\\left(\\frac{{\\sigma_{t}}}{20}\\right) {" + symbol + "}^{1.5}";
+var getPublicationMultiplier = (tau) => tau.isZero ? (sigma / 20) * BigNumber.ONE : (sigma / 20) * (tau.pow(BigNumber.from(1.5)));
+var getPublicationMultiplierFormula = (symbol) => "\\left(\\frac{{\\sigma_{t}}}{20}\\right) {" + symbol + "}^{1.5}";
 var getTau = () => currency.value.pow(BigNumber.from(0.1));
 var getCurrencyFromTau = (tau) => [tau.max(BigNumber.ONE).pow(10), currency.symbol];
 var get2DGraphValue = () => currency.value.sign * (BigNumber.ONE + currency.value.abs()).log10().toNumber();
