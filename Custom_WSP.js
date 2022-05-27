@@ -82,8 +82,8 @@ var init = () => {
 
 	///////////////////////
 	// Milestone Upgrades
-	// Original: theory.setMilestoneCost(new CustomCost(lvl => BigNumber.from(lvl < 5 ? 1 + 1.5*lvl : lvl < 6 ? 10 : lvl < 7 ? 14 : 20)));
-	theory.setMilestoneCost(new LinearCost(2.0, 2.0));
+	theory.setMilestoneCost(new CustomCost(lvl => BigNumber.from(lvl < 5 ? 1 + 1.5*lvl : lvl < 6 ? 10 : lvl < 7 ? 14 : 20)));
+	// theory.setMilestoneCost(new LinearCost(2.0, 2.0));
 	
 	// Original: Increase q1 exponent by 0.01 - max level 4
 	{
