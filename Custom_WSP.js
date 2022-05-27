@@ -83,13 +83,13 @@ var init = () => {
 	///////////////////////
 	// Milestone Upgrades
 	// Original: theory.setMilestoneCost(new CustomCost(lvl => BigNumber.from(lvl < 5 ? 1 + 1.5*lvl : lvl < 6 ? 10 : lvl < 7 ? 14 : 20)));
-	theory.setMilestoneCost(new LinearCost(1.0, 1.0));
+	theory.setMilestoneCost(new LinearCost(2.0, 2.0));
 	
 	// Original: Increase q1 exponent by 0.01 - max level 4
 	{
-		q1Exp = theory.createMilestoneUpgrade(0, 4);
-		q1Exp.description = Localization.getUpgradeIncCustomExpDesc("q_1", "0.02");
-		q1Exp.info = Localization.getUpgradeIncCustomExpInfo("q_1", "0.02");
+		q1Exp = theory.createMilestoneUpgrade(0, 5);
+		q1Exp.description = Localization.getUpgradeIncCustomExpDesc("q_1", "0.01");
+		q1Exp.info = Localization.getUpgradeIncCustomExpInfo("q_1", "0.01");
 		q1Exp.boughtOrRefunded = (_) => theory.invalidatePrimaryEquation();
 	}
 	
@@ -103,9 +103,9 @@ var init = () => {
 	
 	// Original: c1+n --> c1+n/3^(level) - max level 3
 	{
-		chiDivN = theory.createMilestoneUpgrade(2, 5);
+		chiDivN = theory.createMilestoneUpgrade(2, 4);
 		updateChiDescAndInfo = () => {
-			chiDivN.description = Utils.getMathTo("c_1 + n" + (chiDivN.level > 0 ? ("/3^{" + chiDivN.level + "}") : ""), "c_1 + n/3^{" + (chiDivN.level + (chiDivN.level == 5 ? 0 : 1)) + "}");
+			chiDivN.description = Utils.getMathTo("c_1 + n" + (chiDivN.level > 0 ? ("/3^{" + chiDivN.level + "}") : ""), "c_1 + n/3^{" + (chiDivN.level + (chiDivN.level == 4 ? 0 : 1)) + "}");
 			chiDivN.info = chiDivN.description;
 		}
 		chiDivN.boughtOrRefunded = (_) => {theory.invalidateSecondaryEquation(); updateChiDescAndInfo(); updateSineRatio_flag = true;}
@@ -204,8 +204,8 @@ var getTertiaryEquation = () => {
 	return result;
 }
 
-var getPublicationMultiplier = (tau) => tau.isZero ? (sigma / 20) * BigNumber.ONE : (sigma / 20) * (tau.pow(BigNumber.from(1.5)));
-var getPublicationMultiplierFormula = (symbol) => "\\left(\\frac{{\\sigma_{t}}}{20}\\right) {" + symbol + "}^{1.5}";
+var getPublicationMultiplier = (tau) => tau.isZero ? (sigma / 20) * BigNumber.ONE : (sigma / 20) * tau;
+var getPublicationMultiplierFormula = (symbol) => "\\left(\\frac{{\\sigma_{t}}}{20}\\right) {" + symbol + "};	// Original: "\\left(\\frac{{\\sigma_{t}}}{20}\\right) {" + symbol + "}^{1.5}";
 var getTau = () => currency.value.pow(BigNumber.from(0.1));
 var getCurrencyFromTau = (tau) => [tau.max(BigNumber.ONE).pow(10), currency.symbol];
 var get2DGraphValue = () => currency.value.sign * (BigNumber.ONE + currency.value.abs()).log10().toNumber();
@@ -215,6 +215,6 @@ var getQ1 = (level) => Utils.getStepwisePowerSum(level, 2, 10, 0);	// Original: 
 var getQ2 = (level) => BigNumber.TWO.pow(BigNumber.from(level));
 var getC1 = (level) => Utils.getStepwisePowerSum(level, 2, 25, 1);	// Original: (level, 2, 50, 1);
 var getC2 = (level) => BigNumber.TWO.pow(BigNumber.from(level));
-var getQ1Exp = (level) => BigNumber.from(1 + level * 0.02);			// Original (1 + level * 0.01);
+var getQ1Exp = (level) => BigNumber.from(1 + level * 0.01);	
 
 init();
