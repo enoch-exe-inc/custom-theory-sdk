@@ -87,9 +87,9 @@ var init = () => {
 	
 	// Original: Increase q1 exponent by 0.01 - max level 4
 	{
-		q1Exp = theory.createMilestoneUpgrade(0, 5);
-		q1Exp.description = Localization.getUpgradeIncCustomExpDesc("q_1", "0.01");
-		q1Exp.info = Localization.getUpgradeIncCustomExpInfo("q_1", "0.01");
+		q1Exp = theory.createMilestoneUpgrade(0, 4);
+		q1Exp.description = Localization.getUpgradeIncCustomExpDesc("q_1", "0.02");
+		q1Exp.info = Localization.getUpgradeIncCustomExpInfo("q_1", "0.02");
 		q1Exp.boughtOrRefunded = (_) => theory.invalidatePrimaryEquation();
 	}
 	
@@ -215,6 +215,6 @@ var getQ1 = (level) => Utils.getStepwisePowerSum(level, 2, 10, 0);	// Original: 
 var getQ2 = (level) => BigNumber.TWO.pow(BigNumber.from(level));
 var getC1 = (level) => Utils.getStepwisePowerSum(level, 2, 25, 1);	// Original: (level, 2, 50, 1);
 var getC2 = (level) => BigNumber.TWO.pow(BigNumber.from(level));
-var getQ1Exp = (level) => BigNumber.from(1 + level * 0.01);	
+var getQ1Exp = (level) => BigNumber.from(1 + level * 0.02);			// Original: (1 + level * 0.01);
 
 init();
