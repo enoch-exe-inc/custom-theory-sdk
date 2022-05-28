@@ -44,7 +44,7 @@ var init = () => {
 	{
 		let getDesc = (level) => "c_3=2^{" + level + "}";
 		let getInfo = (level) => "c_3=" + getC3(level).toString(0);
-		c3 = theory.createUpgrade(2, currency, new ExponentialCost(2000, Math.log2(2.4)));		// Original: (2000, Math.log2(2.468));
+		c3 = theory.createUpgrade(2, currency, new ExponentialCost(2000, Math.log2(2.45)));		// Original: (2000, Math.log2(2.468));
 		c3.getDescription = (amount) => Utils.getMath(getDesc(c3.level));
 		c3.getInfo = (amount) => Utils.getMathTo(getInfo(c3.level), getInfo(c3.level + amount));
 	}
@@ -192,8 +192,8 @@ var getPrimaryEquation = () => {
 	
 	// Original: if (c1Exp.level == 1) result += "^{1.15}";
 	if (c1Exp.level == 1) result += "^{1.05}";
-	if (c1Exp.level == 2) result += "^{1.05}";
-	if (c1Exp.level == 3) result += "^{1.05}";
+	if (c1Exp.level == 2) result += "^{1.1}";
+	if (c1Exp.level == 3) result += "^{1.15}";
 	
 	result += "c_2+c_3q";
 	
@@ -237,6 +237,6 @@ var getC5 = (level) => BigNumber.FIVE.pow(level);
 var getC6 = (level) => BigNumber.TEN.pow(level);
 var getQ1 = (level) => Utils.getStepwisePowerSum(level, 2, 10, 0);
 var getQ2 = (level) => BigNumber.TWO.pow(level);
-var getC1Exp = (level) => BigNumber.from(1 + level * 0.15);
+var getC1Exp = (level) => BigNumber.from(1 + level * 0.05);
 
 init();
