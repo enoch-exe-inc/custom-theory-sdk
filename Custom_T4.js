@@ -44,7 +44,7 @@ var init = () => {
 	{
 		let getDesc = (level) => "c_3=2^{" + level + "}";
 		let getInfo = (level) => "c_3=" + getC3(level).toString(0);
-		c3 = theory.createUpgrade(2, currency, new ExponentialCost(2000, Math.log2(2.4)));		// Original: (2000, Math.log2(2.468)); (2.42)
+		c3 = theory.createUpgrade(2, currency, new ExponentialCost(1000, Math.log2(2.4)));		// Original: (2000, Math.log2(2.468)); (2.42)
 		c3.getDescription = (amount) => Utils.getMath(getDesc(c3.level));
 		c3.getInfo = (amount) => Utils.getMathTo(getInfo(c3.level), getInfo(c3.level + amount));
 	}
@@ -63,7 +63,7 @@ var init = () => {
 	{
 		let getDesc = (level) => "c_5=5^{" + level + "}";
 		let getInfo = (level) => "c_5=" + getC5(level).toString(0);
-		c5 = theory.createUpgrade(4, currency, new ExponentialCost(1e8, Math.log2(12.25)));		// Original: (1e8, Math.log2(12.5)); (12.255)
+		c5 = theory.createUpgrade(4, currency, new ExponentialCost(1e6, Math.log2(12.25)));		// Original: (1e8, Math.log2(12.5)); (12.255)
 		c5.getDescription = (amount) => Utils.getMath(getDesc(c5.level));
 		c5.getInfo = (amount) => Utils.getMathTo(getInfo(c5.level), getInfo(c5.level + amount));
 		c5.isAvailable = false;
@@ -73,7 +73,7 @@ var init = () => {
 	{
 		let getDesc = (level) => "c_6=10^{" + level + "}";
 		let getInfo = (level) => "c_6=" + getC6(level).toString(0);
-		c6 = theory.createUpgrade(5, currency, new ExponentialCost(1e10, Math.log2(56.75)));		// Original: (1e10, Math.log2(58)); (56.863)
+		c6 = theory.createUpgrade(5, currency, new ExponentialCost(1e8, Math.log2(56)));		// Original: (1e10, Math.log2(58)); (56.863)
 		c6.getDescription = (amount) => Utils.getMath(getDesc(c6.level));
 		c6.getInfo = (amount) => Utils.getMathTo(getInfo(c6.level), getInfo(c6.level + amount));
 		c6.isAvailable = false;
@@ -121,8 +121,8 @@ var init = () => {
 	// Original: milestone 1, adds exponent of 0.15 to c1 variable, max level 1
 	{
 		c1Exp = theory.createMilestoneUpgrade(1, 3);
-		c1Exp.description = Localization.getUpgradeIncCustomExpDesc("c_1", "0.05");
-		c1Exp.info = Localization.getUpgradeIncCustomExpInfo("c_1", "0.05");
+		c1Exp.description = Localization.getUpgradeIncCustomExpDesc("c_1", "0.1");
+		c1Exp.info = Localization.getUpgradeIncCustomExpInfo("c_1", "0.1");
 		c1Exp.boughtOrRefunded = (_) => theory.invalidatePrimaryEquation();
 	}
 
@@ -237,6 +237,6 @@ var getC5 = (level) => BigNumber.FIVE.pow(level);
 var getC6 = (level) => BigNumber.TEN.pow(level);
 var getQ1 = (level) => Utils.getStepwisePowerSum(level, 2, 10, 0);
 var getQ2 = (level) => BigNumber.TWO.pow(level);
-var getC1Exp = (level) => BigNumber.from(1 + level * 0.05);
+var getC1Exp = (level) => BigNumber.from(1 + level * 0.1);
 
 init();
