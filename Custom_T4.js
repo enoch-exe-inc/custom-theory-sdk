@@ -128,7 +128,7 @@ var init = () => {
 
 	// Original: milestone 2, multiplies qdot by 2, max level 3
 	{
-		multQDot = theory.createMilestoneUpgrade(2, 3);
+		multQDot = theory.createMilestoneUpgrade(2, 4);
 		multQDot.description = Localization.getUpgradeMultCustomDesc("\\dot{q}", "3");
 		multQDot.info = Localization.getUpgradeMultCustomInfo("\\dot{q}", "3");
 		multQDot.boughtOrRefunded = (_) => theory.invalidateSecondaryEquation();
