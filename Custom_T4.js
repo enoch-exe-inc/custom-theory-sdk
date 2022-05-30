@@ -53,7 +53,7 @@ var init = () => {
 	{
 		let getDesc = (level) => "c_4=3^{" + level + "}";
 		let getInfo = (level) => "c_4=" + getC4(level).toString(0);
-		c4 = theory.createUpgrade(3, currency, new ExponentialCost(1e4, Math.log2(4.75)));		// Original: (1e4, Math.log2(4.85)); (4.755)
+		c4 = theory.createUpgrade(3, currency, new ExponentialCost(5e3, Math.log2(4.75)));		// Original: (1e4, Math.log2(4.85)); (4.755)
 		c4.getDescription = (amount) => Utils.getMath(getDesc(c4.level));
 		c4.getInfo = (amount) => Utils.getMathTo(getInfo(c4.level), getInfo(c4.level + amount));
 		c4.isAvailable = false;
@@ -63,7 +63,7 @@ var init = () => {
 	{
 		let getDesc = (level) => "c_5=5^{" + level + "}";
 		let getInfo = (level) => "c_5=" + getC5(level).toString(0);
-		c5 = theory.createUpgrade(4, currency, new ExponentialCost(1e6, Math.log2(12.25)));		// Original: (1e8, Math.log2(12.5)); (12.255)
+		c5 = theory.createUpgrade(4, currency, new ExponentialCost(5e7, Math.log2(12.25)));		// Original: (1e8, Math.log2(12.5)); (12.255)
 		c5.getDescription = (amount) => Utils.getMath(getDesc(c5.level));
 		c5.getInfo = (amount) => Utils.getMathTo(getInfo(c5.level), getInfo(c5.level + amount));
 		c5.isAvailable = false;
@@ -73,7 +73,7 @@ var init = () => {
 	{
 		let getDesc = (level) => "c_6=10^{" + level + "}";
 		let getInfo = (level) => "c_6=" + getC6(level).toString(0);
-		c6 = theory.createUpgrade(5, currency, new ExponentialCost(1e8, Math.log2(56)));		// Original: (1e10, Math.log2(58)); (56.863)
+		c6 = theory.createUpgrade(5, currency, new ExponentialCost(5e9, Math.log2(56.8)));		// Original: (1e10, Math.log2(58)); (56.863)
 		c6.getDescription = (amount) => Utils.getMath(getDesc(c6.level));
 		c6.getInfo = (amount) => Utils.getMathTo(getInfo(c6.level), getInfo(c6.level + amount));
 		c6.isAvailable = false;
@@ -128,9 +128,9 @@ var init = () => {
 
 	// Original: milestone 2, multiplies qdot by 2, max level 3
 	{
-		multQDot = theory.createMilestoneUpgrade(2, 5);
-		multQDot.description = Localization.getUpgradeMultCustomDesc("\\dot{q}", "2");
-		multQDot.info = Localization.getUpgradeMultCustomInfo("\\dot{q}", "2");
+		multQDot = theory.createMilestoneUpgrade(2, 3);
+		multQDot.description = Localization.getUpgradeMultCustomDesc("\\dot{q}", "3");
+		multQDot.info = Localization.getUpgradeMultCustomInfo("\\dot{q}", "3");
 		multQDot.boughtOrRefunded = (_) => theory.invalidateSecondaryEquation();
 	}
 
@@ -157,7 +157,7 @@ var tick = (elapsedTime, multiplier) => {
 	let q1q2 = vq1 * vq2;
 
 	let p = (q + BigNumber.ONE).Square() - BigNumber.ONE;
-	q = (BigNumber.ONE + p + BigNumber.TWO.pow(1 + multQDot.level) * q1q2 * dt).sqrt() - BigNumber.ONE;
+	q = (BigNumber.ONE + p + BigNumber.THREE.pow(1 + multQDot.level) * q1q2 * dt).sqrt() - BigNumber.ONE;
 	let qe2 = q * q;
 	let qe3 = qe2 * q;
 	let qe4 = qe3 * q;
@@ -191,9 +191,9 @@ var getPrimaryEquation = () => {
 	result += "\\dot{\\rho}=c_1";
 	
 	// Original: if (c1Exp.level == 1) result += "^{1.15}";
-	if (c1Exp.level == 1) result += "^{1.05}";
-	if (c1Exp.level == 2) result += "^{1.1}";
-	if (c1Exp.level == 3) result += "^{1.15}";
+	if (c1Exp.level == 1) result += "^{1.1}";
+	if (c1Exp.level == 2) result += "^{1.2}";
+	if (c1Exp.level == 3) result += "^{1.3}";
 	
 	result += "c_2+c_3q";
 	
@@ -211,7 +211,7 @@ var getSecondaryEquation = () => {
 	result += "=\\max\\rho^{0.1},&\\dot{q}=";
 	if (multQDot.level > 0)
 	{
-		result += "2";
+		result += "3";
 		if (multQDot.level > 1)
 			result += "^{" + multQDot.level.toString() + "}";
 	}
