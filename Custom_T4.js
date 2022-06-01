@@ -35,7 +35,7 @@ var init = () => {
 	{
 		let getDesc = (level) => "c_2=2^{" + level + "}";
 		let getInfo = (level) => "c_2=" + getC2(level).toString(0);
-		c2 = theory.createUpgrade(1, currency, new ExponentialCost(20, Math.log2(3.7125)));		// Original: (20, Math.log2(3.75)); (3.676)
+		c2 = theory.createUpgrade(1, currency, new ExponentialCost(20, Math.log2(3.725)));		// Original: (20, Math.log2(3.75)); (3.676)
 		c2.getDescription = (amount) => Utils.getMath(getDesc(c2.level));
 		c2.getInfo = (amount) => Utils.getMathTo(getInfo(c2.level), getInfo(c2.level + amount));
 	}
@@ -120,15 +120,15 @@ var init = () => {
 	
 	// Original: milestone 1, adds exponent of 0.15 to c1 variable, max level 1
 	{
-		c1Exp = theory.createMilestoneUpgrade(1, 3);
-		c1Exp.description = Localization.getUpgradeIncCustomExpDesc("c_1", "0.1");
-		c1Exp.info = Localization.getUpgradeIncCustomExpInfo("c_1", "0.1");
+		c1Exp = theory.createMilestoneUpgrade(1, 4);
+		c1Exp.description = Localization.getUpgradeIncCustomExpDesc("c_1", "0.05");
+		c1Exp.info = Localization.getUpgradeIncCustomExpInfo("c_1", "0.05");
 		c1Exp.boughtOrRefunded = (_) => theory.invalidatePrimaryEquation();
 	}
 
 	// Original: milestone 2, multiplies qdot by 2, max level 3
 	{
-		multQDot = theory.createMilestoneUpgrade(2, 4);
+		multQDot = theory.createMilestoneUpgrade(2, 5);
 		multQDot.description = Localization.getUpgradeMultCustomDesc("\\dot{q}", "3");
 		multQDot.info = Localization.getUpgradeMultCustomInfo("\\dot{q}", "3");
 		multQDot.boughtOrRefunded = (_) => theory.invalidateSecondaryEquation();
@@ -237,6 +237,6 @@ var getC5 = (level) => BigNumber.FIVE.pow(level);
 var getC6 = (level) => BigNumber.TEN.pow(level);
 var getQ1 = (level) => Utils.getStepwisePowerSum(level, 2, 10, 0);
 var getQ2 = (level) => BigNumber.TWO.pow(level);
-var getC1Exp = (level) => BigNumber.from(1 + level * 0.1);
+var getC1Exp = (level) => BigNumber.from(1 + level * 0.05);
 
 init();
