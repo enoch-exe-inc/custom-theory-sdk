@@ -120,7 +120,7 @@ var init = () => {
 	
 	// Original: milestone 1, adds exponent of 0.15 to c1 variable, max level 1
 	{
-		c1Exp = theory.createMilestoneUpgrade(1, 4);
+		c1Exp = theory.createMilestoneUpgrade(1, 5);
 		c1Exp.description = Localization.getUpgradeIncCustomExpDesc("c_1", "0.05");
 		c1Exp.info = Localization.getUpgradeIncCustomExpInfo("c_1", "0.05");
 		c1Exp.boughtOrRefunded = (_) => theory.invalidatePrimaryEquation();
@@ -191,9 +191,11 @@ var getPrimaryEquation = () => {
 	result += "\\dot{\\rho}=c_1";
 	
 	// Original: if (c1Exp.level == 1) result += "^{1.15}";
-	if (c1Exp.level == 1) result += "^{1.1}";
-	if (c1Exp.level == 2) result += "^{1.2}";
-	if (c1Exp.level == 3) result += "^{1.3}";
+	if (c1Exp.level == 1) result += "^{1.05}";
+	if (c1Exp.level == 2) result += "^{1.1}";
+	if (c1Exp.level == 3) result += "^{1.15}";
+	if (c1Exp.level == 4) result += "^{1.2}";
+	if (c1Exp.level == 5) result += "^{1.25}";
 	
 	result += "c_2+c_3q";
 	
