@@ -15,6 +15,7 @@ var q = BigNumber.ZERO;
 var q1, q2;
 var c1, c2, c3, c4, c5, c6;
 var terms, c1Exp, multQDot;
+var sig1, sig2;
 var sigma = game.sigmaTotal;
 
 var init = () => {
