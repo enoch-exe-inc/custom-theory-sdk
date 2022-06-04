@@ -53,7 +53,7 @@ var init = () => {
 	{
 		let getDesc = (level) => "c_4=3^{" + level + "}";
 		let getInfo = (level) => "c_4=" + getC4(level).toString(0);
-		c4 = theory.createUpgrade(3, currency, new ExponentialCost(5e3, Math.log2(4.72)));		// Original: (1e4, Math.log2(4.85)); (4.755)
+		c4 = theory.createUpgrade(3, currency, new ExponentialCost(5e3, Math.log2(4.725)));		// Original: (1e4, Math.log2(4.85)); (4.755)
 		c4.getDescription = (amount) => Utils.getMath(getDesc(c4.level));
 		c4.getInfo = (amount) => Utils.getMathTo(getInfo(c4.level), getInfo(c4.level + amount));
 		c4.isAvailable = false;
@@ -73,7 +73,7 @@ var init = () => {
 	{
 		let getDesc = (level) => "c_6=10^{" + level + "}";
 		let getInfo = (level) => "c_6=" + getC6(level).toString(0);
-		c6 = theory.createUpgrade(5, currency, new ExponentialCost(5e9, Math.log2(56.5)));		// Original: (1e10, Math.log2(58)); (56.863)
+		c6 = theory.createUpgrade(5, currency, new ExponentialCost(5e9, Math.log2(56.4)));		// Original: (1e10, Math.log2(58)); (56.863)
 		c6.getDescription = (amount) => Utils.getMath(getDesc(c6.level));
 		c6.getInfo = (amount) => Utils.getMathTo(getInfo(c6.level), getInfo(c6.level + amount));
 		c6.isAvailable = false;
@@ -133,7 +133,16 @@ var init = () => {
 		multQDot.info = Localization.getUpgradeMultCustomInfo("\\dot{q}", "3");
 		multQDot.boughtOrRefunded = (_) => theory.invalidateSecondaryEquation();
 	}
-
+	
+	/* NEW MILESTONE UPGRADE */
+	// × income of theory by (sigmaTotal / 20)^level
+	{
+		multSig = theory.createMilestoneUpgrade(3, 2);
+		multSig.description = Localization.getUpgradeIncCustomExpDesc("\\left(\\frac{{\\sigma_{t}}}{20}\\right)^{n}", "1");
+		multSig.info = Localization.getUpgradeIncCustomExpInfo("\\left(\\frac{{\\sigma_{t}}}{20}\\right)^{n}", "1");
+		multSig.isAvailable = false;
+	}
+	
 	updateAvailability();
 }
 
@@ -141,6 +150,8 @@ var updateAvailability = () => {
 	c4.isAvailable = terms.level > 0;
 	c5.isAvailable = terms.level > 1;
 	c6.isAvailable = terms.level > 2;
+	multSig.isAvailable = theory.milestonesTotal >= 5;
+	// multSig.isAvailable = terms.level > 2;
 }
 
 var tick = (elapsedTime, multiplier) => {
@@ -225,8 +236,8 @@ var getSecondaryEquation = () => {
 
 var getTertiaryEquation = () => "q=" + q.toString();
 
-var getPublicationMultiplier = (tau) => tau.isZero ? (sigma / 20) * BigNumber.ONE : (sigma / 20) * tau; // Original: tau.pow(0.165) / BigNumber.FOUR;
-var getPublicationMultiplierFormula = (symbol) => "\\left(\\frac{{\\sigma_{t}}}{20}\\right) {" + symbol + "}"; // Original: "\\frac{{" + symbol + "}^{0.165}}{4}";
+var getPublicationMultiplier = (tau) => tau.isZero ? (sigma / 20) * BigNumber.ONE : (sigma / 20).pow(getSigma(multSig.level)) * tau; // Original: tau.pow(0.165) / BigNumber.FOUR;
+var getPublicationMultiplierFormula = (symbol) => "\\left(\\frac{{\\sigma_{t}}}{20}\\right)^{" + getSigma(multSig.level).toString() + "} {" + symbol + "}"; // Original: "\\frac{{" + symbol + "}^{0.165}}{4}";
 var getTau = () => currency.value.pow(0.1);
 var getCurrencyFromTau = (tau) => [tau.max(BigNumber.ONE).pow(10), currency.symbol];
 var get2DGraphValue = () => currency.value.sign * (BigNumber.ONE + currency.value.abs()).log10().toNumber();
@@ -240,5 +251,6 @@ var getC6 = (level) => BigNumber.TEN.pow(level);
 var getQ1 = (level) => Utils.getStepwisePowerSum(level, 2, 10, 0);
 var getQ2 = (level) => BigNumber.TWO.pow(level);
 var getC1Exp = (level) => BigNumber.from(1 + level * 0.05);
+var getSigma = (level) => BigNumber.from(1 + level);
 
 init();
