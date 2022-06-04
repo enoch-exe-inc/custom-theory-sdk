@@ -138,8 +138,8 @@ var init = () => {
 	// × income of theory by (sigmaTotal / 20)^level
 	{
 		multSig = theory.createMilestoneUpgrade(3, 2);
-		multSig.description = "\\times income of " + currency.symbol + " by \\left(\\frac{{\\sigma_{t}}}{20}\\right)^{" + getSigma(multiSig.level) + "}";
-		multSig.info = "Multiplies income of " + currency.symbol + " by \\left(\\frac{{\\sigma_{t}}}{20}\\right)^{" + getSigma(multiSig.level) + "}";
+		multSig.description = "\\times income of " + currency.symbol + " by \\left(\\frac{{\\sigma_{t}}}{20}\\right)^{" + getSigma(multSig.level) + "}";
+		multSig.info = "Multiplies income of " + currency.symbol + " by \\left(\\frac{{\\sigma_{t}}}{20}\\right)^{" + getSigma(multSig.level) + "}";
 		multSig.isAvailable = false;
 	}
 	
