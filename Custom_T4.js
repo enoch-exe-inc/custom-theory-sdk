@@ -150,6 +150,7 @@ var updateAvailability = () => {
 	c4.isAvailable = terms.level > 0;
 	c5.isAvailable = terms.level > 1;
 	c6.isAvailable = terms.level > 2;
+	multSig.isAvailable = terms.level > 2;
 }
 
 var tick = (elapsedTime, multiplier) => {
@@ -235,7 +236,7 @@ var getSecondaryEquation = () => {
 var getTertiaryEquation = () => "q=" + q.toString();
 
 var getPublicationMultiplier = (tau) => tau.isZero ? (sigma / 20) * BigNumber.ONE : (sigma / 20).pow(getSigma(multSig.level)) * tau; // Original: tau.pow(0.165) / BigNumber.FOUR;
-var getPublicationMultiplierFormula = (symbol) => "\\left(\\frac{{\\sigma_{t}}}{20}\\right) {" + symbol + "}^{" + getSigma(multSig.level).toString() + "}"; // Original: "\\frac{{" + symbol + "}^{0.165}}{4}";
+var getPublicationMultiplierFormula = (symbol) => "\\left(\\frac{{\\sigma_{t}}}{20}\\right)^{" + getSigma(multSig.level) + "} {" + symbol + "}"; // Original: "\\frac{{" + symbol + "}^{0.165}}{4}";
 var getTau = () => currency.value.pow(0.1);
 var getCurrencyFromTau = (tau) => [tau.max(BigNumber.ONE).pow(10), currency.symbol];
 var get2DGraphValue = () => currency.value.sign * (BigNumber.ONE + currency.value.abs()).log10().toNumber();
