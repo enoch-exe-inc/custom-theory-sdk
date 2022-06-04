@@ -150,7 +150,8 @@ var updateAvailability = () => {
 	c4.isAvailable = terms.level > 0;
 	c5.isAvailable = terms.level > 1;
 	c6.isAvailable = terms.level > 2;
-	multSig.isAvailable = terms.level > 2;
+	multSig.isAvailable = theory.milestonesTotal >= 5;
+	// multSig.isAvailable = terms.level > 2;
 }
 
 var tick = (elapsedTime, multiplier) => {
