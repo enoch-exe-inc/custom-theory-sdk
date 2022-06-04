@@ -63,7 +63,7 @@ var init = () => {
 	{
 		let getDesc = (level) => "c_5=5^{" + level + "}";
 		let getInfo = (level) => "c_5=" + getC5(level).toString(0);
-		c5 = theory.createUpgrade(4, currency, new ExponentialCost(5e7, Math.log2(12.25)));		// Original: (1e8, Math.log2(12.5)); (12.255)
+		c5 = theory.createUpgrade(4, currency, new ExponentialCost(5e7, Math.log2(12.2)));		// Original: (1e8, Math.log2(12.5)); (12.255)
 		c5.getDescription = (amount) => Utils.getMath(getDesc(c5.level));
 		c5.getInfo = (amount) => Utils.getMathTo(getInfo(c5.level), getInfo(c5.level + amount));
 		c5.isAvailable = false;
@@ -83,7 +83,7 @@ var init = () => {
 	{
 		let getDesc = (level) => "q_1=" + getQ1(level).toString(0);
 		let getInfo = (level) => "q_1=" + getQ1(level).toString(0);
-		q1 = theory.createUpgrade(6, currency, new ExponentialCost(100, Math.log2(100)));
+		q1 = theory.createUpgrade(6, currency, new ExponentialCost(10, Math.log2(100)));
 		q1.getDescription = (amount) => Utils.getMath(getDesc(q1.level));
 		q1.getInfo = (amount) => Utils.getMathTo(getInfo(q1.level), getInfo(q1.level + amount));
 	}
@@ -138,8 +138,8 @@ var init = () => {
 	// × income of theory by (sigmaTotal / 20)^level
 	{
 		multSig = theory.createMilestoneUpgrade(3, 2);
-		multSig.description = "\\times income of " + currency.symbol + " by \\left(\\frac{{\\sigma_{t}}}{20}\\right)^{" + getSigma(multSig.level) + "}";
-		multSig.info = "Multiplies income of " + currency.symbol + " by \\left(\\frac{{\\sigma_{t}}}{20}\\right)^{" + getSigma(multSig.level) + "}";
+		multSig.description = Localization.getUpgradeIncCustomExpDesc("\\left(\\frac{{\\sigma_{t}}}{20}\\right)^{n}", "1");
+		multSig.info = Localization.getUpgradeIncCustomExpInfo("\\left(\\frac{{\\sigma_{t}}}{20}\\right)^{n}", "1");
 		multSig.isAvailable = false;
 	}
 	
