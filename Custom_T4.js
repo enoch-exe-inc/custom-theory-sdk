@@ -5,8 +5,8 @@ import { theory } from "../api/Theory";
 import { game } from "../api/Game";
 import { Utils } from "../api/Utils";
 
-var id = "cust_polynomials"
-var name = "Ext. Polynomials";
+var id = "cust_polynomials_sigmatest"
+var name = "Ext. Polynomials²";
 var description = "An extension of the implementation of the 'Polynomials' theory from the game.";
 var authors = "Gilles-Philippe Paillé; enoch_exe_inc";
 var version = 1;
