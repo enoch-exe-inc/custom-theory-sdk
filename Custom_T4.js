@@ -73,7 +73,7 @@ var init = () => {
 	{
 		let getDesc = (level) => "c_6=10^{" + level + "}";
 		let getInfo = (level) => "c_6=" + getC6(level).toString(0);
-		c6 = theory.createUpgrade(5, currency, new ExponentialCost(5e9, Math.log2(56)));		// Original: (1e10, Math.log2(58)); (56.863)
+		c6 = theory.createUpgrade(5, currency, new ExponentialCost(5e9, Math.log2(56.2)));		// Original: (1e10, Math.log2(58)); (56.863)
 		c6.getDescription = (amount) => Utils.getMath(getDesc(c6.level));
 		c6.getInfo = (amount) => Utils.getMathTo(getInfo(c6.level), getInfo(c6.level + amount));
 		c6.isAvailable = false;
@@ -121,8 +121,8 @@ var init = () => {
 	// Original: milestone 1, adds exponent of 0.15 to c1 variable, max level 1
 	{
 		c1Exp = theory.createMilestoneUpgrade(1, 5);
-		c1Exp.description = Localization.getUpgradeIncCustomExpDesc("c_1", "0.1");
-		c1Exp.info = Localization.getUpgradeIncCustomExpInfo("c_1", "0.1");
+		c1Exp.description = Localization.getUpgradeIncCustomExpDesc("c_1", "0.08");
+		c1Exp.info = Localization.getUpgradeIncCustomExpInfo("c_1", "0.08");
 		c1Exp.boughtOrRefunded = (_) => theory.invalidatePrimaryEquation();
 	}
 
@@ -202,11 +202,11 @@ var getPrimaryEquation = () => {
 	result += "\\dot{\\rho}=c_1";
 	
 	// Original: if (c1Exp.level == 1) result += "^{1.15}";
-	if (c1Exp.level == 1) result += "^{1.1}";
-	if (c1Exp.level == 2) result += "^{1.2}";
-	if (c1Exp.level == 3) result += "^{1.3}";
-	if (c1Exp.level == 4) result += "^{1.4}";
-	if (c1Exp.level == 5) result += "^{1.5}";
+	if (c1Exp.level == 1) result += "^{1.08}";
+	if (c1Exp.level == 2) result += "^{1.16}";
+	if (c1Exp.level == 3) result += "^{1.24}";
+	if (c1Exp.level == 4) result += "^{1.32}";
+	if (c1Exp.level == 5) result += "^{1.4}";
 	
 	result += "c_2+c_3q";
 	
@@ -250,7 +250,7 @@ var getC5 = (level) => BigNumber.FIVE.pow(level);
 var getC6 = (level) => BigNumber.TEN.pow(level);
 var getQ1 = (level) => Utils.getStepwisePowerSum(level, 2, 10, 0);
 var getQ2 = (level) => BigNumber.TWO.pow(level);
-var getC1Exp = (level) => BigNumber.from(1 + level * 0.1);
+var getC1Exp = (level) => BigNumber.from(1 + level * 0.08);
 var getSigma = (level) => BigNumber.from(1 + level);
 
 init();
