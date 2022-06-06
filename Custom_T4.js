@@ -234,7 +234,7 @@ var getSecondaryEquation = () => {
 
 var getTertiaryEquation = () => "q=" + q.toString();
 
-var getPublicationMultiplier = (tau) => tau.isZero ? sigma * BigNumber.ONE : sigma.pow(getSigma(multSig.level)) * tau; // Original: tau.pow(0.165) / BigNumber.FOUR;
+var getPublicationMultiplier = (tau) => tau.isZero ? sigma.pow(getSigma(multSig.level)) * BigNumber.ONE : sigma.pow(getSigma(multSig.level)) * tau; // Original: tau.pow(0.165) / BigNumber.FOUR;
 var getPublicationMultiplierFormula = (symbol) => "\\left(\\frac{{\\sigma_{t}}}{20}\\right)^{" + getSigma(multSig.level).toString() + "} {" + symbol + "}"; // Original: "\\frac{{" + symbol + "}^{0.165}}{4}";
 var getTau = () => currency.value.pow(0.1);
 var getCurrencyFromTau = (tau) => [tau.max(BigNumber.ONE).pow(10), currency.symbol];
