@@ -249,6 +249,6 @@ var getC6 = (level) => BigNumber.TEN.pow(level);
 var getQ1 = (level) => Utils.getStepwisePowerSum(level, 2, 10, 0);
 var getQ2 = (level) => BigNumber.TWO.pow(level);
 var getC1Exp = (level) => BigNumber.from(1 + level * 0.1);
-var getSigma = (level) => BigNumber.from(1 + level);
+var getSigma = (level) => BigNumber.from(level);
 
 init();
