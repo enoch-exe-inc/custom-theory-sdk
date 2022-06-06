@@ -105,7 +105,7 @@ var init = () => {
 
 	/////////////////////
 	// Milestone Upgrades
-	theory.setMilestoneCost(new LinearCost(2.0, 2.0)); // Original: (25, 25)
+	theory.setMilestoneCost(new LinearCost(0, 2.5)); // Original: (25, 25)
 
 	// Original: milestone 0, adds polynomial terms, max level 3
 	{
@@ -140,7 +140,7 @@ var init = () => {
 		multSig = theory.createMilestoneUpgrade(3, 3);
 		multSig.description = Localization.getUpgradeIncCustomExpDesc("\\left(\\frac{{\\sigma_{t}}}{20}\\right)", "1");
 		multSig.info = Localization.getUpgradeIncCustomExpInfo("\\left(\\frac{{\\sigma_{t}}}{20}\\right)", "1");
-		multSig.isAvailable = false;
+		// multSig.isAvailable = false;
 	}
 	
 	updateAvailability();
@@ -150,8 +150,7 @@ var updateAvailability = () => {
 	c4.isAvailable = terms.level > 0;
 	c5.isAvailable = terms.level > 1;
 	c6.isAvailable = terms.level > 2;
-	multSig.isAvailable = theory.milestonesTotal > 4;
-	// multSig.isAvailable = terms.level > 2;
+	// multSig.isAvailable = theory.milestonesTotal > 4;
 }
 
 var tick = (elapsedTime, multiplier) => {
