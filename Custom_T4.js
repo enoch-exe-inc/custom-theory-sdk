@@ -15,7 +15,7 @@ var q = BigNumber.ZERO;
 var q1, q2;
 var c1, c2, c3, c4, c5, c6;
 var terms, c1Exp, multQDot;
-var sigma = game.sigmaTotal;
+var sigma = (game.sigmaTotal / 20);
 
 var init = () => {
 	currency = theory.createCurrency();
@@ -120,9 +120,9 @@ var init = () => {
 	
 	// Original: milestone 1, adds exponent of 0.15 to c1 variable, max level 1
 	{
-		c1Exp = theory.createMilestoneUpgrade(1, 5);
-		c1Exp.description = Localization.getUpgradeIncCustomExpDesc("c_1", "0.08");
-		c1Exp.info = Localization.getUpgradeIncCustomExpInfo("c_1", "0.08");
+		c1Exp = theory.createMilestoneUpgrade(1, 4);
+		c1Exp.description = Localization.getUpgradeIncCustomExpDesc("c_1", "0.1");
+		c1Exp.info = Localization.getUpgradeIncCustomExpInfo("c_1", "0.1");
 		c1Exp.boughtOrRefunded = (_) => theory.invalidatePrimaryEquation();
 	}
 
@@ -138,8 +138,8 @@ var init = () => {
 	// × income of theory by (sigmaTotal / 20)^level
 	{
 		multSig = theory.createMilestoneUpgrade(3, 3);
-		multSig.description = Localization.getUpgradeIncCustomExpDesc("\\left(\\frac{{\\sigma_{t}}}{20}\\right)^{n}", "1");
-		multSig.info = Localization.getUpgradeIncCustomExpInfo("\\left(\\frac{{\\sigma_{t}}}{20}\\right)^{n}", "1");
+		multSig.description = Localization.getUpgradeIncCustomExpDesc("\\left(\\frac{{\\sigma_{t}}}{20}\\right)", "1");
+		multSig.info = Localization.getUpgradeIncCustomExpInfo("\\left(\\frac{{\\sigma_{t}}}{20}\\right)", "1");
 		multSig.isAvailable = false;
 	}
 	
@@ -150,7 +150,7 @@ var updateAvailability = () => {
 	c4.isAvailable = terms.level > 0;
 	c5.isAvailable = terms.level > 1;
 	c6.isAvailable = terms.level > 2;
-	multSig.isAvailable = theory.milestonesTotal >= 5;
+	multSig.isAvailable = theory.milestonesTotal > 4;
 	// multSig.isAvailable = terms.level > 2;
 }
 
@@ -202,24 +202,23 @@ var getPrimaryEquation = () => {
 	result += "\\dot{\\rho}=c_1";
 	
 	// Original: if (c1Exp.level == 1) result += "^{1.15}";
-	if (c1Exp.level == 1) result += "^{1.08}";
-	if (c1Exp.level == 2) result += "^{1.16}";
-	if (c1Exp.level == 3) result += "^{1.24}";
-	if (c1Exp.level == 4) result += "^{1.32}";
-	if (c1Exp.level == 5) result += "^{1.4}";
+	if (c1Exp.level == 1) result += "^{1.1}";
+	if (c1Exp.level == 2) result += "^{1.2}";
+	if (c1Exp.level == 3) result += "^{1.3}";
+	if (c1Exp.level == 4) result += "^{1.4}";
 	
 	result += "c_2+c_3q";
 	
 	if (terms.level > 0) result += "+c_4q^2";
 	if (terms.level > 1) result += "+c_5q^3";
 	if (terms.level > 2) result += "+c_6q^4";
-
+	
 	return result;
 }
 
 var getSecondaryEquation = () => {
 	let result = "\\begin{matrix}";
-
+	
 	result += theory.latexSymbol;
 	result += "=\\max\\rho^{0.1},&\\dot{q}=";
 	if (multQDot.level > 0)
@@ -230,13 +229,13 @@ var getSecondaryEquation = () => {
 	}
 	result += "q_1q_2/(1+q)";
 	result += "\\end{matrix}";
-
+	
 	return result;
 }
 
 var getTertiaryEquation = () => "q=" + q.toString();
 
-var getPublicationMultiplier = (tau) => tau.isZero ? (sigma / 20) * BigNumber.ONE : (sigma / 20).pow(getSigma(multSig.level)) * tau; // Original: tau.pow(0.165) / BigNumber.FOUR;
+var getPublicationMultiplier = (tau) => tau.isZero ? sigma * BigNumber.ONE : sigma.pow(getSigma(multSig.level)) * tau; // Original: tau.pow(0.165) / BigNumber.FOUR;
 var getPublicationMultiplierFormula = (symbol) => "\\left(\\frac{{\\sigma_{t}}}{20}\\right)^{" + getSigma(multSig.level).toString() + "} {" + symbol + "}"; // Original: "\\frac{{" + symbol + "}^{0.165}}{4}";
 var getTau = () => currency.value.pow(0.1);
 var getCurrencyFromTau = (tau) => [tau.max(BigNumber.ONE).pow(10), currency.symbol];
@@ -250,7 +249,7 @@ var getC5 = (level) => BigNumber.FIVE.pow(level);
 var getC6 = (level) => BigNumber.TEN.pow(level);
 var getQ1 = (level) => Utils.getStepwisePowerSum(level, 2, 10, 0);
 var getQ2 = (level) => BigNumber.TWO.pow(level);
-var getC1Exp = (level) => BigNumber.from(1 + level * 0.08);
+var getC1Exp = (level) => BigNumber.from(1 + level * 0.1);
 var getSigma = (level) => BigNumber.from(1 + level);
 
 init();
