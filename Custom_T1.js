@@ -22,8 +22,8 @@ var epsilon = BigNumber.from(1e-8);
 
 var currency;
 var q1, q2, c1, c2, c3, c4, c5;
-var c1Exp, logTerm, c3Term, c4Term, c5Term;
-var sigma = game.sigmaTotal;
+var c1Exp, logTerm, c3Term, c4Term, c5Term, multSig;
+var sigma = (game.sigmaTotal / 20);
 
 var init = () => {
 	currency = theory.createCurrency();
@@ -106,13 +106,13 @@ var init = () => {
 
 	///////////////////////
 	//// Milestone Upgrades			// Original (25, 25) - Gain 1 milestone upgrade per 1e25 of tau
-	// I've raised it back to per 1e25 of tau (in units of rho). I'm still not through testing it, though, so it might very well change within the hour.
-	theory.setMilestoneCost(new LinearCost(2.5, 2.5));
+	// Raised back to per 1e25 of tau, but with first cost free to justify the sigma upgrade.
+	theory.setMilestoneCost(new LinearCost(0, 2.5));
 
 	{
 		c1Exp = theory.createMilestoneUpgrade(0, 5);
-		c1Exp.description = Localization.getUpgradeIncCustomExpDesc("c_1", "0.05");
-		c1Exp.info = Localization.getUpgradeIncCustomExpInfo("c_1", "0.05");
+		c1Exp.description = Localization.getUpgradeIncCustomExpDesc("c_1", "0.1");
+		c1Exp.info = Localization.getUpgradeIncCustomExpInfo("c_1", "0.1");
 		c1Exp.boughtOrRefunded = (_) => theory.invalidatePrimaryEquation();
 	}
 
@@ -146,6 +146,12 @@ var init = () => {
 		c5Term.info = Localization.getUpgradeAddTermInfo("\\rho_{n-3}^{0.4}");
 		c5Term.boughtOrRefunded = (_) => { theory.invalidatePrimaryEquation(); updateAvailability(); };
 		c5Term.isAvailable = false;
+	}
+	
+	{
+		multSig = theory.createMilestoneUpgrade(5, 3);
+		multSig.description = Localization.getUpgradeIncCustomExpDesc("\\left(\\frac{{\\sigma_{t}}}{20}\\right)", "1");
+		multSig.info = Localization.getUpgradeIncCustomExpInfo("\\left(\\frac{{\\sigma_{t}}}{20}\\right)", "1");
 	}
 
 	updateAvailability();
@@ -207,21 +213,14 @@ var getPrimaryEquation = () => {
 	let result = "\\rho_{n+1} = \\rho_{n}+c_1";
 
 	if (c1Exp.level > 0)
-		result += "^{" + getC1Exponent(c1Exp.level).toString(2) + "}";
+		result += "^{" + getC1Exponent(c1Exp.level).toString(1) + "}";
 
 	result += "c_2";
 
-	if (logTerm.level > 0)
-		result += "\\left(1+\\frac{\\ln(\\rho_n)}{100}\\right)";
-
-	if (c3Term.level > 0)
-		result += "+c_3\\rho_{n-1}^{0.2}";
-
-	if (c4Term.level > 0)
-		result += "+c_4\\rho_{n-2}^{0.3}";
-	
-	if (c5Term.level > 0)
-		result += "+c_5\\rho_{n-3}^{0.4}";
+	if (logTerm.level > 0) result += "\\left(1+\\frac{\\ln(\\rho_n)}{100}\\right)";
+	if (c3Term.level > 0) result += "+c_3\\rho_{n-1}^{0.2}";
+	if (c4Term.level > 0) result += "+c_4\\rho_{n-2}^{0.3}";
+	if (c5Term.level > 0)result += "+c_5\\rho_{n-3}^{0.4}";
 
 	if (logTerm.level > 0 && c3Term.level > 0 && c4Term.level > 0)
 		theory.primaryEquationScale = 0.75;
@@ -234,8 +233,10 @@ var getPrimaryEquation = () => {
 var getSecondaryEquation = () => theory.latexSymbol + "=\\max\\rho^{0.1}";	// Original: "=\\max]\rho";
 var getTertiaryEquation = () => Localization.format(stringTickspeed, getTickspeed().toString(0));
 
-var getPublicationMultiplier = (tau) => tau.isZero ? (sigma / 20) * BigNumber.ONE : (sigma / 20) * tau;	// Original: tau.pow(0.164) / BigNumber.THREE
-var getPublicationMultiplierFormula = (symbol) => "\\left(\\frac{{\\sigma_{t}}}{20}\\right)" + symbol;	// Original: "\\frac{{" + symbol + "}^{0.15}}{2}"; Altered: "\\left(\\frac{{\\sigma_{t}}}{20}\\right) \\frac{{" + symbol + "}^{0.25}}{2}"
+//var getPublicationMultiplier = (tau) => tau.isZero ? sigma * BigNumber.ONE : sigma.pow(getSigma(multSig.level)) * tau;
+var getPublicationMultiplier = (tau) => tau.isZero ? (BigNumber.ONE * sigma.pow(getSig(multSig.level))) : (tau * sigma.pow(getSig(multSig.level)));	// Original: tau.pow(0.164) / BigNumber.THREE
+var getPublicationMultiplierFormula = (symbol) => "\\left(\\frac{{\\sigma_{t}}}{20}\\right)^{" + getSig(multSig.level).toString() + "} {" + symbol + "}";	// Original: "\\frac{{" + symbol + "}^{0.15}}{2}"; Altered: "\\left(\\frac{{\\sigma_{t}}}{20}\\right) \\frac{{" + symbol + "}^{0.25}}{2}"
+
 var getTau = () => currency.value.pow(0.1);
 var getCurrencyFromTau = (tau) => [tau.max(BigNumber.ONE).pow(10), currency.symbol];
 var get2DGraphValue = () => currency.value.sign * (BigNumber.ONE + currency.value.abs()).log10().toNumber();
@@ -252,11 +253,12 @@ var postPublish = () => {
 var getQ1 = (level) => Utils.getStepwisePowerSum(level, 2, 10, 0);
 var getQ2 = (level) => BigNumber.TWO.pow(level);
 var getC1 = (level) => Utils.getStepwisePowerSum(level, 2, 10, 1);
-var getC1Exponent = (level) => BigNumber.from(1 + (0.05 * level));
+var getC1Exponent = (level) => BigNumber.from(1 + (0.1 * level));
 var getC2 = (level) => BigNumber.TWO.pow(level);
 var getC3 = (level) => BigNumber.TEN.pow(level);
 var getC4 = (level) => BigNumber.TEN.pow(level);
 var getC5 = (level) => BigNumber.TEN.pow(level);
+var getSig = (level) => BigNumber.from(level);
 var getTickspeed = () => getQ1(q1.level) * getQ2(q2.level);
 
 init();
