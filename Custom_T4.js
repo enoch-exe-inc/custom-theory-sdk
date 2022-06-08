@@ -99,9 +99,9 @@ var init = () => {
 
 	/////////////////////
 	// Permanent Upgrades								// Original:
-	theory.createPublicationUpgrade(0, currency, 1e9);	// 1e9
+	theory.createPublicationUpgrade(0, currency, 1e8);	// 1e9
 	theory.createBuyAllUpgrade(1, currency, 1e16);		// 1e13
-	theory.createAutoBuyerUpgrade(2, currency, 1e25);	// 1e30
+	theory.createAutoBuyerUpgrade(2, currency, 1e24);	// 1e30
 
 	/////////////////////
 	// Milestone Upgrades
@@ -120,7 +120,7 @@ var init = () => {
 	
 	// Original: milestone 1, adds exponent of 0.15 to c1 variable, max level 1
 	{
-		c1Exp = theory.createMilestoneUpgrade(1, 4);
+		c1Exp = theory.createMilestoneUpgrade(1, 3);
 		c1Exp.description = Localization.getUpgradeIncCustomExpDesc("c_1", "0.1");
 		c1Exp.info = Localization.getUpgradeIncCustomExpInfo("c_1", "0.1");
 		c1Exp.boughtOrRefunded = (_) => theory.invalidatePrimaryEquation();
@@ -204,7 +204,6 @@ var getPrimaryEquation = () => {
 	if (c1Exp.level == 1) result += "^{1.1}";
 	if (c1Exp.level == 2) result += "^{1.2}";
 	if (c1Exp.level == 3) result += "^{1.3}";
-	if (c1Exp.level == 4) result += "^{1.4}";
 	
 	result += "c_2+c_3q";
 	
