@@ -238,11 +238,11 @@ var getPublicationMultiplierFormula = (symbol) => {
 	let formula = "\\left(\\frac{{\\sigma_{t}}}{20}\\right}";
 	
 	if (multSig.level == 0)	return symbol;
-	if (multSig.level == 1) result += "^{1}";
-	if (multSig.level == 2) result += "^{2}";
-	if (multSig.level == 3) result += "^{3}";
+	if (multSig.level == 1) formula += "^{1}";
+	if (multSig.level == 2) formula += "^{2}";
+	if (multSig.level == 3) formula += "^{3}";
 	
-	return result += "{" + symbol + "}";
+	return formula += "{" + symbol + "}";
 	
 	// "\\left(\\frac{{\\sigma_{t}}}{20}\\right)^{" + getSig(multSig.level).toString() + "} {" + symbol + "}";	// Original: "\\frac{{" + symbol + "}^{0.15}}{2}";
 }
