@@ -110,9 +110,9 @@ var init = () => {
 	theory.setMilestoneCost(new LinearCost(0, 2.5));
 
 	{
-		c1Exp = theory.createMilestoneUpgrade(0, 5);
-		c1Exp.description = Localization.getUpgradeIncCustomExpDesc("c_1", "0.15");
-		c1Exp.info = Localization.getUpgradeIncCustomExpInfo("c_1", "0.15");
+		c1Exp = theory.createMilestoneUpgrade(0, 4);
+		c1Exp.description = Localization.getUpgradeIncCustomExpDesc("c_1", "0.2");
+		c1Exp.info = Localization.getUpgradeIncCustomExpInfo("c_1", "0.2");
 		c1Exp.boughtOrRefunded = (_) => theory.invalidatePrimaryEquation();
 	}
 
@@ -263,7 +263,7 @@ var postPublish = () => {
 var getQ1 = (level) => Utils.getStepwisePowerSum(level, 2, 10, 0);
 var getQ2 = (level) => BigNumber.TWO.pow(level);
 var getC1 = (level) => Utils.getStepwisePowerSum(level, 2, 10, 1);
-var getC1Exponent = (level) => BigNumber.from(1 + (0.15 * level));
+var getC1Exponent = (level) => BigNumber.from(1 + (0.2 * level));
 var getC2 = (level) => BigNumber.TWO.pow(level);
 var getC3 = (level) => BigNumber.TEN.pow(level);
 var getC4 = (level) => BigNumber.TEN.pow(level);
