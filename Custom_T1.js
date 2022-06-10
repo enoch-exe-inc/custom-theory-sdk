@@ -220,7 +220,7 @@ var getPrimaryEquation = () => {
 	if (logTerm.level > 0) result += "\\left(1+\\frac{\\ln(\\rho_n)}{100}\\right)";
 	if (c3Term.level > 0) result += "+c_3\\rho_{n-1}^{0.2}";
 	if (c4Term.level > 0) result += "+c_4\\rho_{n-2}^{0.3}";
-	if (c5Term.level > 0)result += "+c_5\\rho_{n-3}^{0.4}";
+	if (c5Term.level > 0) result += "+c_5\\rho_{n-3}^{0.4}";
 
 	if (logTerm.level > 0 && c3Term.level > 0 && c4Term.level > 0)
 		theory.primaryEquationScale = 0.75;
@@ -233,9 +233,19 @@ var getPrimaryEquation = () => {
 var getSecondaryEquation = () => theory.latexSymbol + "=\\max\\rho^{0.1}";	// Original: "=\\max]\rho";
 var getTertiaryEquation = () => Localization.format(stringTickspeed, getTickspeed().toString(0));
 
-//var getPublicationMultiplier = (tau) => tau.isZero ? sigma * BigNumber.ONE : sigma.pow(getSigma(multSig.level)) * tau;
 var getPublicationMultiplier = (tau) => tau.isZero ? (BigNumber.ONE * sigma.pow(getSig(multSig.level))) : (tau * sigma.pow(getSig(multSig.level)));	// Original: tau.pow(0.164) / BigNumber.THREE
-var getPublicationMultiplierFormula = (symbol) => "\\left(\\frac{{\\sigma_{t}}}{20}\\right)^{" + getSig(multSig.level).toString() + "} {" + symbol + "}";	// Original: "\\frac{{" + symbol + "}^{0.15}}{2}"; Altered: "\\left(\\frac{{\\sigma_{t}}}{20}\\right) \\frac{{" + symbol + "}^{0.25}}{2}"
+var getPublicationMultiplierFormula = (symbol) => {
+	let formula = "\\left(\\frac{{\\sigma_{t}}}{20}\\right}";
+	
+	if (multSig.level == 0)	return symbol;
+	if (multSig.level == 1) result += "^{1}";
+	if (multSig.level == 2) result += "^{2}";
+	if (multSig.level == 3) result += "^{3}";
+	
+	return result += "{" + symbol + "}";
+	
+	// "\\left(\\frac{{\\sigma_{t}}}{20}\\right)^{" + getSig(multSig.level).toString() + "} {" + symbol + "}";	// Original: "\\frac{{" + symbol + "}^{0.15}}{2}";
+}
 
 var getTau = () => currency.value.pow(0.1);
 var getCurrencyFromTau = (tau) => [tau.max(BigNumber.ONE).pow(10), currency.symbol];
