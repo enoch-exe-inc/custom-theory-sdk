@@ -235,7 +235,7 @@ var getTertiaryEquation = () => Localization.format(stringTickspeed, getTickspee
 
 var getPublicationMultiplier = (tau) => tau.isZero ? (BigNumber.ONE * sigma.pow(getSig(multSig.level))) : (tau * sigma.pow(getSig(multSig.level)));	// Original: tau.pow(0.164) / BigNumber.THREE
 var getPublicationMultiplierFormula = (symbol) => {
-	let formula = "\\left(\\frac{{\\sigma_{t}}}{20}\\right}";
+	let formula = "\\left(\\frac{{\\sigma_{t}}}{20}\\right)";
 	
 	if (multSig.level == 0)	return symbol;
 	if (multSig.level == 1) formula += "^{1}";
