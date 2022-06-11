@@ -15,9 +15,9 @@ var currency;
 var q1 = BigNumber.ZERO, q2 = BigNumber.ONE, q3 = BigNumber.ONE, q4 = BigNumber.ONE;
 var r1 = BigNumber.ONE, r2 = BigNumber.ONE, r3 = BigNumber.ONE, r4 = BigNumber.ONE;
 var dq1, dq2, dq3, dq4, dr1, dr2, dr3, dr4;
-var qTerms, rTerms, q1Exp, r1Exp;
+var qTerms, rTerms, q1Exp, r1Exp, multSig;
 quaternaryEntries = [];
-var sigma = game.sigmaTotal;
+var sigma = (game.sigmaTotal / 20);
 
 var init = () => {
 	currency = theory.createCurrency();
@@ -134,6 +134,12 @@ var init = () => {
 		r1Exp.info = Localization.getUpgradeIncCustomExpInfo("r_1", "0.05");
 		r1Exp.boughtOrRefunded = (_) => theory.invalidatePrimaryEquation();
 	}
+	
+	{
+		multSig = theory.createMilestoneUpgrade(4, 3);
+		multSig.description = Localization.getUpgradeInCustomExpDesc("\\left(\\frac{{\\sigma_{t}}}{20}\\right)", "1");
+		multSig.info = Localization.getUpgradeIncCustomExpInfo("\\left(\\frac{{\\sigma_{t}}}{20}\\right)", 1);
+	}
 
 	updateAvailability();
 }
@@ -234,8 +240,8 @@ var getQuaternaryEntries = () => {
 	return quaternaryEntries;
 }
 
-var getPublicationMultiplier = (tau) => tau.isZero ? (sigma / 20) * BigNumber.ONE : (sigma / 20) * tau; // Original: tau.pow(0.198) / BigNumber.HUNDRED;
-var getPublicationMultiplierFormula = (symbol) => "\\left(\\frac{{\\sigma_{t}}}{20}\\right) {" + symbol + "}";	// Original: "\\frac{{" + symbol + "}^{0.198}}{100}";
+var getPublicationMultiplier = (tau) => tau.isZero ? (BigNumber.ONE * sigma.pow(getSig(multSig.level))) : (tau * sigma.pow(getSig(multSig.level))); // Original: tau.pow(0.198) / BigNumber.HUNDRED;
+var getPublicationMultiplierFormula = (symbol) => "\\left(\\frac{{\\sigma_{t}}}{20}\\right)^{" + getSig(multSig.level).toString(0) + "} {" + symbol + "}";	// Original: "\\frac{{" + symbol + "}^{0.198}}{100}";
 var getTau = () => currency.value.pow(0.1);
 var getCurrencyFromTau = (tau) => [tau.max(BigNumber.ONE).pow(10), currency.symbol];
 var get2DGraphValue = () => currency.value.sign * (BigNumber.ONE + currency.value.abs()).log10().toNumber();
@@ -250,5 +256,6 @@ var getDR3 = (level) => Utils.getStepwisePowerSum(level, 2, 10, 0);
 var getDR4 = (level) => Utils.getStepwisePowerSum(level, 2, 10, 0);
 var getQ1Exp = (level) => BigNumber.from(1 + level * 0.05);
 var getR1Exp = (level) => BigNumber.from(1 + level * 0.05);
+var getSig = (level) => BigNumber.from(level);
 
 init();
