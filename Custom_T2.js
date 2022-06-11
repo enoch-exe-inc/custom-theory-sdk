@@ -137,7 +137,7 @@ var init = () => {
 	
 	{
 		multSig = theory.createMilestoneUpgrade(4, 3);
-		multSig.description = Localization.getUpgradeInCustomExpDesc("\\left(\\frac{{\\sigma_{t}}}{20}\\right)", "1");
+		multSig.description = Localization.getUpgradeIncCustomExpDesc("\\left(\\frac{{\\sigma_{t}}}{20}\\right)", "1");
 		multSig.info = Localization.getUpgradeIncCustomExpInfo("\\left(\\frac{{\\sigma_{t}}}{20}\\right)", 1);
 	}
 
