@@ -240,8 +240,8 @@ var getQuaternaryEntries = () => {
 	return quaternaryEntries;
 }
 
-var getPublicationMultiplier = (tau) => tau.isZero ? (BigNumber.ONE * sigma.pow(getSig(multSig.level))) : (tau * sigma.pow(getSig(multSig.level))); // Original: tau.pow(0.198) / BigNumber.HUNDRED;
-var getPublicationMultiplierFormula = (symbol) => "\\left(\\frac{{\\sigma_{t}}}{20}\\right)^{" + getSig(multSig.level).toString(0) + "} {" + symbol + "}";	// Original: "\\frac{{" + symbol + "}^{0.198}}{100}";
+var getPublicationMultiplier = (tau) => tau.isZero ? (BigNumber.ONE * sigma.pow(getSig(multSig.level))) : (tau.pow(1.5) * sigma.pow(getSig(multSig.level))); // Original: tau.pow(0.198) / BigNumber.HUNDRED;
+var getPublicationMultiplierFormula = (symbol) => "\\left(\\frac{{\\sigma_{t}}}{20}\\right)^{" + getSig(multSig.level).toString(0) + "} {" + symbol + "}^{1.5}";	// Original: "\\frac{{" + symbol + "}^{0.198}}{100}";
 var getTau = () => currency.value.pow(0.1);
 var getCurrencyFromTau = (tau) => [tau.max(BigNumber.ONE).pow(10), currency.symbol];
 var get2DGraphValue = () => currency.value.sign * (BigNumber.ONE + currency.value.abs()).log10().toNumber();
