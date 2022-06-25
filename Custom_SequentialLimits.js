@@ -18,12 +18,13 @@ var a1, a2, b1, b2; //set a1, a2, b1, b2 levels
 var numPublications = 0; //number of publications
 
 var gamma0, gamma1, gamma2, gamma3; //create 4 variables that i'll use for milestones
+var multSig;
 var rho1dot = BigNumber.ZERO, rho2dot = BigNumber.ZERO, rho3dot = BigNumber.ZERO; //used as drho's
 var inverseE_Gamma; //used for the approximation of e
 var tapCount = 0;
 var t = 0;
 
-var sigma = game.sigmaTotal;
+var sigma = (game.sigmaTotal / 20);
 
 var init = () => {
 	currency3.value = 1; //set rho3 to 1 to avoid a div by 0 error lol
@@ -38,7 +39,7 @@ var init = () => {
 	{
 		let getDesc = (level) => "a_1=" + geta1(level).toString(1); //returns the value seen in the description as a1 = <level>
 		let getInfo = (level) => "a_1=" + geta1(level).toString(1); //returns the value seen in the info box as a1 = <level>
-		a1 = theory.createUpgrade(0, currency, new FirstFreeCost(new ExponentialCost(1, 0.365 * Math.log2(10)))); // Original: (1, 0.369 * Math.log2(10)) 0th upgrade in the list - first cost is 0, other costs are 10 * 2^(3*level), costs currency1
+		a1 = theory.createUpgrade(0, currency, new FirstFreeCost(new ExponentialCost(1, 0.368 * Math.log2(10)))); // Original: (1, 0.369 * Math.log2(10)) 0th upgrade in the list - first cost is 0, other costs are 10 * 2^(3*level), costs currency1
 		a1.getDescription = (amount) => Utils.getMath(getDesc(a1.level));
 		a1.getInfo = (amount) => Utils.getMathTo(getInfo(a1.level), getInfo(a1.level + amount));
 	}
@@ -56,7 +57,7 @@ var init = () => {
 	{
 		let getDesc = (level) => "b_1=" + getb1(level).toString(1); //returns the value seen in the description as b1 = <level>
 		let getInfo = (level) => "b_1=" + getb1(level).toString(1); //returns the value seen in the info box as b1 = <level>
-		b1 = theory.createUpgrade(2, currency, new ExponentialCost(500, 0.640 * Math.log2(10))); // Original: (500, 0.649 * Math.log2(10)) 2nd upgrade in the list - costs are 100 + 10^level, costs currency1
+		b1 = theory.createUpgrade(2, currency, new ExponentialCost(500, 0.647 * Math.log2(10))); // Original: (500, 0.649 * Math.log2(10)) 2nd upgrade in the list - costs are 100 + 10^level, costs currency1
 		b1.getDescription = (amount) => Utils.getMath(getDesc(b1.level));
 		b1.getInfo = (amount) => Utils.getMathTo(getInfo(b1.level), getInfo(b1.level + amount));
 	}
@@ -110,9 +111,18 @@ var init = () => {
 		gamma3.description = Localization.getUpgradeIncCustomExpDesc("b_2", "0.025"); // "Increases b2 exponent by 0.025"
 		gamma3.info = Localization.getUpgradeIncCustomExpInfo("b_2", "0.025");
 		gamma3.boughtOrRefunded = (_) => theory.invalidateSecondaryEquation();
-	}		
+	}
+	
+	/* NEW MILESTONE */
+	// Milestone 5 - Sigma multiplier
+	{
+		multSig = theory.createMilestoneUpgrade(4, 1); // Only one is necessary for balancing reasons.
+		multSig.description = Localization.getUpgradeIncCustomExpDesc("\\left(\\frac{{\\sigma_{t}}}{20}\\right)", "1");
+		multSig.info = Localization.getUpgradeIncCustomExpInfo("\\left(\\frac{{\\sigma_{t}}}{20}\\right)", "1");
+		multSig.isAvailable = false;
+	}
 
-	//utilities
+	// Utilities
 	var bsf={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'\=",e:function(e){var t="";var n,r,i,s,o,u,a;var f=0;e=bsf._utf8_encode(e);while(f<e.length){n=e.charCodeAt(f++);r=e.charCodeAt(f++);i=e.charCodeAt(f++);s=n>>2;o=(n&3)<<4|r>>4;u=(r&15)<<2|i>>6;a=i&63;if(isNaN(r)){u=a=64}else if(isNaN(i)){a=64}t=t+this._keyStr.charAt(s)+this._keyStr.charAt(o)+this._keyStr.charAt(u)+this._keyStr.charAt(a)}return t},d:function(e){var t="";var n,r,i;var s,o,u,a;var f=0;e=e.replace(/[^A-Za-z0-9\+\/\=]/g,"");while(f<e.length){s=this._keyStr.indexOf(e.charAt(f++));o=this._keyStr.indexOf(e.charAt(f++));u=this._keyStr.indexOf(e.charAt(f++));a=this._keyStr.indexOf(e.charAt(f++));n=s<<2|o>>4;r=(o&15)<<4|u>>2;i=(u&3)<<6|a;t=t+String.fromCharCode(n);if(u!=64){t=t+String.fromCharCode(r)}if(a!=64){t=t+String.fromCharCode(i)}}t=bsf._utf8_decode(t);return t},_utf8_encode:function(e){e=e.replace(/\r\n/g,"\n");var t="";for(var n=0;n<e.length;n++){var r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r)}else if(r>127&&r<2048){t+=String.fromCharCode(r>>6|192);t+=String.fromCharCode(r&63|128)}else{t+=String.fromCharCode(r>>12|224);t+=String.fromCharCode(r>>6&63|128);t+=String.fromCharCode(r&63|128)}}return t},_utf8_decode:function(e){var t="";var n=0;var r=c1=c2=0;while(n<e.length){r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r);n++}else if(r>191&&r<224){c2=e.charCodeAt(n+1);t+=String.fromCharCode((r&31)<<6|c2&63);n+=2}else{c2=e.charCodeAt(n+1);c3=e.charCodeAt(n+2);t+=String.fromCharCode((r&15)<<12|(c2&63)<<6|c3&63);n+=3}}return t}};
 	
 	// Achievements
@@ -157,6 +167,10 @@ var init = () => {
 	chapter7 = theory.createStoryChapter(7, "The End.", bsf.d("MWUxMDAwLgoKQSBudW1iZXIgc28gYmlnIGl0J2QgYmUgaW1wb3NzaWJsZSB0byBjb21wcmVoZW5kLgpZb3UgZGlkIGl0LiBUaGV5IHNhaWQgeW91IGNvdWxkbid0LgpZZWFycyBhZnRlciB5b3UgZmlyc3Qgc3RhcnRlZCwgeW91IHJlYWNoIGFuIGluY3JlZGlibGUgZW5kIHRvIHlvdXIgcmVzZWFyY2guCllvdSdyZSBmZWF0dXJlZCBvbiBUSU1FLCBvbiBkYXl0aW1lIHRlbGV2aXNpb24sIGluIHdvcmxkd2lkZSBuZXdzcGFwZXJzLiBZb3VyIHBhcGVycyBhcmUgZnJhbWVkLCB5b3VyIHN0dWRlbnRzIGFsbCBwcm9mZXNzb3JzIGluIHRoZWlyIG93biByaWdodHMgbm93LgpZb3UgcGFzcyBvbiB0aGUgbWFudGxlIHRvIGEgeW91bmdlciBzdHVkZW50IG9mIHlvdXJzIHRvIHJldGlyZSBsaWtlIHlvdXIgb2xkIHByb2Zlc3NvciwgYmFjayBhbGwgdGhvc2UgeWVhcnMgYWdvLgoKVEhFIEVORC4KVGhhbmtzIGZvciBwbGF5aW5nISAtIGVsbGlwc2lz"), () => currency.value >= BigNumber.From("1e1000"));
 }
 
+var updateAvailability = () => {
+	multSig.isAvailable = (gamma0.level && gamma1.level && gamma2.level && gamma3.level) > 0;
+}
+
 var updateInverseE_Gamma = () => {
 	let two_pi_rho = BigNumber.TWO * BigNumber.PI * currency3.value; // Precalculation of values for tick function
 	if (currency3.value < 1000) {
@@ -196,21 +210,11 @@ var tick = (elapsedTime, multiplier) => {
 var getPrimaryEquation = () => { //text for the primary equation
 
 	let result = "\\dot{\\rho}_1 = \\frac{\\sqrt{\\rho_2";
-	switch (gamma0.level){ //switch statement based on milestone 1 to add an exponent to rho2
-		//should probably use something else but i tried using just a (gamma0.level*0.1).toString(1) and it threw a hissy fit
-		case 1:
-			result += "^{1.02}";
-			break;
-		case 2:
-			result += "^{1.04}";
-			break;
-		case 3:
-			result += "^{1.06}";
-			break;
-		case 4:
-			result += "^{1.08}";
-			break;
-	}
+	if (gamma0.level == 1) result += "^{1.02};
+	if (gamma0.level == 2) result += "^{1.04};
+	if (gamma0.level == 3) result += "^{1.06};
+	if (gamma0.level == 4) result += "^{1.08};
+	
 	result +="}}{e-\\gamma}";  //close off the square root and add the denominator
 
 	// Show the approximated value equation
@@ -326,14 +330,19 @@ var getTau = () => currency.value.pow(BigNumber.from(0.1));
 var getCurrencyFromTau = (tau) => [tau.max(BigNumber.ONE).pow(10), currency.symbol];
 var get2DGraphValue = () => (BigNumber.ONE + currency.value.abs()).log10().toNumber(); //renders the graph based on currency 1
 
-var geta1 = (level) => Utils.getStepwisePowerSum(level, 3.5, 3, 0);	// Original(level, 3.5, 3, 0) Get the value of the variable from a power sum with a level of <level>, a base of 2, a step length of 5 and an initial value of 0 
-var geta2 = (level) => BigNumber.TWO.pow(level); // Get the value of the variable from a power of 2^level
-var getb1 = (level) => Utils.getStepwisePowerSum(level, 6.5, 4, 0);	// Original(level, 6.5, 4, 0) Get the value of the variable from a power sum with a level of <level>, a base of 3, a step length of 2 and an initial value of 0
-var getb2 = (level) => BigNumber.TWO.pow(level); // Get the value of the variable from a power of 2^level
+var geta1 = (level) => Utils.getStepwisePowerSum(level, 3.5, 3, 0);	// Original: (level, 3.5, 3, 0) Get the value of the variable from a power sum with a level of <level>, a base of 2, a step length of 5 and an initial value of 0
+var geta2 = (level) => BigNumber.TWO.pow(level);			// Get the value of the variable from a power of 2^level
+var getb1 = (level) => Utils.getStepwisePowerSum(level, 6.5, 4, 0);	// Original: (level, 6.5, 4, 0) Get the value of the variable from a power sum with a level of <level>, a base of 3, a step length of 2 and an initial value of 0
+var getb2 = (level) => BigNumber.TWO.pow(level);			// Get the value of the variable from a power of 2^level
 
 init();
 
-/* TEMPORARY COPY/PASTE STORAGE AREA - DELETE LATER!!!
-// The Elder Wand (I was playing Minecraft)
-/give enoch_exe_inc debug_stick{AttributeModifiers:[{AttributeName:"generic.attack_damage",Amount:1000,Slot:offhand,Operation:1,Name:"generic.attack_damage",UUID:[I;-122327,31229,125732,-62458]},{AttributeName:"generic.armor_toughness",Amount:10,Slot:offhand,Operation:2,Name:"generic.armor_toughness",UUID:[I;-122327,31329,125732,-62658]},{AttributeName:"generic.attack_speed",Amount:10,Slot:offhand,Operation:1,Name:"generic.attack_speed",UUID:[I;-122327,31429,125732,-62858]},{AttributeName:"generic.knockback_resistance",Amount:1000,Slot:offhand,Name:"generic.knockback_resistance",UUID:[I;-122327,31529,125732,-63058]},{AttributeName:"generic.luck",Amount:1000,Slot:offhand,Name:"generic.luck",UUID:[I;-122327,31629,125732,-63258]}],display:{Name:'[{"text":"Elder Wand","italic":false,"color":"#202020","bold":true}]',Lore:['[{"text":"[SPECIAL]","italic":false,"color":"gold"}]']},Enchantments:[{}],HideFlags:95} 1
+/* TEMPORARY CLIPBOARD STORAGE AREA; OR
+ * "I WAS PLAYING MINECRAFT"
+
+// The Elder Wand
+/give enoch_exe_inc debug_stick{AttributeModifiers:[{AttributeName:"generic.attack_damage",Amount:1000,Slot:offhand,Operation:1,Name:"generic.attack_damage",UUID:[I;-122327,31229,125732,-62458]},{AttributeName:"generic.armor_toughness",Amount:10,Slot:offhand,Operation:2,Name:"generic.armor_toughness",UUID:[I;-122327,31329,125732,-62658]},{AttributeName:"generic.attack_speed",Amount:10,Slot:offhand,Operation:1,Name:"generic.attack_speed",UUID:[I;-122327,31429,125732,-62858]},{AttributeName:"generic.knockback_resistance",Amount:1000,Slot:offhand,Name:"generic.knockback_resistance",UUID:[I;-122327,31529,125732,-63058]},{AttributeName:"generic.luck",Amount:1000,Slot:offhand,Name:"generic.luck",UUID:[I;-122327,31629,125732,-63258]}],display:{Name:'[{"text":"Elder Wand","italic":false,"color":"#202020","bold":true}]',Lore:['[{"text":"[SPECIAL]","italic":false,"color":"gold"}]']},Enchantments:[{}],HideFlags:95}
+
+// Greybox
+/give @s light_gray_shulker_box{display:{Name:'[{"text":"Greybox","italic":false}]'}}
  */
