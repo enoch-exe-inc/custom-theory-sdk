@@ -5,9 +5,9 @@ import { theory } from "./api/Theory";
 import { Utils } from "./api/Utils";
 
 var id = "my_custom_theory_id";
-var name = "My Custom Theory";
-var description = "A basic theory.";
-var authors = "Gilles-Philippe Paillé";
+var name = "A Custom Theory";
+var description = "A shell of a basic theory created/modified for messing around. Not to be taken seriously.";
+var authors = "Gilles-Philippe Paillé (originally); enoch_exe_inc";
 var version = 1;
 
 var currency;
@@ -42,8 +42,7 @@ var init = () => {
 	
 	// c3
     {
-        let getDesc = (level) => "c_3=3^{" + level + "}";
-        let getInfo = (level) => "c_3=" + getC3(level).toString(0);
+        let getDesc = (level) => "c_3=" + getC3(level).toString(0);
         c3 = theory.createUpgrade(2, currency, new ExponentialCost(10, Math.log10(10)));
         c3.getDescription = (_) => Utils.getMath(getDesc(c3.level));
         c3.getInfo = (amount) => Utils.getMathTo(getInfo(c3.level), getInfo(c3.level + amount));
