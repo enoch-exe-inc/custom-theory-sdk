@@ -55,7 +55,7 @@ var init = () => {
 	{
 		let getDesc = (level) => "strength=" + getStrength(level).toString(0);
 		let getInfo = (level) => "strength=" + getStrength(level).toString(0);
-		strength = theory.createUpgrade(0, currency, new FirstFreeCost(new ExponentialCost(10, Math.log2(10**0.1225))));
+		strength = theory.createUpgrade(0, currency, new FirstFreeCost(new ExponentialCost(10, Math.log2(10**0.1220))));
 		strength.getDescription = (amount) => Utils.getMath(getDesc(strength.level));
 		strength.getInfo = (amount) => Utils.getMathTo(getInfo(strength.level), getInfo(strength.level + amount));
 
@@ -372,7 +372,7 @@ var postPublish = () => {
 
 var getSecondaryEquation = () => {
 
-	let result = "\\begin{matrix}";
+	let result = "\\begin{matrix} \\mathrm{";
 	result += "Player \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad ";
 	result += "{" + monsterName +"} \\; Level \\; {"+ monsterLevel+"}\\\\\\\\";
 	result += "Damage={"+ playerDamage +"} \\quad \\quad \\quad \\quad \\quad HP={" + monsterHP.toString() + "} \\\\";
@@ -380,7 +380,7 @@ var getSecondaryEquation = () => {
 	
 	result += "Int\\; Penalty={"+ playerIntPenalty +"} \\quad \\quad \\quad \\quad Intelligence={" + monsterIntelligence.toFixed(1) + "}\\\\";
 
-	result += "\\end{matrix}";
+	result += "} \\end{matrix}";
 
 	theory.primaryEquationHeight = 55;
 	theory.secondaryEquationHeight = 150;
@@ -398,7 +398,7 @@ var getPublicationMultiplierFormula = (symbol) => "{" + symbol + "}^{0.15}";
 var getTau = () => currency.value.pow(BigNumber.from(0.1));
 var get2DGraphValue = () => currency.value.sign * (BigNumber.ONE + currency.value.abs()).log10().toNumber();
 
-var getStrength = (level) => Utils.getStepwisePowerSum(level, 10, 10, 0);
+var getStrength = (level) => Utils.getStepwisePowerSum(level, 10, 9, 1);
 var getDexterity = (level) => BigNumber.from(level);
 var getAgility = (level) => BigNumber.from(level);
 var getIntelligence = (level) => BigNumber.from(level);
