@@ -372,15 +372,15 @@ var postPublish = () => {
 
 var getSecondaryEquation = () => {
 
-	let result = "\\begin{matrix} \\mathrm{";
-	result += "Player \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad ";
+	let result = "\\begin{matrix}";
+	result += "\\mathrm{Player} \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad ";
 	result += "{" + monsterName +"} \\; Level \\; {"+ monsterLevel+"}\\\\\\\\";
 	result += "Damage={"+ playerDamage +"} \\quad \\quad \\quad \\quad \\quad HP={" + monsterHP.toString() + "} \\\\";
 	result += "Hit\\; Chance={"+ (playerHitChance*100).toFixed(2) +"} \\% \\quad \\quad \\quad \\quad \\quad \\quad Dodge={" + monsterDodge.toFixed(1) + "}\\\\";
 	
 	result += "Int\\; Penalty={"+ playerIntPenalty +"} \\quad \\quad \\quad \\quad Intelligence={" + monsterIntelligence.toFixed(1) + "}\\\\";
 
-	result += "} \\end{matrix}";
+	result += "\\end{matrix}";
 
 	theory.primaryEquationHeight = 55;
 	theory.secondaryEquationHeight = 150;
