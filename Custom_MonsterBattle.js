@@ -374,7 +374,7 @@ var getSecondaryEquation = () => {
 
 	let result = "\\begin{matrix}";
 	result += "\\mathrm{Player} \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad ";
-	result += "\\mathrm{{" + monsterName +"}} \\; Level \\; {"+ monsterLevel+"}}\\\\\\\\";
+	result += "\\mathrm{{" + monsterName +"} \\; Level \\; "+ monsterLevel + "}}\\\\\\\\";
 	result += "\\mathrm{Damage={"+ playerDamage +"}} \\quad \\quad \\quad \\quad \\quad \\mathrm{HP={" + monsterHP.toString() + "}} \\\\";
 	result += "\\mathrm{Hit\\; Chance={"+ (playerHitChance*100).toFixed(2) +"}} \\% \\quad \\quad \\quad \\quad \\quad \\quad \\mathrm{Dodge={" + monsterDodge.toFixed(1) + "}}\\\\";
 	
