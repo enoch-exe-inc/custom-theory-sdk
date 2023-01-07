@@ -5,8 +5,8 @@ import { QuaternaryEntry, theory } from "../api/Theory";
 import { Utils } from "../api/Utils";
 import { LinearCost } from "../TheorySDK.Win.1.4.22/api/Costs";
 
-var id = "monster_battle"
-var name = "Monster Battle";
+var id = "cust_monster_battle"
+var name = "Custom Monster Battle";
 var description = "Fight monsters and gain rho!";
 var authors = "Playspout\n(also enoch_exe_inc)";
 var version = 1;
