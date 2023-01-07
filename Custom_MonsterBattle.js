@@ -8,7 +8,7 @@ import { LinearCost } from "../TheorySDK.Win.1.4.22/api/Costs";
 var id = "monster_battle"
 var name = "Monster Battle";
 var description = "Fight monsters and gain rho!";
-var authors = "Playspout";
+var authors = "Playspout\n(also enoch_exe_inc)";
 var version = 1;
 
 var q = BigNumber.ONE;
@@ -53,9 +53,9 @@ var init = () => {
 
 	// strength
 	{
-		let getDesc = (level) => "strength=" + getStrength(level).toString(0);
-		let getInfo = (level) => "strength=" + getStrength(level).toString(0);
-		strength = theory.createUpgrade(0, currency, new FirstFreeCost(new ExponentialCost(10, Math.log2(10**0.1220))));
+		let getDesc = (level) => "\\mathrm{STR=" + getStrength(level).toString(0) + "}";
+		let getInfo = (level) => "\\mathrm{strength=" + getStrength(level).toString(0) + "}";
+		strength = theory.createUpgrade(0, currency, new FirstFreeCost(new ExponentialCost(10, Math.log2(10**0.1224))));
 		strength.getDescription = (amount) => Utils.getMath(getDesc(strength.level));
 		strength.getInfo = (amount) => Utils.getMathTo(getInfo(strength.level), getInfo(strength.level + amount));
 
@@ -63,8 +63,8 @@ var init = () => {
 
 	// q2
 	{
-		let getDesc = (level) => "dexterity={" + level + "}";
-		let getInfo = (level) => "dexterity=" + getDexterity(level).toString(0);
+		let getDesc = (level) => "\\mathrm{DXT={" + level + "}}";
+		let getInfo = (level) => "\\mathrm{Dexterity=" + getDexterity(level).toString(0) + "}";
 		dexterity = theory.createUpgrade(1, currency, new ExponentialCost(10, Math.log2(10**0.1)));
 		dexterity.getDescription = (amount) => Utils.getMath(getDesc(dexterity.level));
 		dexterity.getInfo = (amount) => Utils.getMathTo(getInfo(dexterity.level), getInfo(dexterity.level + amount));
@@ -72,8 +72,8 @@ var init = () => {
 
 	// c1
 	{
-		let getDesc = (level) => "agility=" + getAgility(level).toString(0);
-		let getInfo = (level) => "agility=" + getAgility(level).toString(0);
+		let getDesc = (level) => "\\mathrm{AGL=" + getAgility(level).toString(0) + "}}";
+		let getInfo = (level) => "\\mathrm{agility=" + getAgility(level).toString(0) + "}";
 		agility = theory.createUpgrade(2, currency, new ExponentialCost(10, Math.log2(10**0.1)));
 		agility.getDescription = (amount) => Utils.getMath(getDesc(agility.level));
 		agility.getInfo = (amount) => Utils.getMathTo(getInfo(agility.level), getInfo(agility.level + amount));
@@ -81,8 +81,8 @@ var init = () => {
 
 	// c2
 	{
-		let getDesc = (level) => "Intelligence={" + level + "}";
-		let getInfo = (level) => "Intelligence=" + getIntelligence(level).toString(0);
+		let getDesc = (level) => "\\mathrm{INT={" + level + "}}";
+		let getInfo = (level) => "\\mathrm{Intelligence=" + getIntelligence(level).toString(0) + "}";
 		intelligence = theory.createUpgrade(3, currency, new ExponentialCost(10, Math.log2(10**0.1)));
 		intelligence.getDescription = (amount) => Utils.getMath(getDesc(intelligence.level));
 		intelligence.getInfo = (amount) => Utils.getMathTo(getInfo(intelligence.level), getInfo(intelligence.level + amount));
@@ -104,7 +104,7 @@ var init = () => {
 
 	/////////////////////
 	// Checkpoint Upgrades
-	theory.setMilestoneCost(new LinearCost(25*0.1, 25*0.1));
+	theory.setMilestoneCost(new LinearCost(25, 25));
 	
 
 	{
@@ -374,11 +374,11 @@ var getSecondaryEquation = () => {
 
 	let result = "\\begin{matrix}";
 	result += "\\mathrm{Player} \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad ";
-	result += "{" + monsterName +"} \\; Level \\; {"+ monsterLevel+"}\\\\\\\\";
-	result += "Damage={"+ playerDamage +"} \\quad \\quad \\quad \\quad \\quad HP={" + monsterHP.toString() + "} \\\\";
-	result += "Hit\\; Chance={"+ (playerHitChance*100).toFixed(2) +"} \\% \\quad \\quad \\quad \\quad \\quad \\quad Dodge={" + monsterDodge.toFixed(1) + "}\\\\";
+	result += "\\mathrm{{" + monsterName +"}} \\; Level \\; {"+ monsterLevel+"}}\\\\\\\\";
+	result += "\\mathrm{Damage={"+ playerDamage +"}} \\quad \\quad \\quad \\quad \\quad \\mathrm{HP={" + monsterHP.toString() + "}} \\\\";
+	result += "\\mathrm{Hit\\; Chance={"+ (playerHitChance*100).toFixed(2) +"}} \\% \\quad \\quad \\quad \\quad \\quad \\quad \\mathrm{Dodge={" + monsterDodge.toFixed(1) + "}}\\\\";
 	
-	result += "Int\\; Penalty={"+ playerIntPenalty +"} \\quad \\quad \\quad \\quad Intelligence={" + monsterIntelligence.toFixed(1) + "}\\\\";
+	result += "\\mathrm{Int\\; Penalty={"+ playerIntPenalty +"}} \\quad \\quad \\quad \\quad \\mathrm{Intelligence={" + monsterIntelligence.toFixed(1) + "}\\\\";
 
 	result += "\\end{matrix}";
 
@@ -396,9 +396,10 @@ var getTertiaryEquation = () => "Str=" + strengthSum.toString() + "\\quad IntSum
 var getPublicationMultiplier = (tau) => tau.pow(1.5);
 var getPublicationMultiplierFormula = (symbol) => "{" + symbol + "}^{0.15}";
 var getTau = () => currency.value.pow(BigNumber.from(0.1));
+var getCurrencyFromTau = (tau) => [tau.max(BigNumber.ONE).pow(10), currency.symbol];
 var get2DGraphValue = () => currency.value.sign * (BigNumber.ONE + currency.value.abs()).log10().toNumber();
 
-var getStrength = (level) => Utils.getStepwisePowerSum(level, 10, 9, 1);
+var getStrength = (level) => Utils.getStepwisePowerSum(level, 10, 9, 0);
 var getDexterity = (level) => BigNumber.from(level);
 var getAgility = (level) => BigNumber.from(level);
 var getIntelligence = (level) => BigNumber.from(level);
