@@ -53,7 +53,7 @@ var init = () => {
 
 	// strength
 	{
-		let getDesc = (level) => "\\mathrm{STR=" + getStrength(level).toString(0) + "}";
+		let getDesc = (level) => "\\mathrm{STR=" + getStrength(level).toString(0) + "}}";
 		let getInfo = (level) => "\\mathrm{strength=" + getStrength(level).toString(0) + "}";
 		strength = theory.createUpgrade(0, currency, new FirstFreeCost(new ExponentialCost(10, Math.log2(10**0.1224))));
 		strength.getDescription = (amount) => Utils.getMath(getDesc(strength.level));
