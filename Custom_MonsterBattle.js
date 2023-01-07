@@ -53,8 +53,8 @@ var init = () => {
 
 	// strength
 	{
-		let getDesc = (level) => "\\mathrm{STR=" + getStrength(level).toString(0) + "}}";
-		let getInfo = (level) => "\\mathrm{Strength=" + getStrength(level).toString(0) + "}";
+		let getDesc = (level) => "\\mathrm{STR={" + getStrength(level).toString(0) + "}}";
+		let getInfo = (level) => "\\mathrm{Strength={" + getStrength(level).toString(0) + "}}";
 		strength = theory.createUpgrade(0, currency, new FirstFreeCost(new ExponentialCost(10, Math.log2(10**0.1224))));
 		strength.getDescription = (amount) => Utils.getMath(getDesc(strength.level));
 		strength.getInfo = (amount) => Utils.getMathTo(getInfo(strength.level), getInfo(strength.level + amount));
@@ -64,7 +64,7 @@ var init = () => {
 	// q2
 	{
 		let getDesc = (level) => "\\mathrm{DXT={" + level + "}}";
-		let getInfo = (level) => "\\mathrm{Dexterity=" + getDexterity(level).toString(0) + "}";
+		let getInfo = (level) => "\\mathrm{Dexterity={" + getDexterity(level).toString(0) + "}}";
 		dexterity = theory.createUpgrade(1, currency, new ExponentialCost(10, Math.log2(10**0.1)));
 		dexterity.getDescription = (amount) => Utils.getMath(getDesc(dexterity.level));
 		dexterity.getInfo = (amount) => Utils.getMathTo(getInfo(dexterity.level), getInfo(dexterity.level + amount));
@@ -73,7 +73,7 @@ var init = () => {
 	// c1
 	{
 		let getDesc = (level) => "\\mathrm{AGL=" + getAgility(level).toString(0) + "}}";
-		let getInfo = (level) => "\\mathrm{Agility=" + getAgility(level).toString(0) + "}";
+		let getInfo = (level) => "\\mathrm{Agility={" + getAgility(level).toString(0) + "}}";
 		agility = theory.createUpgrade(2, currency, new ExponentialCost(10, Math.log2(10**0.1)));
 		agility.getDescription = (amount) => Utils.getMath(getDesc(agility.level));
 		agility.getInfo = (amount) => Utils.getMathTo(getInfo(agility.level), getInfo(agility.level + amount));
@@ -82,7 +82,7 @@ var init = () => {
 	// c2
 	{
 		let getDesc = (level) => "\\mathrm{INT={" + level + "}}";
-		let getInfo = (level) => "\\mathrm{Intelligence=" + getIntelligence(level).toString(0) + "}";
+		let getInfo = (level) => "\\mathrm{Intelligence={" + getIntelligence(level).toString(0) + "}}";
 		intelligence = theory.createUpgrade(3, currency, new ExponentialCost(10, Math.log2(10**0.1)));
 		intelligence.getDescription = (amount) => Utils.getMath(getDesc(intelligence.level));
 		intelligence.getInfo = (amount) => Utils.getMathTo(getInfo(intelligence.level), getInfo(intelligence.level + amount));
