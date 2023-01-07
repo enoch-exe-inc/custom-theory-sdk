@@ -54,7 +54,7 @@ var init = () => {
 	// strength
 	{
 		let getDesc = (level) => "\\mathrm{STR=" + getStrength(level).toString(0) + "}}";
-		let getInfo = (level) => "\\mathrm{strength=" + getStrength(level).toString(0) + "}";
+		let getInfo = (level) => "\\mathrm{Strength=" + getStrength(level).toString(0) + "}";
 		strength = theory.createUpgrade(0, currency, new FirstFreeCost(new ExponentialCost(10, Math.log2(10**0.1224))));
 		strength.getDescription = (amount) => Utils.getMath(getDesc(strength.level));
 		strength.getInfo = (amount) => Utils.getMathTo(getInfo(strength.level), getInfo(strength.level + amount));
@@ -73,7 +73,7 @@ var init = () => {
 	// c1
 	{
 		let getDesc = (level) => "\\mathrm{AGL=" + getAgility(level).toString(0) + "}}";
-		let getInfo = (level) => "\\mathrm{agility=" + getAgility(level).toString(0) + "}";
+		let getInfo = (level) => "\\mathrm{Agility=" + getAgility(level).toString(0) + "}";
 		agility = theory.createUpgrade(2, currency, new ExponentialCost(10, Math.log2(10**0.1)));
 		agility.getDescription = (amount) => Utils.getMath(getDesc(agility.level));
 		agility.getInfo = (amount) => Utils.getMathTo(getInfo(agility.level), getInfo(agility.level + amount));
@@ -92,13 +92,13 @@ var init = () => {
 
 	/////////////////////
 	// Permanent Upgrades
-	theory.createPublicationUpgrade(0, currency, 1e7);
+	theory.createPublicationUpgrade(0, currency, 1e8);
 	theory.createBuyAllUpgrade(1, currency, 1e1);
 	theory.createAutoBuyerUpgrade(2, currency, 1e1);
 	finalUpgrade = theory.createPermanentUpgrade(3, currency, new LinearCost(BigNumber.from("1.79e308"), 0));
 	finalUpgrade.maxLevel = 1;
-	finalUpgrade.description = Localization.getUpgradeUnlockDesc("\\text{Final Milestone Upgrade}");
-	finalUpgrade.getInfo = (_) => Localization.getUpgradeUnlockInfo("\\text{Unlock your full power}");
+	finalUpgrade.description = Localization.getUpgradeUnlockDesc("\\text{The Final Upgrade}");
+	finalUpgrade.getInfo = (_) => Localization.getUpgradeUnlockInfo("\\text{Unlock your full potential}");
 	finalUpgrade.boughtOrRefunded = (_) => updateAvailability();
 	
 
@@ -399,7 +399,7 @@ var getTau = () => currency.value.pow(BigNumber.from(0.1));
 var getCurrencyFromTau = (tau) => [tau.max(BigNumber.ONE).pow(10), currency.symbol];
 var get2DGraphValue = () => currency.value.sign * (BigNumber.ONE + currency.value.abs()).log10().toNumber();
 
-var getStrength = (level) => Utils.getStepwisePowerSum(level, 10, 9, 0);
+var getStrength = (level) => Utils.getStepwisePowerSum(level, 10, 9, 1);
 var getDexterity = (level) => BigNumber.from(level);
 var getAgility = (level) => BigNumber.from(level);
 var getIntelligence = (level) => BigNumber.from(level);
