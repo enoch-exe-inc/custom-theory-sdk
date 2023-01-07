@@ -72,7 +72,7 @@ var init = () => {
 
 	// c1
 	{
-		let getDesc = (level) => "\\mathrm{AGL=" + getAgility(level).toString(0) + "}}";
+		let getDesc = (level) => "\\mathrm{AGL={" + getAgility(level).toString(0) + "}}";
 		let getInfo = (level) => "\\mathrm{Agility={" + getAgility(level).toString(0) + "}}";
 		agility = theory.createUpgrade(2, currency, new ExponentialCost(10, Math.log2(10**0.1)));
 		agility.getDescription = (amount) => Utils.getMath(getDesc(agility.level));
@@ -109,15 +109,15 @@ var init = () => {
 
 	{
 		strengthMilestone = theory.createMilestoneUpgrade(0, 3);
-		strengthMilestone.description = Localization.getUpgradeMultCustomDesc("damage", "log_{10}(tau)");
-		strengthMilestone.info = Localization.getUpgradeMultCustomInfo("damage", "log_{10}(tau)");
+		strengthMilestone.description = Localization.getUpgradeMultCustomDesc("\\text{Damage}", "\\text{log_{10}(tau)}");
+		strengthMilestone.info = Localization.getUpgradeMultCustomInfo("\\text{DMG}", "\\text{log_{10}(tau)}");
 		strengthMilestone.boughtOrRefunded = (_) => theory.invalidatePrimaryEquation();
 	}
 
 	{
 		dexterityMilestone = theory.createMilestoneUpgrade(1, 3);
-		dexterityMilestone.description = Localization.getUpgradeIncCustomDesc("hit \\; chance", "10\\% \\; additive");
-		dexterityMilestone.info = Localization.getUpgradeIncCustomInfo("hit \\; chance", "10 \\% ");
+		dexterityMilestone.description = Localization.getUpgradeIncCustomDesc("\\text{Hit \\; chance}", "+10\\%");
+		dexterityMilestone.info = Localization.getUpgradeIncCustomInfo("\\text{hit \\; chance}", "10 \\% ");
 		dexterityMilestone.canBeRefunded = (amount) => intelligenceMilestone.level == 0;
 		dexterityMilestone.boughtOrRefunded = (_) => { theory.invalidatePrimaryEquation(); updateAvailability(); }
 	}
