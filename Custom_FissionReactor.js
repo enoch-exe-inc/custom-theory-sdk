@@ -122,8 +122,8 @@ var init = () => {
 		let getDesc = (level) => "(\\text{Cm}_2) \\text{Purifier: }2^{" + level + "}";
 		let getInfo = (level) => "(\\text{Cm}_2) \\text{Curium purifier power:}" + getCmRT(level).toString(0);
 		CmRT = theory.createUpgrade(13, currency6, new ExponentialCost(1, Math.log2(3.1)));
-		CmRT.getDescription = (_) => Utils.getMath(getDesc(CmR.level));
-		CmRT.getInfo = (amount) => Utils.getMathTo(getInfo(CmR.level), getInfo(CmR.level + 1));
+		CmRT.getDescription = (_) => Utils.getMath(getDesc(CmRT.level));
+		CmRT.getInfo = (amount) => Utils.getMathTo(getInfo(CmRT.level), getInfo(CmRT.level + 1));
 		CmRT.isAvailable = false;
 	}
 	{
