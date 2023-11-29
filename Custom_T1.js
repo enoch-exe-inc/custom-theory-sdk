@@ -231,7 +231,7 @@ var getPrimaryEquation = () => {
 }
 
 var getSecondaryEquation = () => theory.latexSymbol + "=\\max\\rho^{0.1}";	// Original: "=\\max]\rho";
-var getTertiaryEquation = () => "\\dot{\\rho}=" + rhoN.toString() + "\\\\" + Localization.format(stringTickspeed, getTickspeed().toString(0));
+var getTertiaryEquation = () => "\\dot{\\rho}=" + rhoDot.toString() + "\\\\" + Localization.format(stringTickspeed, getTickspeed().toString(0));
 
 var getPublicationMultiplier = (tau) => tau.isZero ? (BigNumber.ONE * sigma.pow(getSig(multSig.level))) : (tau * sigma.pow(getSig(multSig.level)));	// Original: tau.pow(0.164) / BigNumber.THREE
 var getPublicationMultiplierFormula = (symbol) => {
