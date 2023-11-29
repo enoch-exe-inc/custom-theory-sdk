@@ -9,12 +9,12 @@ var id = "cust_recurrence_relations";
 var name = "Ext. Recurrence Relations";
 var description = "An extension of the 'Recurrence Relations' theory from the game.";
 var authors = "Gilles-Philippe Paillé; enoch_exe_inc";
-var version = 2.7;
+var version = 2.71;
 
-var rhoN = BigNumber.ZERO;
 var rhoNm1 = BigNumber.ZERO;
 var rhoNm2 = BigNumber.ZERO;
 var rhoNm3 = BigNumber.ZERO;
+var rhoDot = BigNumber.ZERO;
 var time = 0;
 
 var stringTickspeed = "\\text{{" + Localization.get("TheoryPanelTickspeed", "}}q_1q_2\\text{{", "}}{0}\\text{{") + "}}";
@@ -212,8 +212,7 @@ var setInternalState = (state) => {
 var getPrimaryEquation = () => {
 	let result = "\\rho_{n+1} = \\rho_{n}+c_1";
 
-	if (c1Exp.level > 0)
-		result += "^{" + getC1Exponent(c1Exp.level).toString(1) + "}";
+	if (c1Exp.level > 0) result += "^{" + getC1Exponent(c1Exp.level).toString(1) + "}";
 
 	result += "c_2";
 
@@ -231,7 +230,7 @@ var getPrimaryEquation = () => {
 }
 
 var getSecondaryEquation = () => theory.latexSymbol + "=\\max\\rho^{0.1}";	// Original: "=\\max]\rho";
-var getTertiaryEquation = () => Localization.format(stringTickspeed, getTickspeed().toString(0));
+var getTertiaryEquation = () => "\\dot{\\rho}=" + rhoN.toString() + Localization.format(stringTickspeed, getTickspeed().toString(0));
 
 var getPublicationMultiplier = (tau) => tau.isZero ? (BigNumber.ONE * sigma.pow(getSig(multSig.level))) : (tau * sigma.pow(getSig(multSig.level)));	// Original: tau.pow(0.164) / BigNumber.THREE
 var getPublicationMultiplierFormula = (symbol) => {
