@@ -18,6 +18,7 @@ var rhoDot = BigNumber.ZERO;
 var time = 0;
 
 var stringTickspeed = "\\text{{" + Localization.get("TheoryPanelTickspeed", "}}q_1q_2\\text{{", "}}{0}\\text{{") + "}}";
+var stringRhoDot;
 var epsilon = BigNumber.from(1e-8);
 
 var currency;
@@ -193,6 +194,7 @@ var tick = (elapsedTime, multiplier) => {
 		let term4 = c5Term.level > 0 ? (vc5 * rhoNm3.pow(0.4)) : BigNumber.ZERO;
 
 		rhoDot = rhoN + (bonus * tickPower * (term1 + term2 + term3 + term4) + epsilon);
+		stringRhoDot = rhoDot.toString();
 		currency.value = rhoDot;
 
 		time = 0;
@@ -231,7 +233,7 @@ var getPrimaryEquation = () => {
 }
 
 var getSecondaryEquation = () => theory.latexSymbol + "=\\max\\rho^{0.1}";	// Original: "=\\max]\rho";
-var getTertiaryEquation = () => "\\dot{\\rho}=" + rhoDot.toString() + "\\\\" + Localization.format(stringTickspeed, getTickspeed().toString(0));
+var getTertiaryEquation = () => "\\dot{\\rho}=" + stringRhoDot + "\\\\" + Localization.format(stringTickspeed, getTickspeed().toString(0));
 
 var getPublicationMultiplier = (tau) => tau.isZero ? (BigNumber.ONE * sigma.pow(getSig(multSig.level))) : (tau * sigma.pow(getSig(multSig.level)));	// Original: tau.pow(0.164) / BigNumber.THREE
 var getPublicationMultiplierFormula = (symbol) => {
