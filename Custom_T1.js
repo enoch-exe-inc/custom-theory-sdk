@@ -198,7 +198,7 @@ var tick = (elapsedTime, multiplier) => {
 		currency.value = rhoDot;
 
 		time = 0;
-		theory.invalidateSecondaryEquation();
+		theory.invalidateTertiaryEquation();
 	}
 }
 
