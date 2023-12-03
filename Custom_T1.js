@@ -14,11 +14,10 @@ var version = 2.71;
 var rhoNm1 = BigNumber.ZERO;
 var rhoNm2 = BigNumber.ZERO;
 var rhoNm3 = BigNumber.ZERO;
-var rhoDot = BigNumber.ZERO;
 var time = 0;
 
-var stringTickspeed = "\\text{{" + Localization.get("TheoryPanelTickspeed", "}}q_1q_2\\text{{", "}}{0}\\text{{") + "}}";
-var stringRhoDot;
+var strTickspeed = "\\text{{" + Localization.get("TheoryPanelTickspeed", "}}q_1q_2\\text{{", "}}{0}\\text{{") + "}}";
+var strC1C2;
 var epsilon = BigNumber.from(1e-8);
 
 var currency;
@@ -188,14 +187,16 @@ var tick = (elapsedTime, multiplier) => {
 		let vc3 = getC3(c3.level);
 		let vc4 = getC4(c4.level);
 		let vc5 = getC5(c5.level);
+
 		let term1 = vc1 * vc2 * (logTerm.level > 0 ? BigNumber.ONE + rhoN.Max(BigNumber.ONE).log() / BigNumber.HUNDRED : BigNumber.ONE);
 		let term2 = c3Term.level > 0 ? (vc3 * rhoNm1.pow(0.2)) : BigNumber.ZERO;
 		let term3 = c4Term.level > 0 ? (vc4 * rhoNm2.pow(0.3)) : BigNumber.ZERO;
 		let term4 = c5Term.level > 0 ? (vc5 * rhoNm3.pow(0.4)) : BigNumber.ZERO;
 
-		rhoDot = rhoN + (bonus * tickPower * (term1 + term2 + term3 + term4) + epsilon);
-		stringRhoDot = rhoDot.toString();
-		currency.value = rhoDot;
+		strC1C2 = getC1C2().toString();
+		
+		// rhoN + (bonus * tickPower * (term1 + term2 + term3 + term4) + epsilon);
+		currency.value = rhoN + (bonus * tickPower * (term1 + term2 + term3 + term4) + epsilon);
 
 		time = 0;
 		theory.invalidateTertiaryEquation();
@@ -233,8 +234,16 @@ var getPrimaryEquation = () => {
 	return result;
 }
 
-var getSecondaryEquation = () => theory.latexSymbol + "=\\max\\rho^{0.1}";	// Original: "=\\max]\rho";
-var getTertiaryEquation = () => "\\dot{\\rho}=" + stringRhoDot + "\\\\" + Localization.format(stringTickspeed, getTickspeed().toString(0));
+var getSecondaryEquation = () => theory.latexSymbol + "=\\max\\rho^{0.1}";
+var getTertiaryEquation = () => {
+	let result = "\\begin{matrix} & c_{1}c_{2} = ";
+	result += strC1C2;
+	result += ",\\\\";
+	result += Localization.format(strTickspeed, getTickspeed().toString(0));
+	result += strC1C2;
+
+	return result;
+}
 
 var getPublicationMultiplier = (tau) => tau.isZero ? (BigNumber.ONE * sigma.pow(getSig(multSig.level))) : (tau * sigma.pow(getSig(multSig.level)));	// Original: tau.pow(0.164) / BigNumber.THREE
 var getPublicationMultiplierFormula = (symbol) => {
@@ -273,5 +282,6 @@ var getC4 = (level) => BigNumber.TEN.pow(level);
 var getC5 = (level) => BigNumber.TEN.pow(level);
 var getSig = (level) => BigNumber.from(level);
 var getTickspeed = () => getQ1(q1.level) * getQ2(q2.level);
+var getC1C2 = () => getC1(c1.level).pow(getC1Exponent(c1Exp.level)) * getC2(c2.level);
 
 init();
