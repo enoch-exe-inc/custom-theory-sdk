@@ -241,6 +241,7 @@ var getTertiaryEquation = () => {
 	result += ",\\\\";
 	result += Localization.format(strTickspeed, getTickspeed().toString(0));
 	result += strC1C2;
+	result += "\\end{matrix}";
 
 	return result;
 }
