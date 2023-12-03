@@ -236,11 +236,10 @@ var getPrimaryEquation = () => {
 
 var getSecondaryEquation = () => theory.latexSymbol + "=\\max\\rho^{0.1}";
 var getTertiaryEquation = () => {
-	let result = "\\begin{matrix} & c_{1}c_{2} = ";
+	let result = "\\begin{matrix} c_{1}c_{2} = ";
 	result += strC1C2;
 	result += ",\\\\";
 	result += Localization.format(strTickspeed, getTickspeed().toString(0));
-	result += strC1C2;
 	result += "\\end{matrix}";
 
 	return result;
