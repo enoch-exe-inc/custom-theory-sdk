@@ -11,6 +11,7 @@ var description = "An extension of the 'Recurrence Relations' theory from the ga
 var authors = "Gilles-Philippe Paillé; enoch_exe_inc";
 var version = 2.71;
 
+var rhoN = BigNumber.ZERO;
 var rhoNm1 = BigNumber.ZERO;
 var rhoNm2 = BigNumber.ZERO;
 var rhoNm3 = BigNumber.ZERO;
