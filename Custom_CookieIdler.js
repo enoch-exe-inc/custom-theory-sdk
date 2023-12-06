@@ -22,8 +22,8 @@ import { QuaternaryEntry } from "../api/Theory";
 // Some parameters
 // If you're wondering why the refund button doesn't appear, please refer to line 646 and you would know something's up
 
-var id = "CookieIdler";
-var name = "Cookie Idler";
+var id = "Cust_CookieIdler";
+var name = "Custom Cookie Idler";
 var description = "🍪👵🍪\nA game within a theory involving baking a copius amounts of cookies in exchange for something far greater...\n🍪👵🍪\n\n🍪==FEATURES==🍪\n🍪 Click, Bake, Farm, Produce your way into the big leagues. With 19 buildings to buy, empower, and upgrade.\n🍪 Experience a whole new level of text richness in theories like never before. Boatloads of text waiting to be read in all aspects, from the buildings, achievements, all the way to upgrades(nerdy mode included).\n🍪 Unique upgrades and intresting game mechanics will involve you to no end! Tasty Cookies, even tastier cookies, breaking the fourth wall, and changing the game itself.\n🍪Absolute lack of big and scary mathematics, rated E for Everyone\n\n🍪==CREDITS==🍪\n🍪 Orteil for bringing such a legendary game idea to life\n🍪 ellipsis for suggesting ideas for the UI\n🍪 skyhigh173 for reformatting the code so it looks better\nspqcey(randomname#9373) for proofreading and fixing a majority of the text\n🍪 Lava for fixing the legendary bug";
 var authors = "Sainen Lv.420 #2684";
 
@@ -35,6 +35,8 @@ var authors = "Sainen Lv.420 #2684";
  Lava#3374
  Frozen Moon#7244 (alex)
  elkshadow5#7952
+ 
+ enoch_exe_inc
 
  feel free to add more into the list.
  */
@@ -218,9 +220,9 @@ var getInternalState = () => {
 };
 
 /**
- * @desc Sets certain values of the theory according to the serialized state
+ * @desc Sets certain values of the theory according to the serialised state
  * ! The values set are the following:
- * ! Achievement Count, Visualizer Type(unused), Total Lumps, Equation Type, Artifacts Unlocked, CPS, HPS, Time since last cast of every spell
+ * ! Achievement Count, Visualiser Type(unused), Total Lumps, Equation Type, Artifacts Unlocked, CPS, HPS, Time since last cast of every spell
  * @param {state} state, must be from getInternalState() only
  */
 var setInternalState = (state) => {
@@ -316,7 +318,7 @@ var setInternalState = (state) => {
 	reactorMenu.content.children[2].text = `Current Element : ${(reactorInterim > -1) ? elemFormalName[reactorInterim + 2] : "OFF"}`;
 };
 
-// Initializes the variables for the serialized string(the scope is global)
+// Initialises the variables for the serialised string(the scope is global)
 let CPS = BigNumber.ZERO,
 	HPS = BigNumber.ZERO,
 	LPS = BigNumber.ZERO;
@@ -330,7 +332,7 @@ let spellCast = new Array(8).fill(0);
 let heavVis = 0;
 let bInfo = 0;
 let buiPerk = new Array(21).fill(0);
-let maxbuiPerk = (indx) => (indx == 2) ? 3 : 5;
+let maxbuiPerk = 5; // Original: (indx) => (indx == 2) ? 3 : 5;
 let perkPoint = 0;
 let perkHas = 0;
 let eqC = 0;
@@ -427,8 +429,8 @@ let buildingDesc = [
 	"transmuting ",
 	"retrieving ",
 	"preventing cookies from being eaten by ",
-	"synthesizing ",
-	"matterifying from light ",
+	"synthesising ",
+	"materialising from light ",
 	"lucking in ",
 	"duplicating in ",
 	"hacking in ",
@@ -883,7 +885,7 @@ const timeDilateInfo = "Dilates the time to produce more cookies that isn\'t aff
 var accelerator, acceleratorMenu;
 // JS CONSOLE - Synergy
 var synergy;
-const synName = ["Intertwined Clickers","Conjurer\'s Hivemind","Gardens of Eden","Mines of Moria","Cookiearium Manipulator","Box of Avarice","Solarium","Metaengineers","Interuniversal Transport","Extradimensional Laboratory","Wormhole Generators","Eternal Fluxors","Atomium Decayment Reactor","Maboroshi Crystals","Chances Breaker","Modulus Formalizer"];//name
+const synName = ["Intertwined Clickers","Conjurer\'s Hivemind","Gardens of Eden","Mines of Moria","Cookiearium Manipulator","Box of Avarice","Solarium","Metaengineers","Interuniversal Transport","Extradimensional Laboratory","Wormhole Generators","Eternal Fluxors","Atomium Decayment Reactor","Maboroshi Crystals","Chances Breaker","Modulus Formaliser"];//name
 const synMCost = [
 	//format : Be,Ch,Bg,Su,Jm,Cs,relative second,Hz,Lumps
 	[1e31,0,0,0,0,10000,10,0,10000],//cursor
@@ -901,7 +903,7 @@ const synRatio = [
 	[4,0.01],
 ];//a matrix representing the initial and delta ratio, each row represents one building
 
-//==Visualizer==
+//==Visualiser==
 var viz;
 const vizTypeM = 1;
 const vizID = 99000;
@@ -1090,7 +1092,7 @@ var lumpAch = new Array(10); // 10 tiers
 var lumpAchCat;
 const lumpAchName = [
 	"Dude, Sweet",
-	"Caramelized",
+	"Caramelised",
 	"Sugar Rush",
 	"Sugar Sugar",
 	"Type 1 Diabetes, ah ah ah",
@@ -1643,7 +1645,7 @@ var init = () => {
 	moreExcavator.getInfo = () => `\$E_{f}\$ = \$1+0.2E_{p}^{1.4}\$ = ${(1 + (0.2 * BigP(moreExcavator.level, 1.4)))}`;
 	moreExcavator.bought = (amount) => calcEPS();
 
-	crystalHoney = shortPermaUpgradeML(12004, elements[1], new ExponentialCost(BF(7.1e10), ML2(19.99)), "Crystallized Honey", "A heavenly shard of this honey adds 10 levels to $C_1$", 11);
+	crystalHoney = shortPermaUpgradeML(12004, elements[1], new ExponentialCost(BF(7.1e10), ML2(19.99)), "Crystallised Honey", "A heavenly shard of this honey adds 10 levels to $C_1$", 11);
 	crystalHoney.bought = (amount) => calcCPS();
 
 	sugarCoat = shortPermaUpgrade(13004, elements[3], new ExponentialCost(BF(1e6), ML2(11)), "Sugarmuck-Laced Sugar", "Adds 2.5 $\\dot{L}$ per lump of sugarmuck");
@@ -2642,7 +2644,7 @@ var getUpdateNotes = () => {
 		padding: Thickness(2, 10, 2, 5)
 	}));
 	ret.push(ui.createLabel({
-		text: "\t- 🧙‍♂️ Added a NEW unique upgrade : \"Grimoire\", available at your nearest temples! Cast spells to further your progression, build new strategy revolving them, or to get unlucky and [DATA EXPUNGED]. \n\t- UI OVERHAUL : Everything\'s changed! From the equation overlay to the brand NEW main menu. Explore a whole new dimension of interacting with the theory you love(hopefully so).\n\t- CHANCEMAKERS : Those things really do depend on luck. I mean, REALLY.\n\t- Balanced out a lot of things at every stage of the game progression until this point. Changed up some upgrades and adjusted P_i growth rate for some rowdy CPS and revolutionized milestone upgrades.\n\t- Added a whole lot of achievements and feats, go get them all. There\'s rewards for achieving them so get achieving.",
+		text: "\t- 🧙‍♂️ Added a NEW unique upgrade : \"Grimoire\", available at your nearest temples! Cast spells to further your progression, build new strategy revolving them, or to get unlucky and [DATA EXPUNGED]. \n\t- UI OVERHAUL : Everything\'s changed! From the equation overlay to the brand NEW main menu. Explore a whole new dimension of interacting with the theory you love(hopefully so).\n\t- CHANCEMAKERS : Those things really do depend on luck. I mean, REALLY.\n\t- Balanced out a lot of things at every stage of the game progression until this point. Changed up some upgrades and adjusted P_i growth rate for some rowdy CPS and revolutionised milestone upgrades.\n\t- Added a whole lot of achievements and feats, go get them all. There\'s rewards for achieving them so get achieving.",
 		fontSize: 11,
 		horizontalTextAlignment: TextAlignment.START,
 		fontAttributes: FontAttributes.NONE,
@@ -2703,7 +2705,7 @@ let biButton = ui.createButton({
 });
 //!1.5 : COLOR
 const eqColor = ["FFFFFF", "E6DFCF", "A06846", "FFD4D8", "FE3246", "ABED6A", "EA8B01", "C48AE2", "F4E4BA", "FBF2D5", "AC6329", "E5BD46", "E71334", "E2DBD2", "83F2BC", "8F9098", "FF6D98", "AB5DF8", "F1398D", "50AB21", "00FFFF", "8800FF"];
-const eqColorName = ["White", "Milk", "Chocolate", "Strawberry", "Raspberry", "Lime", "Pumpkin", "Blueberry", "Banana", "Vanilla", "Caramel", "Honey", "Cherry", "Coconut", "Mint", "Licorice", "Rose", "Blackcurrant", "Dragonfruit", "Black Forest", "Crystallized", "Pentallized"];
+const eqColorName = ["White", "Milk", "Chocolate", "Strawberry", "Raspberry", "Lime", "Pumpkin", "Blueberry", "Banana", "Vanilla", "Caramel", "Honey", "Cherry", "Coconut", "Mint", "Licorice", "Rose", "Blackcurrant", "Dragonfruit", "Black Forest", "Crystallised", "Pentallised"];
 const eqColorAch = [0, 10, 15, 20, 25, 30, 35, 40, 50, 60, 70, 75, 80, 85, 90, 100, 110, 120, 130, 140, 150, 194];
 let visButton = ui.createButton({
 	text: `Modify Visuals`, row: 0, column: 1,
@@ -2820,10 +2822,10 @@ imagUpdate = () => {
 	imagUpdate();// dragonfruit
 	templateImage.source = ImageSource.fromUri("https://media.discordapp.net/attachments/572392960675545088/1031059256457306142/BlackForest_Milk.png");
 	imagUpdate();// black forest
-	templateImage.source = ImageSource.fromUri("https://media.discordapp.net/attachments/572392960675545088/1031059255454879855/Crystallized_Milk.png");
-	imagUpdate();// crystallized
-	templateImage.source = ImageSource.fromUri("https://media.discordapp.net/attachments/572392960675545088/1031059255991750706/Pentallized_Milk.png");
-	imagUpdate();// pentallized
+	templateImage.source = ImageSource.fromUri("https://media.discordapp.net/attachments/572392960675545088/1031059255454879855/Crystallised_Milk.png");
+	imagUpdate();// crystallised
+	templateImage.source = ImageSource.fromUri("https://media.discordapp.net/attachments/572392960675545088/1031059255991750706/Pentallised_Milk.png");
+	imagUpdate();// pentallised
 	templateImage.source = ImageSource.fromUri("https://static.wikia.nocookie.net/cookieclicker/images/f/f4/Questionmark.png/revision/latest?cb=20200626021945");
 	imagUpdate();
 	templateImage.source = ImageSource.fromUri("https://static.wikia.nocookie.net/cookieclicker/images/f/f4/Questionmark.png/revision/latest?cb=20200626021945");
@@ -2936,7 +2938,7 @@ let calcCookieToPerk = (level) => {
 	if (Number.isNaN(level)) {
 		return calcCookieToPerk(0);
 	}
-	return BigP(10, 7.5 * (level + 1));
+	return BigP(10, 5 * (level + 1)); // Original: return BigP(10, 7.5 * (level + 1));
 };
 let perkLabel1 = ui.createLatexLabel({
 	text: "You can forge your cookies into exponentium bars to exponentiate your buildings for faster cookie production here.\n\nEach bar you give to a building increases their exponent by 0.05",
@@ -2971,7 +2973,7 @@ let perkAssign = (indx) => ui.createGrid({
 			verticalTextAlignment: TextAlignment.CENTER,
 		}),
 		ui.createLatexLabel({
-			text: `${buiPerk[indx]} / ${(buiPerk[indx] < (indx == 2) ? 3 : 5)}`, row: 0, column: 1,
+			text: `${buiPerk[indx]} / ${(buiPerk[indx] < 5)}`, row: 0, column: 1,
 			horizontalTextAlignment: TextAlignment.CENTER,
 			verticalTextAlignment: TextAlignment.CENTER,
 		}),
@@ -3171,7 +3173,7 @@ let popup = ui.createPopup({
 				columnDefinitions: ["50*", "50*"],
 				rowSpacing: 8,
 				children: [
-					ui.createButton({text: "Visualizer Type\nNormal", row: 0, column: 0}),
+					ui.createButton({text: "Visualiser Type\nNormal", row: 0, column: 0}),
 					biButton,
 					visButton,
 					quartButton,
