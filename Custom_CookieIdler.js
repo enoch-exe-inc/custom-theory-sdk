@@ -332,7 +332,7 @@ let spellCast = new Array(8).fill(0);
 let heavVis = 0;
 let bInfo = 0;
 let buiPerk = new Array(21).fill(0);
-let maxbuiPerk = (indx) => (indx == 2) ? 3 : 5;
+let maxbuiPerk = 5; // Original: (indx) => (indx == 2) ? 3 : 5;
 let perkPoint = 0;
 let perkHas = 0;
 let eqC = 0;
@@ -430,7 +430,7 @@ let buildingDesc = [
 	"retrieving ",
 	"preventing cookies from being eaten by ",
 	"synthesizing ",
-	"matterifying from light ",
+	"materializing out of light ",
 	"lucking in ",
 	"duplicating in ",
 	"hacking in ",
@@ -438,14 +438,14 @@ let buildingDesc = [
 	"thinking up ",
 ];
 let baseCost = [
-	11,// 0
-	1e3,// 1
-	1.1e5,// 2
-	1.2e8,// 3
-	1.3e12,// 4
-	1.4e18,// 5
-	2e25,// 6
-	3.3e50,// 7
+	11,	// 0
+	1e3,	// 1
+	1.1e5,	// 2
+	1.2e8,	// 3
+	1.3e12,	// 4
+	1.4e18,	// 5
+	2e25,	// 6
+	3.3e50,	// 7
 	5.1e75,
 	7.5e100,
 	1e125,
@@ -453,32 +453,32 @@ let baseCost = [
 	BF("1.7e180"),
 	BF("2.1e215"),
 	BF("2.6e300"),
-	BF("3.1e351"),// 15
-	BF("7.1e425"),// 16
-	BF("1.2e1450"),// BREAK
+	BF("3.1e351"),	// 15
+	BF("7.1e425"),	// 16
+	BF("1.2e1450"),	// BREAK
 	BF("1.9e1500"),
 ];
 // Ideally, 1/a lot base
 let bcps = [
-	7,// 0
-	310,// 1
-	5.3e4,// 2
-	7.4e7,// 3
-	4.05e10,// 4
-	1.4e12,// 5
-	4.8e18,// 6
-	1.1e29,// 7, 2.5x
-	1.58e38,// 8
-	1.12e50,// 9, doubled
-	6.66e58,// 10
-	6.5e72,// 11
-	9.15e79,// 12
-	BF("4.9e96"),// 13
-	BF("2.1e123"),// 14
-	BF("2.2e150"),// 15
-	BF("3.1e187"),// 16
-	BF("8.3e190"),// 17
-	BF("6.4e195"),// 18
+	7,	// 0
+	310,	// 1
+	5.3e4,	// 2
+	7.4e7,	// 3
+	4.05e10,	// 4
+	1.4e12,	// 5
+	4.8e18,	// 6
+	1.1e29,	// 7, 2.5x
+	1.58e38,	// 8
+	1.12e50,	// 9, doubled
+	6.66e58,	// 10
+	6.5e72,	// 11
+	9.15e79,	// 12
+	BF("4.9e96"),	// 13
+	BF("2.1e123"),	// 14
+	BF("2.2e150"),	// 15
+	BF("3.1e187"),	// 16
+	BF("8.3e190"),	// 17
+	BF("6.4e195"),	// 18
 ];
 // Getting the info of a building but in a function
 var getInf = (index, am) => {
@@ -650,44 +650,44 @@ const recomInfo = "Produces a constant stream of all currencies! What a dream!";
 // BANK - Investment
 var invest;
 const investName = "Investment Openings $(I_{o})$";
-const investInfo = "Open your very own investments forms. Grants 5 buildings of random type and a flat 1.01 CPS boost!(chance of failure included)";
+const investInfo = "Open your very own investment firms. Grants 5 buildings of random type and a flat 1.01 CPS boost! (chance of failure included)";
 // TEMPLE - Archaeology
 var art, artArt;
 const artName = "Archaeology $(A_{r})$";
 const artInfo = "Go into your own temples to discover some secrets lost to mankind";
 const artArtName = [
-	"Rhombus of Chocolatance",// 0Temple CPS goes up
-	"Occam\'s Lazer",// 1Prism CPS goes up
-	"All-Natural ouo sugar",// 2Cats become CPS
-	"Doctor T\'s Thesis",// 3Cursor CPS
-	"Bountiful box of Gilles-Philippe",// 4Grandma CPS
-	"Key to the Conservatorium",// 5Farm CPS
-	"Coreforge Bar",// 6Terra-Finity + Mine CPS
-	"Da Vinci Manuscript",// 7Factory CPS
-	"A very curious tulip bulb",// 8Bank CPS
-	"Book of Symbolisms",// 9Chancemaker Unlock
-	"Grimoire of Basic Cookie Magic",// 10Grimoire
-	"Antediluvian Engine",// 11Time Dilation
-	"Elementium Infused Chocolate Chunk",// 12Secrets of the Elements
-	"Scent of Vanilla Nebula",// 13Shipment CPS + Astrofudge
-	"Cherrysilverium Meld",// 14Unlocks funny things
+	"Rhombus of Chocolatance",	// 0 Temple CPS goes up
+	"Occam\'s Lazer",	// 1Prism CPS goes up
+	"All-Natural ouo sugar",	// 2Cats become CPS
+	"Doctor T\'s Thesis",	// 3Cursor CPS
+	"Bountiful box of Gilles-Philippe",	// 4Grandma CPS
+	"Key to the Conservatorium",	// 5Farm CPS
+	"Coreforge Bar",	// 6Terra-Finity + Mine CPS
+	"Da Vinci Manuscript",	// 7Factory CPS
+	"A very curious tulip bulb",	// 8Bank CPS
+	"Book of Symbolisms",	// 9Chancemaker Unlock
+	"Grimoire of Basic Cookie Magic",	// 10Grimoire
+	"Antediluvian Engine",	// 1 1Time Dilation
+	"Elementium Infused Chocolate Chunk",	// 12Secrets of the Elements
+	"Scent of Vanilla Nebula",	// 13Shipment CPS + Astrofudge
+	"Cherrysilverium Meld",	// 14Unlocks funny things
 	"More artifacts coming soon",
 ];
 const artClue = [
-	"One is One, Five is Two",// 0-1
-	"Achieved Enough?",// 1-2
-	"YEAH SCIENCE!!!!!!!!",// 2-3
-	"There\'s kings in cookies",// 3-4
-	"Explore more, duh",// 4-5
-	"A bit deeper",// 5-6
-	"Get those patents out, ya stingy",// 6-7
-	"Hoard, Hoard, Hoard more",// 7-8
-	"Am I lucky? enough?",// 8-9
-	"haha mana goes brrrrrr",// 9-10
-	"Time-Stopping Performance",// the world
-	"Cavitilicious",// Choco Chunk
-	"5 Cosmic Mappings ah ah ah",// Vanilla Neb
-	"15$(^=)$1.268e30, 16=117.39, 8E=500,000, Cs",// Itr Drive
+	"One is One, Five is Two",	// 0-1
+	"Achieved Enough?",	// 1-2
+	"YEAH SCIENCE!!!!!!!!",	// 2-3
+	"There\'s kings in cookies",	// 3-4
+	"Explore more, duh",	// 4-5
+	"A bit deeper",	// 5-6
+	"Get those patents out, ya stingy",	// 6-7
+	"Hoard, Hoard, Hoard more",	// 7-8
+	"Am I lucky? enough?",	// 8-9
+	"haha mana goes brrrrrr",	// 9-10
+	"Time-Stopping Performance",	// the world
+	"Cavitilicious",	// Choco Chunk
+	"5 Cosmic Mappings ah ah ah",	// Vanilla Neb
+	"15$(^=)$1.268e30, 16=117.39, 8E=500,000, Cs",	// Itr Drive
 	"You have all artifacts, yay",
 ];
 const artArtDesc = [
@@ -709,45 +709,46 @@ const artArtDesc = [
 	"The temple is currently empty and fully explored for artifacts, but not for long....",
 ];
 var artCheck = (cond) => {
+	// For the curious:
 	switch (cond) {
 		case 0:
-			return art.level >= 532 - (532 & 512 | 1 | 2 | 4 | 8);
+			return art.level >= 532 - (532 & 512 | 1 | 2 | 4 | 8);	// 5
 			break;
 		case 1:
-			return achCount >= (((((((1 << 1) + 1) << 1) + 1) << 1) + 1) << 1);
+			return achCount >= (((((((1 << 1) + 1) << 1) + 1) << 1) + 1) << 1); // 30
 			break;
 		case 2:
-			return building[9].level >= (((((((4095 & (4095 - 1)) & (4095 - 2)) & (4095 - 16)) & (4095 - 32)) & (4095 - 64)) & (4095 - 256)) & (4095 - 1024));
+			return building[9].level >= (((((((4095 & (4095 - 1)) & (4095 - 2)) & (4095 - 16)) & (4095 - 32)) & (4095 - 64)) & (4095 - 256)) & (4095 - 1024)); // Alchemy Lab >= 2700
 			break;
 		case 3:
-			return cookiet[7].level >= 1 << 2 >> 2 << 2 >> 2 << 2 >> 2 << 2 >> 2 << 2 >> 2 << 2 >> 2;
+			return cookiet[7].level >= 1 << 2 >> 2 << 2 >> 2 << 2 >> 2 << 2 >> 2 << 2 >> 2 << 2 >> 2;	// Heavenly Tasty Cookie >= 1
 			break;
 		case 4:
-			return art.level >= (((1 << 5) | 1) & 31 & 62 | 2 | 4 | 8 | 16);
+			return art.level >= (((1 << 5) | 1) & 31 & 62 | 2 | 4 | 8 | 16);	// Archaeology >= 30
 			break;
 		case 5:
-			return art.level >= (((((((1 << 1) + 1) << 1) + 1) << 1) + 1) << 1) + ((1 << 3) + 10);
+			return art.level >= (((((((1 << 1) + 1) << 1) + 1) << 1) + 1) << 1) + ((1 << 3) + 10);	// Archaeology >= 48
 			break;
 		case 6:
-			return buildingUpgrade[4].level >= (32 >> 4) | (32 >> 1) | 32;
+			return buildingUpgrade[4].level >= (32 >> 4) | (32 >> 1) | 32;	// Factory Permanent Upgrade >= 50
 			break;
 		case 7:
-			return cookie.value >= BF(1e280);
+			return cookie.value >= BF(1e280);	// Cookies >= 1e280
 			break;
 		case 8:
-			return Math.random() < 0.9999999;
+			return Math.random() < 0.9999999;	// Good luck ;)
 			break;
 		case 9:
-			return building[7].level >= (parseInt([+!+[] + !+[] + !+[] + !+[] + !+[] + !+[] + !+[]] + [+!+[] + !+[] + !+[]] + [+!+[] + !+[] + !+[] + !+[]] + [+!+[] + !+[]]) ^ parseInt([+!+[] + !+[] + !+[]] + [+!+[] + !+[] + !+[]] + [+!+[] + !+[] + !+[] + !+[] + !+[] + !+[] + !+[] + !+[]] + [+!+[] + !+[] + !+[] + !+[] + !+[] + !+[]])) + 50;
+			return building[7].level >= (parseInt([+!+[] + !+[] + !+[] + !+[] + !+[] + !+[] + !+[]] + [+!+[] + !+[] + !+[]] + [+!+[] + !+[] + !+[] + !+[]] + [+!+[] + !+[]]) ^ parseInt([+!+[] + !+[] + !+[]] + [+!+[] + !+[] + !+[]] + [+!+[] + !+[] + !+[] + !+[] + !+[] + !+[] + !+[] + !+[]] + [+!+[] + !+[] + !+[] + !+[] + !+[] + !+[]])) + 50;	// Wizard Tower >= 4550
 			break;
-		case 10:// oops looks like someone spilled a [][][[][[]][][](}()()})(!+{)({)([!({)}())])})})]] in there....
-			return arrcps[0x36 - 0x34 + 0x6 + 0x4 + 0x59 + 0x2d - 0x9c + 0x14] >= BF([][(![] + [])[+[]] + (![] + [])[!+[] + !+[]] + (![] + [])[+!+[]] + (!![] + [])[+[]]][([][(![] + [])[+[]] + (![] + [])[!+[] + !+[]] + (![] + [])[+!+[]] + (!![] + [])[+[]]] + [])[!+[] + !+[] + !+[]] + (!![] + [][(![] + [])[+[]] + (![] + [])[!+[] + !+[]] + (![] + [])[+!+[]] + (!![] + [])[+[]]])[+!+[] + [+[]]] + ([][[]] + [])[+!+[]] + (![] + [])[!+[] + !+[] + !+[]] + (!![] + [])[+[]] + (!![] + [])[+!+[]] + ([][[]] + [])[+[]] + ([][(![] + [])[+[]] + (![] + [])[!+[] + !+[]] + (![] + [])[+!+[]] + (!![] + [])[+[]]] + [])[!+[] + !+[] + !+[]] + (!![] + [])[+[]] + (!![] + [][(![] + [])[+[]] + (![] + [])[!+[] + !+[]] + (![] + [])[+!+[]] + (!![] + [])[+[]]])[+!+[] + [+[]]] + (!![] + [])[+!+[]]]((!![] + [])[+!+[]] + (!![] + [])[!+[] + !+[] + !+[]] + (!![] + [])[+[]] + ([][[]] + [])[+[]] + (!![] + [])[+!+[]] + ([][[]] + [])[+!+[]] + (+[![]] + [][(![] + [])[+[]] + (![] + [])[!+[] + !+[]] + (![] + [])[+!+[]] + (!![] + [])[+[]]])[+!+[] + [+!+[]]] + (!![] + [])[!+[] + !+[] + !+[]] + (+(!+[] + !+[] + !+[] + [+!+[]]))[(!![] + [])[+[]] + (!![] + [][(![] + [])[+[]] + (![] + [])[!+[] + !+[]] + (![] + [])[+!+[]] + (!![] + [])[+[]]])[+!+[] + [+[]]] + ([] + [])[([][(![] + [])[+[]] + (![] + [])[!+[] + !+[]] + (![] + [])[+!+[]] + (!![] + [])[+[]]] + [])[!+[] + !+[] + !+[]] + (!![] + [][(![] + [])[+[]] + (![] + [])[!+[] + !+[]] + (![] + [])[+!+[]] + (!![] + [])[+[]]])[+!+[] + [+[]]] + ([][[]] + [])[+!+[]] + (![] + [])[!+[] + !+[] + !+[]] + (!![] + [])[+[]] + (!![] + [])[+!+[]] + ([][[]] + [])[+[]] + ([][(![] + [])[+[]] + (![] + [])[!+[] + !+[]] + (![] + [])[+!+[]] + (!![] + [])[+[]]] + [])[!+[] + !+[] + !+[]] + (!![] + [])[+[]] + (!![] + [][(![] + [])[+[]] + (![] + [])[!+[] + !+[]] + (![] + [])[+!+[]] + (!![] + [])[+[]]])[+!+[] + [+[]]] + (!![] + [])[+!+[]]][([][[]] + [])[+!+[]] + (![] + [])[+!+[]] + ((+[])[([][(![] + [])[+[]] + (![] + [])[!+[] + !+[]] + (![] + [])[+!+[]] + (!![] + [])[+[]]] + [])[!+[] + !+[] + !+[]] + (!![] + [][(![] + [])[+[]] + (![] + [])[!+[] + !+[]] + (![] + [])[+!+[]] + (!![] + [])[+[]]])[+!+[] + [+[]]] + ([][[]] + [])[+!+[]] + (![] + [])[!+[] + !+[] + !+[]] + (!![] + [])[+[]] + (!![] + [])[+!+[]] + ([][[]] + [])[+[]] + ([][(![] + [])[+[]] + (![] + [])[!+[] + !+[]] + (![] + [])[+!+[]] + (!![] + [])[+[]]] + [])[!+[] + !+[] + !+[]] + (!![] + [])[+[]] + (!![] + [][(![] + [])[+[]] + (![] + [])[!+[] + !+[]] + (![] + [])[+!+[]] + (!![] + [])[+[]]])[+!+[] + [+[]]] + (!![] + [])[+!+[]]] + [])[+!+[] + [+!+[]]] + (!![] + [])[!+[] + !+[] + !+[]]]](!+[] + !+[] + !+[] + [!+[] + !+[]]) + (![] + [])[+!+[]] + (![] + [])[!+[] + !+[]])()([+!+[]] + (!![] + [])[!+[] + !+[] + !+[]] + [+!+[]] + [!+[] + !+[] + !+[] + !+[] + !+[] + !+[]] + [!+[] + !+[] + !+[] + !+[] + !+[]]));
+		case 10: // oops looks like someone spilled a [][][[][[]][][](}()()})(!+{)({)([!({)}())])})})]] in there…
+			return arrcps[0x36 - 0x34 + 0x6 + 0x4 + 0x59 + 0x2d - 0x9c + 0x14] >= BF([][(![] + [])[+[]] + (![] + [])[!+[] + !+[]] + (![] + [])[+!+[]] + (!![] + [])[+[]]][([][(![] + [])[+[]] + (![] + [])[!+[] + !+[]] + (![] + [])[+!+[]] + (!![] + [])[+[]]] + [])[!+[] + !+[] + !+[]] + (!![] + [][(![] + [])[+[]] + (![] + [])[!+[] + !+[]] + (![] + [])[+!+[]] + (!![] + [])[+[]]])[+!+[] + [+[]]] + ([][[]] + [])[+!+[]] + (![] + [])[!+[] + !+[] + !+[]] + (!![] + [])[+[]] + (!![] + [])[+!+[]] + ([][[]] + [])[+[]] + ([][(![] + [])[+[]] + (![] + [])[!+[] + !+[]] + (![] + [])[+!+[]] + (!![] + [])[+[]]] + [])[!+[] + !+[] + !+[]] + (!![] + [])[+[]] + (!![] + [][(![] + [])[+[]] + (![] + [])[!+[] + !+[]] + (![] + [])[+!+[]] + (!![] + [])[+[]]])[+!+[] + [+[]]] + (!![] + [])[+!+[]]]((!![] + [])[+!+[]] + (!![] + [])[!+[] + !+[] + !+[]] + (!![] + [])[+[]] + ([][[]] + [])[+[]] + (!![] + [])[+!+[]] + ([][[]] + [])[+!+[]] + (+[![]] + [][(![] + [])[+[]] + (![] + [])[!+[] + !+[]] + (![] + [])[+!+[]] + (!![] + [])[+[]]])[+!+[] + [+!+[]]] + (!![] + [])[!+[] + !+[] + !+[]] + (+(!+[] + !+[] + !+[] + [+!+[]]))[(!![] + [])[+[]] + (!![] + [][(![] + [])[+[]] + (![] + [])[!+[] + !+[]] + (![] + [])[+!+[]] + (!![] + [])[+[]]])[+!+[] + [+[]]] + ([] + [])[([][(![] + [])[+[]] + (![] + [])[!+[] + !+[]] + (![] + [])[+!+[]] + (!![] + [])[+[]]] + [])[!+[] + !+[] + !+[]] + (!![] + [][(![] + [])[+[]] + (![] + [])[!+[] + !+[]] + (![] + [])[+!+[]] + (!![] + [])[+[]]])[+!+[] + [+[]]] + ([][[]] + [])[+!+[]] + (![] + [])[!+[] + !+[] + !+[]] + (!![] + [])[+[]] + (!![] + [])[+!+[]] + ([][[]] + [])[+[]] + ([][(![] + [])[+[]] + (![] + [])[!+[] + !+[]] + (![] + [])[+!+[]] + (!![] + [])[+[]]] + [])[!+[] + !+[] + !+[]] + (!![] + [])[+[]] + (!![] + [][(![] + [])[+[]] + (![] + [])[!+[] + !+[]] + (![] + [])[+!+[]] + (!![] + [])[+[]]])[+!+[] + [+[]]] + (!![] + [])[+!+[]]][([][[]] + [])[+!+[]] + (![] + [])[+!+[]] + ((+[])[([][(![] + [])[+[]] + (![] + [])[!+[] + !+[]] + (![] + [])[+!+[]] + (!![] + [])[+[]]] + [])[!+[] + !+[] + !+[]] + (!![] + [][(![] + [])[+[]] + (![] + [])[!+[] + !+[]] + (![] + [])[+!+[]] + (!![] + [])[+[]]])[+!+[] + [+[]]] + ([][[]] + [])[+!+[]] + (![] + [])[!+[] + !+[] + !+[]] + (!![] + [])[+[]] + (!![] + [])[+!+[]] + ([][[]] + [])[+[]] + ([][(![] + [])[+[]] + (![] + [])[!+[] + !+[]] + (![] + [])[+!+[]] + (!![] + [])[+[]]] + [])[!+[] + !+[] + !+[]] + (!![] + [])[+[]] + (!![] + [][(![] + [])[+[]] + (![] + [])[!+[] + !+[]] + (![] + [])[+!+[]] + (!![] + [])[+[]]])[+!+[] + [+[]]] + (!![] + [])[+!+[]]] + [])[+!+[] + [+!+[]]] + (!![] + [])[!+[] + !+[] + !+[]]]](!+[] + !+[] + !+[] + [!+[] + !+[]]) + (![] + [])[+!+[]] + (![] + [])[!+[] + !+[]])()([+!+[]] + (!![] + [])[!+[] + !+[] + !+[]] + [+!+[]] + [!+[] + !+[] + !+[] + !+[] + !+[] + !+[]] + [!+[] + !+[] + !+[] + !+[] + !+[]]));	// Portal CPS >= 1e165
 		case 11:
-			return lump.value >= 0b10011100010000;
+			return lump.value >= 0b10011100010000;	// Sugar Lumps >= 10,000
 		case 12:
-			return building[7].level >= 0b10011100010000 / 2;
+			return building[7].level >= 0b10011100010000 / 2; // Wizard Tower >= 5000
 		case 13:
-			return (buildingUpgrade[(1<<4)-1].level >= [+!+[]] + [+[]] + [+[]]) && (buildingUpgrade[1 << 4].level >= (-0x1d * -0xbd + -0x5b * 0x62 + 0xd9f * 0x1)) && (elements[1 << 3].value >= (0x4d5 * -0x129 + 0xdc627 + -0x89ea)) && (elements[(1<<2)|1].value >= 2023);
+			return (buildingUpgrade[(1<<4)-1].level >= [+!+[]] + [+[]] + [+[]]) && (buildingUpgrade[1 << 4].level >= (-0x1d * -0xbd + -0x5b * 0x62 + 0xd9f * 0x1)) && (elements[1 << 3].value >= (0x4d5 * -0x129 + 0xdc627 + -0x89ea)) && (elements[(1<<2)|1].value >= 2023);	// Fractal Engine Upgrade >= '100' && (Cortex Baker Upgrade >= 50) && (Mooncandy >= (500000)) && (Astrofudge >= 2023)
 		default:
 			return false;
 	}
@@ -888,11 +889,11 @@ var synergy;
 const synName = ["Intertwined Clickers","Conjurer\'s Hivemind","Gardens of Eden","Mines of Moria","Cookiearium Manipulator","Box of Avarice","Solarium","Metaengineers","Interuniversal Transport","Extradimensional Laboratory","Wormhole Generators","Eternal Fluxors","Atomium Decayment Reactor","Maboroshi Crystals","Chances Breaker","Modulus Formalizer"];//name
 const synMCost = [
 	//format : Be,Ch,Bg,Su,Jm,Cs,relative second,Hz,Lumps
-	[1e31,0,0,0,0,10000,10,0,10000],//cursor
-	[5e32,0,0,0,0,50000,30,0,25000],//grandma
-	[2e33,0,0,0,0,100000,60,0,50000],//farm
-	[5e35,1e34,0,0,0,500000,120,0,100000],//mine
-	[1e36,5e35,0,0,0,1000000,175,0,150000],//factory
+	[1e31,0,0,0,0,10000,10,0,10000],	//cursor
+	[5e32,0,0,0,0,50000,30,0,25000],	//grandma
+	[2e33,0,0,0,0,100000,60,0,50000],	//farm
+	[5e35,1e34,0,0,0,500000,120,0,100000],	//mine
+	[1e36,5e35,0,0,0,1000000,175,0,150000],	//factory
 ];//a matrix representing the cost of each initial unlock, each row represents one building
 const synRatio = [
 	//format : beginning, delta
@@ -954,7 +955,7 @@ const cookieTinName = [
 	"Tin of Butter Cookies",
 	"Tin of British Tea Biscuits",
 	"Box of Brand Biscuits",
-	"Box of 100\\%\\ Pastries",// brought to you by Lava#3374
+	"Box of 100\\%\\ Pastries",	// brought to you by Lava#3374
 	"Box of Cookie?",
 	"Box of Cookien'\t",
 	"Crate full of Exponential Idle Community References",
@@ -2973,7 +2974,7 @@ let perkAssign = (indx) => ui.createGrid({
 			verticalTextAlignment: TextAlignment.CENTER,
 		}),
 		ui.createLatexLabel({
-			text: `${buiPerk[indx]} / ${(buiPerk[indx] < (indx == 2) ? 3 : 5)}`, row: 0, column: 1,
+			text: `${buiPerk[indx]} / ${(buiPerk[indx] < 5}`, row: 0, column: 1,
 			horizontalTextAlignment: TextAlignment.CENTER,
 			verticalTextAlignment: TextAlignment.CENTER,
 		}),
