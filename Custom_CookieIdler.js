@@ -332,7 +332,7 @@ let spellCast = new Array(8).fill(0);
 let heavVis = 0;
 let bInfo = 0;
 let buiPerk = new Array(21).fill(0);
-let maxbuiPerk = 5; // Original: (indx) => (indx == 2) ? 3 : 5;
+let maxbuiPerk = (indx) => (indx ==2) ? 5 : 5; // Original: (indx) => (indx == 2) ? 3 : 5;
 let perkPoint = 0;
 let perkHas = 0;
 let eqC = 0;
@@ -2974,7 +2974,7 @@ let perkAssign = (indx) => ui.createGrid({
 			verticalTextAlignment: TextAlignment.CENTER,
 		}),
 		ui.createLatexLabel({
-			text: `${buiPerk[indx]} / ${(buiPerk[indx] < 5)}`, row: 0, column: 1,
+			text: `${buiPerk[indx]} / ${(buiPerk[indx] < (indx == 2) ? 5 : 5)}`, row: 0, column: 1,
 			horizontalTextAlignment: TextAlignment.CENTER,
 			verticalTextAlignment: TextAlignment.CENTER,
 		}),
