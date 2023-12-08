@@ -2974,7 +2974,7 @@ let perkAssign = (indx) => ui.createGrid({
 			verticalTextAlignment: TextAlignment.CENTER,
 		}),
 		ui.createLatexLabel({
-			text: `${buiPerk[indx]} / ${(buiPerk[indx] < 5}`, row: 0, column: 1,
+			text: `${buiPerk[indx]} / ${(buiPerk[indx] < 5)}`, row: 0, column: 1,
 			horizontalTextAlignment: TextAlignment.CENTER,
 			verticalTextAlignment: TextAlignment.CENTER,
 		}),
