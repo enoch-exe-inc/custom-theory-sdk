@@ -739,7 +739,7 @@ var artCheck = (cond) => {
 			return Math.random() < 0.9999999;	// Good luck ;)
 			break;
 		case 9:
-			return building[7].level >= (parseInt(1138 ^ 2844) + 50);
+			return building[7].level >= (parseInt(2317 ^ 6255) + 50);	// Wizard Tower >= 4500
 			// All objects in JavaScript can be evaluated as boolean expressions, which in turn can be evaluated as arithmetic expressions.
 			// (parseInt([+!+[] + !+[] + !+[] + !+[] + !+[] + !+[] + !+[]] + [+!+[] + !+[] + !+[]] + [+!+[] + !+[] + !+[] + !+[]] + [+!+[] + !+[]]) ^ parseInt([+!+[] + !+[] + !+[]] + [+!+[] + !+[] + !+[]] + [+!+[] + !+[] + !+[] + !+[] + !+[] + !+[] + !+[] + !+[]] + [+!+[] + !+[] + !+[] + !+[] + !+[] + !+[]])) + 50;	// Wizard Tower >= 4550
 			 // The code above is equivalent to (7342 ^ 3386) + 50.
