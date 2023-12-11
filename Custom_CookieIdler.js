@@ -355,7 +355,7 @@ const buiexp = 0.05;
 const bcp = 0.01;
 let subconstant = BF(1);// filling in the missing parts
 let arrcps = new Array(21).fill(0), arreps = new Array(9).fill(BigNumber.ZERO);
-let getbuip = () => buipb + (0.055 * superL.level);	// Original: buipb + (0.01 * superL.level); - gives only a 1% boost to sugar lump's 10% boost
+let getbuip = () => buipb + (0.0275 * superL.level);	// Original: buipb + (0.01 * superL.level); - gives only a 0.91% boost to sugar lump's 10% boost. This gives it a 2.5% boost.
 let lumpbf = BigNumber.ZERO;
 let hbf = BigNumber.ZERO;
 
@@ -1695,7 +1695,7 @@ var init = () => {
 	superP.info = "Increases $P_{i}$ exponent by $0.02$ for all values of $i$";
 	superL = theory.createMilestoneUpgrade(1, 1);
 	superL.description = "Super Lumps";
-	superL.info = "Change $1.1$ in $L[i]$ to $1.155$";
+	superL.info = "Change $1.1$ in $L[i]$ to $1.1275$";
 	superL.boughtOrRefunded = (amount) => {
 		buip = getbuip();
 		calcCPS();
