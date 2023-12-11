@@ -1402,11 +1402,14 @@ var init = () => {
 					// 1000/1500/2000/2500/5000 tick lumps
 					// All of the above(JACKPOT)
 					for (let i = 0; i < amount; i++) {
-						let r = RandI(10000);
+						let r = RandI(1000);	// Original: 10000
 						if ((spellCast[4] + (10 * templeLuckDur)) >= thyme.level) {
 							r += templeLuck;
 						}
-						let chance = [10000, 9995, 9945, 9845, 9735, 9615, 9565, 9555, 9530, 9430, 9320, 9200, 9100, 9000];
+
+						// Original[10000, 9995, 9945, 9845, 9735, 9615, 9565, 9555, 9530, 9430, 9320, 9200, 9100, 9000]
+						let chance = [1000, 999, 989, 969, 947, 923, 913, 911, 906, 906, 864, 840, 820, 800];
+						
 						// bsearch to find slot
 						prize = bsearch(chance, r);
 						switch (prize) {
