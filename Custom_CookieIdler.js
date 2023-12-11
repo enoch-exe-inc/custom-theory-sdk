@@ -355,7 +355,7 @@ const buiexp = 0.05;
 const bcp = 0.01;
 let subconstant = BF(1);// filling in the missing parts
 let arrcps = new Array(21).fill(0), arreps = new Array(9).fill(BigNumber.ZERO);
-let getbuip = () => buipb + (0.01 * superL.level);
+let getbuip = () => buipb + (0.055 * superL.level);	// Original: buipb + (0.01 * superL.level); - gives only a 1% boost to sugar lump's 10% boost
 let lumpbf = BigNumber.ZERO;
 let hbf = BigNumber.ZERO;
 
