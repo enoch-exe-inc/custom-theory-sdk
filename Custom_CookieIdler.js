@@ -1695,7 +1695,7 @@ var init = () => {
 	superP.info = "Increases $P_{i}$ exponent by $0.02$ for all values of $i$";
 	superL = theory.createMilestoneUpgrade(1, 1);
 	superL.description = "Super Lumps";
-	superL.info = "Change $1.1$ in $L[i]$ to $1.11$";
+	superL.info = "Change $1.1$ in $L[i]$ to $1.155$";
 	superL.boughtOrRefunded = (amount) => {
 		buip = getbuip();
 		calcCPS();
