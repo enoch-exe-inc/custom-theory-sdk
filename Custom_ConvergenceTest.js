@@ -4,11 +4,11 @@ import { BigNumber, parseBigNumber } from "../api/BigNumber";
 import { theory } from "../api/Theory";
 import { Utils } from "../api/Utils";
 
-var id = "convergence_test"
-var name = "Convergence Test";
+var id = "cust_convergence_test"
+var name = "Custom Convergences";
 var description = "A modified implementation of the 'Convergence Test' theory from the game created solely for experimentation.";
 var authors = "Gilles-Philippe Paillé; enoch_exe_inc";
-var version = 1;
+var version = 2;
 
 var c11, c12, c13;
 var c21, c22, c23, c24;
